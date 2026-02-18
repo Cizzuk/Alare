@@ -14,6 +14,7 @@
 		BEDDF3E12F458D1A00CBF78C /* Exceptions for "Alare" folder in "Alare" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				AppIcons/Alare.svg,
 				Info.plist,
 			);
 			target = BEEB497A2F458C4B00B06D0B /* Alare */;
