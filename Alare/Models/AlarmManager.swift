@@ -10,9 +10,8 @@ import Foundation
 
 final class AlarmManager: ObservableObject {
     static let shared = AlarmManager()
-    private init() {}
     
-    @Published private(set) var alarm: AlarmData = {
+    @Published var alarm: AlarmData = {
         if let rawData = UserDefaults.standard.data(forKey: AlarmData.userDefaultsKey) {
             if let alarmData = try? JSONDecoder().decode(AlarmData.self, from: rawData) {
                 return alarmData
@@ -26,6 +25,8 @@ final class AlarmManager: ObservableObject {
             UserDefaults.standard.set(data, forKey: AlarmData.userDefaultsKey)
         }
     }
+    
+    private init() {}
     
     func validate() async {
         
