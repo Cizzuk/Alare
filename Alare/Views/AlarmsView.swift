@@ -13,7 +13,7 @@ struct AlarmsView: View {
     @Query private var alarms: [AlarmData]
 
     var body: some View {
-        NavigationSplitView {
+        NavigationStack {
             List {
                 ForEach(alarms) { item in
                     Text(item.name)
@@ -26,12 +26,10 @@ struct AlarmsView: View {
                 }
                 ToolbarItem {
                     Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                        Label("Add", systemImage: "plus")
                     }
                 }
             }
-        } detail: {
-            Text("Select an item")
         }
     }
 
