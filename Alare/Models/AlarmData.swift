@@ -12,10 +12,9 @@ import SwiftData
 final class AlarmData {
     var registeredAlarms: [UUID] = []
     
-    var startHour: Int = 9 // 0 - 23
-    var startMinute: Int = 0 // 0 - 59
-    
-    var repeatWeekdays: [Int] = [] // 0 - 6 (Sunday - Saturday)
+    var hour: Int = 9 // 0 - 23
+    var minute: Int = 0 // 0 - 59
+    var repeats: Set<Weekday> = [] // Empty = no repeat
     var name: String = ""
     var sound: AlarmSound = AlarmSound.default
     var snoozeIntervalMinutes: Int = 9 // 5 - 15
