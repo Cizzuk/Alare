@@ -24,12 +24,6 @@ struct MainView: View {
             }
         }
     }
-
-    private func deleteItems(offsets: IndexSet) {
-        for index in offsets {
-            modelContext.delete(alarms[index])
-        }
-    }
 }
 
 #Preview {
