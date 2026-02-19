@@ -16,15 +16,16 @@ struct AlarmsView: View {
         NavigationStack {
             List {
                 ForEach(alarms) { item in
-                    Text(item.name)
+                    VStack(alignment: .leading) {
+                        Text(String(format: "%02d:%02d", item.hour, item.minute))
+                            .font(.title)
+                        Text(item.name)
+                    }
                 }
                 .onDelete(perform: deleteItems)
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
+                ToolbarItem(placement: .primaryAction) {
                     Button(action: addItem) {
                         Label("Add", systemImage: "plus")
                     }
@@ -36,7 +37,7 @@ struct AlarmsView: View {
     private func addItem() {
         withAnimation {
             let newItem = AlarmData()
-            newItem.name = "Alarm \(alarms.count + 1)"
+            newItem.name = "Alarm"
             modelContext.insert(newItem)
         }
     }
