@@ -11,7 +11,9 @@ import SwiftData
 struct AlarmData: Codable {
     static let userDefaultsKey = "AlarmData"
     
+    var isRegistring: Bool = false
     var registeredAlarms: [UUID] = []
+    var nextAlarmDate: Date? = nil
     
     var hour: Int = 9 { // 0 - 23
         didSet {
