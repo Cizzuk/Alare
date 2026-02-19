@@ -10,6 +10,7 @@ import Foundation
 
 final class AlarmManager: ObservableObject {
     static let shared = AlarmManager()
+    private init() {}
     
     @Published private(set) var alarm: AlarmData = {
         if let rawData = UserDefaults.standard.data(forKey: AlarmData.userDefaultsKey) {
