@@ -14,7 +14,7 @@ final class AlarmData {
     
     var hour: Int = 9 // 0 - 23
     var minute: Int = 0 // 0 - 59
-    var repeats: Set<Weekday> = [] // Empty = no repeat
+    var repeats: [Locale.Weekday] = [] // Empty = No repeat
     var name: String = ""
     var sound: AlarmSound = AlarmSound.default
     var snoozeIntervalMinutes: Int = 9 // 5 - 15
