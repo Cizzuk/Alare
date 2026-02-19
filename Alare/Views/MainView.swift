@@ -6,27 +6,19 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct MainView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var alarms: [AlarmData]
+    @StateObject private var alarm = AlarmManager.shared
+    @StateObject private var viewModel = MainViewModel()
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach(alarms) { item in
-                    VStack(alignment: .leading) {
-                        Text(String(format: "%02d:%02d", item.hour, item.minute))
-                            .font(.title)
-                    }
+                VStack(alignment: .leading) {
+                    Text(String(format: "%02d:%02d", alarm.alarm.hour, alarm.alarm.minute))
+                        .font(.largeTitle)
                 }
             }
         }
     }
-}
-
-#Preview {
-    MainView()
-        .modelContainer(for: AlarmData.self, inMemory: true)
 }
