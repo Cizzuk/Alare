@@ -25,7 +25,7 @@ struct AlareApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AlarmsView()
+            MainView()
         }
         .modelContainer(sharedModelContainer)
     }
