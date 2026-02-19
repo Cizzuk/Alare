@@ -15,6 +15,8 @@ struct AlarmData: Codable {
     var registeredAlarms: [UUID] = []
     var nextAlarmDate: Date? = nil
     
+    var isEnabled: Bool = true
+    
     var hour: Int = 9 { // 0 - 23
         didSet {
             if hour < 0 { hour = 0 }
