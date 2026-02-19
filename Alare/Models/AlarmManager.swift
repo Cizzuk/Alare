@@ -39,6 +39,12 @@ final class AlarmManager: ObservableObject {
         // if the registering flag is true
         if alarm.isRegistering {
             await register()
+            return
+        }
+        
+        if !alarm.isEnabled {
+            await unregister()
+            return
         }
         
         // if the last registered alarm has passed
