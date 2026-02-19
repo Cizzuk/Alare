@@ -12,7 +12,7 @@ import SwiftData
 struct AlareApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            AlarmData.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,7 @@ struct AlareApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AlarmsView()
         }
         .modelContainer(sharedModelContainer)
     }
