@@ -11,7 +11,7 @@ import Foundation
 final class AlarmManager: ObservableObject {
     static let shared = AlarmManager()
     
-    @Published var alarm: AlarmData = {
+    @Published private(set) var alarm: AlarmData = {
         if let rawData = UserDefaults.standard.data(forKey: AlarmData.userDefaultsKey) {
             if let alarmData = try? JSONDecoder().decode(AlarmData.self, from: rawData) {
                 return alarmData
@@ -26,13 +26,25 @@ final class AlarmManager: ObservableObject {
         }
     }
     
-    private init() {}
-    
-    func validate() async {
-        
+    private init() {
+        Task { await validate() }
     }
     
-    // Register next alarms
+    func update(_ newAlarm: AlarmData) async {
+        alarm = newAlarm
+        await register()
+    }
+    
+    func validate() async {
+        // if the registering flag is true
+        if alarm.isRegistering {
+            await register()
+        }
+        
+        // if the last registered alarm has passed
+    }
+    
+    // (Re)Register next alarms
     func register() async {
         await unregister()
     }
