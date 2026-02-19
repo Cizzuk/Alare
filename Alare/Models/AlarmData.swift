@@ -10,6 +10,8 @@ import SwiftData
 
 @Model
 final class AlarmData {
+    @Attribute(.unique) var id: UUID = UUID()
+    
     var registeredAlarms: [UUID] = []
     
     var hour: Int = 9 // 0 - 23
