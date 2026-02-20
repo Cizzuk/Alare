@@ -9,16 +9,22 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject private var alarm = AlarmManager.shared
-    @StateObject private var viewModel = MainViewModel()
+    @State private var showAlarmSettings = false
 
     var body: some View {
         NavigationStack {
-            List {
-                VStack(alignment: .leading) {
-                    Text(String(format: "%02d:%02d", alarm.alarm.hour, alarm.alarm.minute))
-                        .font(.largeTitle)
+            List {}
+                .navigationTitle("Alare")
+                .sheet(isPresented: $showAlarmSettings) {
+                    AlarmSettingsView()
                 }
-            }
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button(action: { showAlarmSettings = true }) {
+                            Label("Edit", systemImage: "pencil")
+                        }
+                    }
+                }
         }
     }
 }

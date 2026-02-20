@@ -9,5 +9,4 @@ import Combine
 import SwiftUI
 
 class MainViewModel: ObservableObject {
-    
 }

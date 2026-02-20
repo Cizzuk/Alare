@@ -17,20 +17,7 @@ struct AlarmData: Codable {
     
     var isEnabled: Bool = true
     
-    var hour: Int = 9 { // 0 - 23
-        didSet {
-            if hour < 0 { hour = 0 }
-            if hour > 23 { hour = 23 }
-        }
-    }
-    
-    var minute: Int = 0 { // 0 - 59
-        didSet {
-            if minute < 0 { minute = 0 }
-            if minute > 59 { minute = 59 }
-        }
-    }
-    
+    var next: Date = Date()
     var repeats: Set<Locale.Weekday> = [] // Empty = No repeat
     var sound: AlarmSound = AlarmSound.default
     var snoozeIntervalMinutes: Int = 9 { // 5 - 15
