@@ -1,5 +1,5 @@
 //
-//  AlertPresets.swift
+//  AlermPresets.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/20.
@@ -9,7 +9,7 @@ import AlarmKit
 import AppIntents
 import SwiftUI
 
-final class AlertPresets {
+final class AlermPresets {
     typealias AlarmConfiguration = AlarmKit.AlarmManager.AlarmConfiguration<AlarmData>
     
     static let content = AlarmPresentation.Alert(

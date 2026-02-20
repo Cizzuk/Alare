@@ -72,7 +72,7 @@ final class AlarmManager: ObservableObject {
         alarm.isRegistering = true
         save()
         
-        let configuration = AlertPresets.makeConfiguration(schedule: schedule)
+        let configuration = AlermPresets.makeConfiguration(schedule: schedule)
         await registerAlarmToSystem(uuid: uuid, configuration: configuration)
         
         alarm.isRegistering = false
