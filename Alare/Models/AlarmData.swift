@@ -16,7 +16,7 @@ struct AlarmData: AlarmMetadata, Codable {
     
     var isEnabled: Bool = true
     
-    var next: Date = Date().addingTimeInterval(5 * 60) // +5 minutes
+    var next: Date = Date()
     var repeats: Set<Locale.Weekday> = [] // Empty = No repeat
     var sound: AlarmSound = AlarmSound.default
     var snoozeIntervalMinutes: Int = 9 { // 1 - 15
