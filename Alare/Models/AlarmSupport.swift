@@ -80,6 +80,8 @@ final class AlarmSupport: ObservableObject {
         if let uuid = alarm.registeredAlarm {
             await unregisterAlarmFromSystem(uuid: uuid)
             alarm.registeredAlarm = nil
+            alarm.registeredAlarmDate = nil
+            alarm.isRegisteredAlarmSnooze = false
             save()
         }
     }
