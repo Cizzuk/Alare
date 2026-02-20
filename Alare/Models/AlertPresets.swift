@@ -14,7 +14,7 @@ final class AlertPresets {
     
     static let content = AlarmPresentation.Alert(
         title: "Alarm",
-        secondaryButton: .snoozeButton,
+        secondaryButton: .stopWithAction,
         secondaryButtonBehavior: .custom
     )
     
@@ -27,8 +27,8 @@ final class AlertPresets {
         return AlarmConfiguration(
             schedule: schedule,
             attributes: Self.attributes,
-            stopIntent: OpenAppIntent(),
-            secondaryIntent: SnoozeIntent()
+            stopIntent: SnoozeIntent(),
+            secondaryIntent: OpenAppIntent()
         )
     }
 }
@@ -38,8 +38,8 @@ extension AlarmButton {
         AlarmButton(text: "Snooze", textColor: .white, systemImageName: "forward.fill")
     }
     
-    static var openAppButton: Self {
-        AlarmButton(text: "Stop with Additional Action", textColor: .white, systemImageName: "stop.circle")
+    static var stopWithAction: Self {
+        AlarmButton(text: "Stop with Action", textColor: .white, systemImageName: "stop.circle")
     }
 }
 
