@@ -5,12 +5,16 @@
 //  Created by Cizzuk on 2026/02/19.
 //
 
+import ActivityKit
 import AlarmKit
 import Combine
 import Foundation
 
 final class AlarmManager: ObservableObject {
+    typealias AlarmConfiguration = AlarmKit.AlarmManager.AlarmConfiguration<AlarmData>
+    
     static let shared = AlarmManager()
+    @ObservationIgnored private let alarmManager = AlarmKit.AlarmManager.shared
     
     @Published private(set) var alarm: AlarmData = {
         if let rawData = UserDefaults.standard.data(forKey: AlarmData.userDefaultsKey) {
@@ -33,16 +37,20 @@ final class AlarmManager: ObservableObject {
     
     func update(_ newAlarm: AlarmData) async {
         alarm = newAlarm
-        await register()
+        await register(schedule: .next)
     }
     
     // Stop the alarm and set the next one if needed
     func stop() async {}
     
+    func snooze() async {
+        await register(schedule: .snooze)
+    }
+    
     func validate() async {
         // if the registering flag is true
         if alarm.isRegistering {
-            await register()
+            await register(schedule: .next)
             return
         }
         
@@ -55,21 +63,17 @@ final class AlarmManager: ObservableObject {
     }
     
     // (Re)Register next alarms
-    func register() async {
+    func register(schedule: Alarm.Schedule) async {
         await unregister()
         if !alarm.isEnabled { return }
         
-        let uuids = createUUIDs()
-        alarm.registeredAlarms = uuids
+        let uuid = UUID()
+        alarm.registeredAlarms.append(uuid)
         alarm.isRegistering = true
         save()
         
-        // Register alarms to the system
-        let startDate = alarm.next
-        var currentDate = startDate
-        for uuid in uuids {
-            await registerAlarmToSystem(uuid: uuid, date: currentDate)
-        }
+        let configuration = AlertPresets.makeConfiguration(schedule: schedule)
+        await registerAlarmToSystem(uuid: uuid, configuration: configuration)
         
         alarm.isRegistering = false
         save()
@@ -77,6 +81,8 @@ final class AlarmManager: ObservableObject {
     
     // Unregister all registered alarms
     func unregister() async {
+        guard !alarm.registeredAlarms.isEmpty else { return }
+        
         alarm.isRegistering = true
         save()
         
@@ -91,26 +97,25 @@ final class AlarmManager: ObservableObject {
     
     // MARK: - Helpers, Private Methods
     
-    private func createUUIDs() -> [UUID] {
-        var uuids: [UUID] = []
-        
-        // Check how many alarms we need to register
-        //
-        let alarmSessionMinutes = 4*60 // 4 hours
-        let alarmIntervalMinutes = alarm.snoozeIntervalMinutes
-        let totalAlarms = alarmSessionMinutes / alarmIntervalMinutes
-        
-        for _ in 0..<totalAlarms {
-            uuids.append(UUID())
+    private func registerAlarmToSystem(uuid: UUID, configuration: AlarmConfiguration) async {
+        do {
+            let alarm = try await alarmManager.schedule(
+                id: uuid,
+                configuration: configuration
+            )
+            print("Alarm scheduled with ID: \(alarm.id)")
+        } catch {
+            print("Error encountered when scheduling alarm: \(error), ID: \(uuid)")
         }
-        return uuids
-    }
-    
-    private func registerAlarmToSystem(uuid: UUID, date: Date) async {
-        
     }
     
     private func unregisterAlarmFromSystem(uuid: UUID) async {
+        do {
+            try alarmManager.cancel(id: uuid)
+            print("Alarm cancelled with ID: \(uuid)")
+        } catch {
+            print("Error encountered when cancelling alarm with ID \(uuid): \(error)")
+        }
     }
 
 }
