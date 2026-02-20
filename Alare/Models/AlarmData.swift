@@ -13,7 +13,6 @@ struct AlarmData: Codable {
     
     var isRegistering: Bool = false
     var registeredAlarms: [UUID] = []
-    var nextAlarmDate: Date? = nil
     
     var isEnabled: Bool = true
     
