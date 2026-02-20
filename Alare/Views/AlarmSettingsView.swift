@@ -27,7 +27,7 @@ struct AlarmSettingsView: View {
                 }
                 
                 Section("Options") {
-                    Stepper(value: $draft.snoozeIntervalMinutes, in: 5...15) {
+                    Stepper(value: $draft.snoozeIntervalMinutes, in: 1...15) {
                         Text("Snooze Duration: \(draft.snoozeIntervalMinutes)m")
                     }
                     

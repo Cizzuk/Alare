@@ -8,7 +8,7 @@
 import AlarmKit
 import SwiftData
 
-struct AlarmData: Codable {
+struct AlarmData: AlarmMetadata, Codable {
     static let userDefaultsKey = "AlarmData"
     
     var isRegistering: Bool = false
@@ -16,12 +16,12 @@ struct AlarmData: Codable {
     
     var isEnabled: Bool = true
     
-    var next: Date = Date()
+    var next: Date = Date().addingTimeInterval(5 * 60) // +5 minutes
     var repeats: Set<Locale.Weekday> = [] // Empty = No repeat
     var sound: AlarmSound = AlarmSound.default
-    var snoozeIntervalMinutes: Int = 9 { // 5 - 15
+    var snoozeIntervalMinutes: Int = 9 { // 1 - 15
         didSet {
-            if snoozeIntervalMinutes < 5 { snoozeIntervalMinutes = 5 }
+            if snoozeIntervalMinutes < 1 { snoozeIntervalMinutes = 1 }
             if snoozeIntervalMinutes > 15 { snoozeIntervalMinutes = 15 }
         }
     }
