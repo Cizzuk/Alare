@@ -11,12 +11,19 @@ import SwiftData
 struct AlarmData: AlarmMetadata, Codable {
     static let userDefaultsKey = "AlarmData"
     
-    var isRegistering: Bool = false
-    var registeredAlarms: [UUID] = []
-    
+    var registeredAlarm: UUID?
+
     var isEnabled: Bool = true
     
-    var next: Date = Date()
+    var next: Date = Date() {
+        didSet {
+            // Clear seconds
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: next)
+            next = calendar.date(from: components) ?? next
+        }
+    }
+    
     var repeats: Set<Locale.Weekday> = [] // Empty = No repeat
     var sound: AlarmSound = AlarmSound.default
     var snoozeIntervalMinutes: Int = 9 { // 1 - 15
