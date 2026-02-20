@@ -53,6 +53,7 @@ final class AlarmManager: ObservableObject {
     // (Re)Register next alarms
     func register() async {
         await unregister()
+        if !alarm.isEnabled { return }
     }
     
     // Unregister all registered alarms
