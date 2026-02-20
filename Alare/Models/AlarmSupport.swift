@@ -41,19 +41,15 @@ final class AlarmSupport: ObservableObject {
     }
     
     // Stop the alarm and set the next one if needed
-    func stop() async {}
+    func stop() async {
+        await unregister()
+    }
     
     func snooze() async {
         await register(schedule: .snooze)
     }
     
     func validate() async {
-        // if the registering flag is true
-        if alarm.isRegistering {
-            await register(schedule: .next)
-            return
-        }
-        
         if !alarm.isEnabled {
             await unregister()
             return
@@ -65,34 +61,23 @@ final class AlarmSupport: ObservableObject {
     // (Re)Register next alarms
     func register(schedule: Alarm.Schedule) async {
         await unregister()
-        if !alarm.isEnabled { return }
         
         let uuid = UUID()
-        alarm.registeredAlarms.append(uuid)
-        alarm.isRegistering = true
-        save()
+        alarm.registeredAlarm = uuid
         
         let configuration = AlermPresets.makeConfiguration(schedule: schedule)
         await registerAlarmToSystem(uuid: uuid, configuration: configuration)
         
-        alarm.isRegistering = false
         save()
     }
     
     // Unregister all registered alarms
     func unregister() async {
-        guard !alarm.registeredAlarms.isEmpty else { return }
-        
-        alarm.isRegistering = true
-        save()
-        
-        for uuid in alarm.registeredAlarms {
+        if let uuid = alarm.registeredAlarm {
             await unregisterAlarmFromSystem(uuid: uuid)
+            alarm.registeredAlarm = nil
+            save()
         }
-        
-        alarm.registeredAlarms = []
-        alarm.isRegistering = false
-        save()
     }
     
     // MARK: - Helpers, Private Methods
