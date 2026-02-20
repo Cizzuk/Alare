@@ -14,7 +14,6 @@ struct AlarmSettingsView: View {
     
     var body: some View {
         // compute a concrete minimum date for the DatePicker range
-        let earliestDate = Date().addingTimeInterval(60) // 1 minute from now
         NavigationStack {
             List {
                 Section {
@@ -22,7 +21,7 @@ struct AlarmSettingsView: View {
                     DatePicker(
                         "Next Alarm",
                         selection: $draft.next,
-                        in: earliestDate...
+                        in: Date()...,
                     )
                 }
                 
