@@ -13,13 +13,17 @@ struct AlarmSettingsView: View {
     @State var draft: AlarmData = AlarmManager.shared.alarm
     
     var body: some View {
+        // compute a concrete minimum date for the DatePicker range
+        let earliestDate = Date().addingTimeInterval(60) // 1 minute from now
         NavigationStack {
             List {
                 Section {
                     Toggle("Enabled", isOn: $draft.isEnabled)
-                    DatePicker("Next Alarm",
-                               selection: $draft.next,
-                               in: Date()...)
+                    DatePicker(
+                        "Next Alarm",
+                        selection: $draft.next,
+                        in: earliestDate...
+                    )
                 }
                 
                 Section("Repeat") {
