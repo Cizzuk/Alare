@@ -62,6 +62,7 @@ struct OpenAppIntent: LiveActivityIntent {
     static var isDiscoverable = false
     
     func perform() throws -> some IntentResult {
+        Task { await AlarmManager.shared.snooze() }
         return .result()
     }
 }
