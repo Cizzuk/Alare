@@ -9,15 +9,17 @@ import SwiftUI
 
 struct AlarmSettingsView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel = AlarmSettingsViewModel()
+    @StateObject var alarm = AlarmManager.shared
+    @State var draft: AlarmData = AlarmManager.shared.alarm
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    Toggle("Enabled", isOn: $viewModel.draft.isEnabled)
+                    Toggle("Enabled", isOn: $draft.isEnabled)
                     DatePicker("Next Alarm",
-                               selection: $viewModel.draft.next)
+                               selection: $draft.next,
+                               in: Date()...)
                 }
                 
                 Section("Repeat") {
@@ -25,11 +27,11 @@ struct AlarmSettingsView: View {
                 }
                 
                 Section("Options") {
-                    Stepper(value: $viewModel.draft.snoozeIntervalMinutes, in: 5...15) {
-                        Text("Snooze Duration: \(viewModel.draft.snoozeIntervalMinutes)m")
+                    Stepper(value: $draft.snoozeIntervalMinutes, in: 5...15) {
+                        Text("Snooze Duration: \(draft.snoozeIntervalMinutes)m")
                     }
                     
-                    Picker("Sound", selection: $viewModel.draft.sound) {
+                    Picker("Sound", selection: $draft.sound) {
                         ForEach(AlarmSound.allCases, id: \.self) { sound in
                             Text(sound.displayName).tag(sound)
                         }
@@ -38,7 +40,12 @@ struct AlarmSettingsView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(action: { viewModel.save() }) {
+                    Button {
+                        Task {
+                            await alarm.update(draft)
+                            dismiss()
+                        }
+                    } label: {
                         Label("Done", systemImage: "checkmark")
                     }
                 }
