@@ -12,6 +12,8 @@ struct AlarmData: AlarmMetadata, Codable {
     static let userDefaultsKey = "AlarmData"
     
     var registeredAlarm: UUID?
+    var registeredAlarmDate: Date?
+    var isRegisteredAlarmSnooze: Bool = false
 
     var isEnabled: Bool = true
     

@@ -23,9 +23,9 @@ final class AlermPresets {
         tintColor: .accent
     )
     
-    static func makeConfiguration(schedule: Alarm.Schedule) -> AlarmConfiguration {
+    static func makeConfiguration(date: Date) -> AlarmConfiguration {
         return AlarmConfiguration(
-            schedule: schedule,
+            schedule: .fixed(date),
             attributes: Self.attributes,
             stopIntent: SnoozeIntent(),
             secondaryIntent: OpenAppIntent()
@@ -40,19 +40,6 @@ extension AlarmButton {
     
     static var stopWithAction: Self {
         AlarmButton(text: "Stop with Action", textColor: .white, systemImageName: "stop.circle")
-    }
-}
-
-extension Alarm.Schedule {
-    static var next: Self {
-        let nextDate = AlarmSupport.shared.alarm.next
-        return .fixed(nextDate)
-    }
-    
-    static var snooze: Self {
-        let snoozeInterval = AlarmSupport.shared.alarm.snoozeIntervalMinutes
-        let date = Date().addingTimeInterval(TimeInterval(snoozeInterval * 60))
-        return .fixed(date)
     }
 }
 

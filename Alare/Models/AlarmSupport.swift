@@ -37,7 +37,7 @@ final class AlarmSupport: ObservableObject {
     
     func update(_ newAlarm: AlarmData) async {
         alarm = newAlarm
-        await register(schedule: .next)
+        await register(date: alarm.next)
     }
     
     // Stop the alarm and set the next one if needed
@@ -46,7 +46,9 @@ final class AlarmSupport: ObservableObject {
     }
     
     func snooze() async {
-        await register(schedule: .snooze)
+        let snoozeInterval = alarm.snoozeIntervalMinutes
+        let date = Date().addingTimeInterval(TimeInterval(snoozeInterval * 60))
+        await register(date: date, isSnooze: true)
     }
     
     func validate() async {
@@ -59,13 +61,15 @@ final class AlarmSupport: ObservableObject {
     }
     
     // (Re)Register next alarms
-    func register(schedule: Alarm.Schedule) async {
+    func register(date: Date, isSnooze: Bool = false) async {
         await unregister()
         
         let uuid = UUID()
         alarm.registeredAlarm = uuid
+        alarm.registeredAlarmDate = date
+        alarm.isRegisteredAlarmSnooze = isSnooze
         
-        let configuration = AlermPresets.makeConfiguration(schedule: schedule)
+        let configuration = AlermPresets.makeConfiguration(date: date)
         await registerAlarmToSystem(uuid: uuid, configuration: configuration)
         
         save()
