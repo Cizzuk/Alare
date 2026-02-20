@@ -9,8 +9,8 @@ import SwiftUI
 
 struct AlarmSettingsView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var alarm = AlarmManager.shared
-    @State var draft: AlarmData = AlarmManager.shared.alarm
+    @StateObject var alarm = AlarmSupport.shared
+    @State var draft: AlarmData = AlarmSupport.shared.alarm
     
     var body: some View {
         // compute a concrete minimum date for the DatePicker range

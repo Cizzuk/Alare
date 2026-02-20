@@ -10,7 +10,7 @@ import AppIntents
 import SwiftUI
 
 final class AlermPresets {
-    typealias AlarmConfiguration = AlarmKit.AlarmManager.AlarmConfiguration<AlarmData>
+    typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmData>
     
     static let content = AlarmPresentation.Alert(
         title: "Alarm",
@@ -45,12 +45,12 @@ extension AlarmButton {
 
 extension Alarm.Schedule {
     static var next: Self {
-        let nextDate = AlarmManager.shared.alarm.next
+        let nextDate = AlarmSupport.shared.alarm.next
         return .fixed(nextDate)
     }
     
     static var snooze: Self {
-        let snoozeInterval = AlarmManager.shared.alarm.snoozeIntervalMinutes
+        let snoozeInterval = AlarmSupport.shared.alarm.snoozeIntervalMinutes
         let date = Date().addingTimeInterval(TimeInterval(snoozeInterval * 60))
         return .fixed(date)
     }
@@ -62,7 +62,7 @@ struct OpenAppIntent: LiveActivityIntent {
     static var isDiscoverable = false
     
     func perform() throws -> some IntentResult {
-        Task { await AlarmManager.shared.snooze() }
+        Task { await AlarmSupport.shared.snooze() }
         return .result()
     }
 }
@@ -73,7 +73,7 @@ struct SnoozeIntent: LiveActivityIntent {
     static var isDiscoverable = false
     
     func perform() throws -> some IntentResult {
-        Task { await AlarmManager.shared.snooze() }
+        Task { await AlarmSupport.shared.snooze() }
         return .result()
     }
 }

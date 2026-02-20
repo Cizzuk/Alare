@@ -1,5 +1,5 @@
 //
-//  AlarmManager.swift
+//  AlarmSupport.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/19.
@@ -10,11 +10,11 @@ import AlarmKit
 import Combine
 import Foundation
 
-final class AlarmManager: ObservableObject {
-    typealias AlarmConfiguration = AlarmKit.AlarmManager.AlarmConfiguration<AlarmData>
+final class AlarmSupport: ObservableObject {
+    typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmData>
     
-    static let shared = AlarmManager()
-    @ObservationIgnored private let alarmManager = AlarmKit.AlarmManager.shared
+    static let shared = AlarmSupport()
+    @ObservationIgnored private let alarmManager = AlarmManager.shared
     
     @Published private(set) var alarm: AlarmData = {
         if let rawData = UserDefaults.standard.data(forKey: AlarmData.userDefaultsKey) {

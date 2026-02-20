@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject private var alarm = AlarmManager.shared
+    @StateObject private var alarm = AlarmSupport.shared
     @State private var showAlarmSettings = false
 
     var body: some View {
