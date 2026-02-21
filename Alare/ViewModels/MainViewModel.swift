@@ -11,7 +11,7 @@ import SwiftUI
 class MainViewModel: ObservableObject {
     private var alarm = AlarmSupport.shared
     
-    @Published var draft: AlarmSettings = AlarmSettings() {
+    @Published var draft: AlarmSettings = AlarmSupport.shared.settings {
         didSet {
             // Date validation
             let next = AlarmSupport.cutSeconds(draft.next)
