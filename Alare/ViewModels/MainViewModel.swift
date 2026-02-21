@@ -25,4 +25,9 @@ class MainViewModel: ObservableObject {
             Task { await alarm.update(draft) }
         }
     }
+    
+    func stopAlarm() {
+        Task { await alarm.stop() }
+        draft = alarm.settings
+    }
 }
