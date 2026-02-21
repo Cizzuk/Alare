@@ -13,5 +13,7 @@ struct AlarmSession: AlarmMetadata, Codable {
     
     var registeredAlarm: UUID?
     var registeredAlarmDate: Date?
-    var isRegisteredAlarmSnooze: Bool = false
+    
+    var isSnoozing: Bool = false
+    var snoozes: [Date] = []
 }
