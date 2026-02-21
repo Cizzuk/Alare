@@ -77,6 +77,9 @@ final class AlarmSupport: ObservableObject {
         session.snoozes.removeAll()
         
         // If the alarm is repeating, register the next one
+        
+        // Else disable alarm
+        settings.isEnabled = false
     }
     
     func validate() async {
