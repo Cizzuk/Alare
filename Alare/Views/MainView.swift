@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(\.scenePhase) private var scenePhase
+    
     @StateObject private var alarm = AlarmSupport.shared
     @StateObject private var vm = MainViewModel()
     
@@ -66,5 +68,7 @@ struct MainView: View {
             .navigationTitle("Alare")
         } // NavigationStack
         .sheet(isPresented: $showChangeIconView) { ChangeIconView() }
+        // MARK: - Events
+        .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }
 }

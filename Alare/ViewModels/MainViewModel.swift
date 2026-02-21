@@ -22,12 +22,34 @@ class MainViewModel: ObservableObject {
             }
             
             // Update
-            Task { await alarm.update(draft) }
+            Task {
+                await alarm.update(draft)
+                syncDraft()
+            }
         }
     }
     
-    func stopAlarm() {
-        Task { await alarm.stop() }
+    func onChange(scenePhase: ScenePhase) {
+        switch scenePhase {
+        case .active:
+            syncDraft()
+        case .inactive:
+            break
+        case .background:
+            break
+        @unknown default:
+            break
+        }
+    }
+    
+    func syncDraft() {
         draft = alarm.settings
+    }
+    
+    func stopAlarm() {
+        Task {
+            await alarm.stop()
+            syncDraft()
+        }
     }
 }
