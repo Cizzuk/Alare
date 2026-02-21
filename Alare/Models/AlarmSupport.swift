@@ -62,9 +62,17 @@ final class AlarmSupport: ObservableObject {
     // Stop the alarm and set the next one if needed
     func stop() async {
         await unregister()
+        session.isSnoozing = false
+        session.snoozes.removeAll()
+        
+        // If the alarm is repeating, register the next one
     }
     
     func snooze() async {
+        session.isSnoozing = true
+        session.snoozes.append(Date())
+        
+        // Create new alarm
         let snoozeInterval = alarm.snoozeIntervalMinutes
         let date = Date().addingTimeInterval(TimeInterval(snoozeInterval * 60))
         await register(date: date, isSnooze: true)
@@ -86,7 +94,6 @@ final class AlarmSupport: ObservableObject {
         let uuid = UUID()
         session.registeredAlarm = uuid
         session.registeredAlarmDate = date
-        session.isRegisteredAlarmSnooze = isSnooze
         
         let configuration = AlermPresets.makeConfiguration(date: date)
         await registerAlarmToSystem(uuid: uuid, configuration: configuration)
@@ -98,7 +105,6 @@ final class AlarmSupport: ObservableObject {
             await unregisterAlarmFromSystem(uuid: uuid)
             session.registeredAlarm = nil
             session.registeredAlarmDate = nil
-            session.isRegisteredAlarmSnooze = false
         }
     }
     
