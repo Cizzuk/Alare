@@ -10,6 +10,8 @@ import SwiftUI
 struct MainView: View {
     @StateObject private var alarm = AlarmSupport.shared
     @StateObject private var vm = MainViewModel()
+    
+    @State private var showChangeIconView = false
 
     var body: some View {
         NavigationStack {
@@ -38,8 +40,17 @@ struct MainView: View {
                         }
                     }
                 }
-            }
+                
+                if UIApplication.shared.supportsAlternateIcons {
+                    Section {
+                        Button(action: { showChangeIconView = true }) {
+                            Label("Change App Icon", systemImage: "app.dashed")
+                        }
+                    }
+                }
+            } // List
             .navigationTitle("Alare")
-        }
+        } // NavigationStack
+        .sheet(isPresented: $showChangeIconView) { ChangeIconView() }
     }
 }
