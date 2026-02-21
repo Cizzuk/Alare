@@ -39,7 +39,7 @@ extension AlarmButton {
     }
     
     static var stopWithAction: Self {
-        AlarmButton(text: "Stop with Action", textColor: .white, systemImageName: "stop.circle")
+        AlarmButton(text: "Stop in Alare", textColor: .white, systemImageName: "stop.circle")
     }
 }
 
