@@ -50,7 +50,7 @@ final class AlarmSupport: ObservableObject {
         Task { await validate() }
     }
     
-    func update(_ newAlarm: AlarmSettings) async {
+    func push(_ newAlarm: AlarmSettings) async {
         settings = newAlarm
         if settings.isEnabled {
             await register(date: settings.next)

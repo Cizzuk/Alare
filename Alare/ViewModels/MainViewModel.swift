@@ -21,10 +21,12 @@ class MainViewModel: ObservableObject {
                 draft.next = Calendar.current.date(byAdding: .day, value: 1, to: draft.next) ?? draft.next
             }
             
-            // Update
+            // Push changes
             Task {
-                await alarm.update(draft)
-                syncDraft()
+                if draft != alarm.settings {
+                    await alarm.push(draft)
+                    syncDraft()
+                }
             }
         }
     }
@@ -43,7 +45,9 @@ class MainViewModel: ObservableObject {
     }
     
     func syncDraft() {
-        draft = alarm.settings
+        if alarm.settings != draft {
+            draft = alarm.settings
+        }
     }
     
     func stopAlarm() {
