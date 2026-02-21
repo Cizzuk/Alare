@@ -13,7 +13,7 @@ struct AlarmSettings: AlarmMetadata, Codable {
 
     var isEnabled: Bool = false
     
-    var next: Date = Date() {
+    var next: Date = Date().addingTimeInterval(10 * 60) {
         didSet {
             // Clear seconds
             let calendar = Calendar.current
