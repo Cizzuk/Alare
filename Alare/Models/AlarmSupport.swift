@@ -31,7 +31,7 @@ final class AlarmSupport: ObservableObject {
         }
     }
     
-    @Published var session: AlarmSession = {
+    @Published private(set) var session: AlarmSession = {
         if let rawData = UserDefaults.standard.data(forKey: AlarmSession.userDefaultsKey) {
             if let alarmData = try? JSONDecoder().decode(AlarmSession.self, from: rawData) {
                 return alarmData
@@ -55,17 +55,8 @@ final class AlarmSupport: ObservableObject {
         if alarm.isEnabled {
             await register(date: alarm.next)
         } else {
-            await unregister()
+            await clear()
         }
-    }
-    
-    // Stop the alarm and set the next one if needed
-    func stop() async {
-        await unregister()
-        session.isSnoozing = false
-        session.snoozes.removeAll()
-        
-        // If the alarm is repeating, register the next one
     }
     
     func snooze() async {
@@ -78,13 +69,28 @@ final class AlarmSupport: ObservableObject {
         await register(date: date, isSnooze: true)
     }
     
+    // Stop the alarm and set the next one if needed
+    func stop() async {
+        await clear()
+        session.isSnoozing = false
+        session.snoozes.removeAll()
+        
+        // If the alarm is repeating, register the next one
+    }
+    
     func validate() async {
         if !alarm.isEnabled {
-            await unregister()
+            await clear()
             return
         }
         
         // if the last registered alarm has passed
+    }
+    
+    func clear() async {
+        await unregister()
+        session = AlarmSession()
+        await validate()
     }
     
     // (Re)Register next alarms
