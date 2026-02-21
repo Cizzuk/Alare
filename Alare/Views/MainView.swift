@@ -41,20 +41,20 @@ struct MainView: View {
                     )
                 }
                 
-                Section("Repeat") {
-                    
-                }
+//                Section("Repeat") {
+//                    
+//                }
                 
                 Section("Options") {
                     Stepper(value: $vm.draft.snoozeIntervalMinutes, in: 1...15) {
                         Text("Snooze Duration: \(vm.draft.snoozeIntervalMinutes)m")
                     }
                     
-                    Picker("Sound", selection: $vm.draft.sound) {
-                        ForEach(AlarmSound.allCases, id: \.self) { sound in
-                            Text(sound.displayName).tag(sound)
-                        }
-                    }
+//                    Picker("Sound", selection: $vm.draft.sound) {
+//                        ForEach(AlarmSound.allCases, id: \.self) { sound in
+//                            Text(sound.displayName).tag(sound)
+//                        }
+//                    }
                 }
                 
                 if UIApplication.shared.supportsAlternateIcons {
