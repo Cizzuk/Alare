@@ -9,22 +9,37 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject private var alarm = AlarmSupport.shared
-    @State private var showAlarmSettings = false
+    @StateObject private var vm = MainViewModel()
 
     var body: some View {
         NavigationStack {
-            List {}
-                .navigationTitle("Alare")
-                .sheet(isPresented: $showAlarmSettings) {
-                    AlarmSettingsView()
+            List {
+                Section {
+                    Toggle("Enabled", isOn: $vm.draft.isEnabled)
+                    DatePicker(
+                        "Next Alarm",
+                        selection: $vm.draft.next,
+                        in: Date()...,
+                    )
                 }
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button(action: { showAlarmSettings = true }) {
-                            Label("Edit", systemImage: "pencil")
+                
+                Section("Repeat") {
+                    
+                }
+                
+                Section("Options") {
+                    Stepper(value: $vm.draft.snoozeIntervalMinutes, in: 1...15) {
+                        Text("Snooze Duration: \(vm.draft.snoozeIntervalMinutes)m")
+                    }
+                    
+                    Picker("Sound", selection: $vm.draft.sound) {
+                        ForEach(AlarmSound.allCases, id: \.self) { sound in
+                            Text(sound.displayName).tag(sound)
                         }
                     }
                 }
+            }
+            .navigationTitle("Alare")
         }
     }
 }

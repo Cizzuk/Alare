@@ -37,7 +37,11 @@ final class AlarmSupport: ObservableObject {
     
     func update(_ newAlarm: AlarmData) async {
         alarm = newAlarm
-        await register(date: alarm.next)
+        if alarm.isEnabled {
+            await register(date: alarm.next)
+        } else {
+            await unregister()
+        }
     }
     
     // Stop the alarm and set the next one if needed
