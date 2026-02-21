@@ -22,6 +22,14 @@ struct MainView: View {
                     }
                 }
                 
+                if alarm.session.isSnoozing {
+                    Section("You are currently snoozing!") {
+                        Button(action: { vm.stopAlarm() }) {
+                            Label("Stop the alarm completely", systemImage: "stop.circle")
+                        }
+                    }
+                }
+                
                 Section {
                     Toggle("Enabled", isOn: $vm.draft.isEnabled)
                     DatePicker(
