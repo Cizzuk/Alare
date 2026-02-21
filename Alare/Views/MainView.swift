@@ -16,7 +16,6 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
-                
                 if let nextAlarm = alarm.session.registeredAlarmDate {
                     Section {} footer: {
                         Text("Next Alarm: \(nextAlarm.formatted(date: .abbreviated, time: .shortened))")
@@ -28,7 +27,7 @@ struct MainView: View {
                     DatePicker(
                         "Next Alarm",
                         selection: $vm.draft.next,
-                        in: Date()...,
+                        in: Date().addingTimeInterval(1 * 60)...,
                     )
                 }
                 
