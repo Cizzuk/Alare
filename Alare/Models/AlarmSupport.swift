@@ -23,11 +23,26 @@ final class AlarmSupport: ObservableObject {
             }
         }
         return AlarmData()
-    }()
+    }() {
+        didSet {
+            if let data = try? JSONEncoder().encode(alarm) {
+                UserDefaults.standard.set(data, forKey: AlarmData.userDefaultsKey)
+            }
+        }
+    }
     
-    private func save() {
-        if let data = try? JSONEncoder().encode(alarm) {
-            UserDefaults.standard.set(data, forKey: AlarmData.userDefaultsKey)
+    @Published var session: AlarmSession = {
+        if let rawData = UserDefaults.standard.data(forKey: AlarmSession.userDefaultsKey) {
+            if let alarmData = try? JSONDecoder().decode(AlarmSession.self, from: rawData) {
+                return alarmData
+            }
+        }
+        return AlarmSession()
+    }() {
+        didSet {
+            if let data = try? JSONEncoder().encode(session) {
+                UserDefaults.standard.set(data, forKey: AlarmSession.userDefaultsKey)
+            }
         }
     }
     
@@ -69,24 +84,21 @@ final class AlarmSupport: ObservableObject {
         await unregister()
         
         let uuid = UUID()
-        alarm.registeredAlarm = uuid
-        alarm.registeredAlarmDate = date
-        alarm.isRegisteredAlarmSnooze = isSnooze
+        session.registeredAlarm = uuid
+        session.registeredAlarmDate = date
+        session.isRegisteredAlarmSnooze = isSnooze
         
         let configuration = AlermPresets.makeConfiguration(date: date)
         await registerAlarmToSystem(uuid: uuid, configuration: configuration)
-        
-        save()
     }
     
     // Unregister all registered alarms
     func unregister() async {
-        if let uuid = alarm.registeredAlarm {
+        if let uuid = session.registeredAlarm {
             await unregisterAlarmFromSystem(uuid: uuid)
-            alarm.registeredAlarm = nil
-            alarm.registeredAlarmDate = nil
-            alarm.isRegisteredAlarmSnooze = false
-            save()
+            session.registeredAlarm = nil
+            session.registeredAlarmDate = nil
+            session.isRegisteredAlarmSnooze = false
         }
     }
     
