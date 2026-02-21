@@ -10,7 +10,7 @@ import AppIntents
 import SwiftUI
 
 final class AlermPresets {
-    typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmData>
+    typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
     
     static let content = AlarmPresentation.Alert(
         title: "Alarm",
@@ -18,7 +18,7 @@ final class AlermPresets {
         secondaryButtonBehavior: .custom
     )
     
-    static let attributes = AlarmAttributes<AlarmData>(
+    static let attributes = AlarmAttributes<AlarmSettings>(
         presentation: AlarmPresentation(alert: content),
         tintColor: .accent
     )

@@ -11,7 +11,7 @@ import SwiftUI
 class MainViewModel: ObservableObject {
     private var alarm = AlarmSupport.shared
     
-    @Published var draft: AlarmData = AlarmData() {
+    @Published var draft: AlarmSettings = AlarmSettings() {
         didSet {
             Task { await alarm.update(draft) }
         }

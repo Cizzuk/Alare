@@ -16,6 +16,13 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
+                
+                if let nextAlarm = alarm.session.registeredAlarmDate {
+                    Section {} footer: {
+                        Text("Next Alarm: \(nextAlarm.formatted(date: .abbreviated, time: .shortened))")
+                    }
+                }
+                
                 Section {
                     Toggle("Enabled", isOn: $vm.draft.isEnabled)
                     DatePicker(

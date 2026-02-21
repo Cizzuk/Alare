@@ -1,5 +1,5 @@
 //
-//  AlarmData.swift
+//  AlarmSettings.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/18.
@@ -8,7 +8,7 @@
 import AlarmKit
 import SwiftData
 
-struct AlarmData: AlarmMetadata, Codable {
+struct AlarmSettings: AlarmMetadata, Codable {
     static let userDefaultsKey = "AlarmData"
 
     var isEnabled: Bool = false
