@@ -15,10 +15,7 @@ struct AlarmSettings: AlarmMetadata, Codable {
     
     var next: Date = Date().addingTimeInterval(10 * 60) {
         didSet {
-            // Clear seconds
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: next)
-            next = calendar.date(from: components) ?? next
+            next = AlarmSupport.cutSeconds(next)
         }
     }
     

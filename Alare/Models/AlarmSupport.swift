@@ -122,6 +122,13 @@ final class AlarmSupport: ObservableObject {
         }
     }
     
+    // MARK: - Public Helpers
+    static func cutSeconds(_ date: Date) -> Date {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+        return calendar.date(from: components) ?? date
+    }
+    
     // MARK: - Helpers, Private Methods
     
     private func registerAlarmToSystem(uuid: UUID, configuration: AlarmConfiguration) async throws {
