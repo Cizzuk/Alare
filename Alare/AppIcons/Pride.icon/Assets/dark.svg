@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="1024" height="1024">
-  <g stroke="#fff" stroke-width="12" stroke-linecap="round">
+  <g stroke="#FFF" stroke-width="12" stroke-linecap="round">
     <line x1="100" y1="100" x2="100" y2="60"/>
     <line x1="100" y1="100" x2="75" y2="100"/>
   </g>
@@ -16,12 +16,10 @@
   <use href="#dot" transform="rotate(90 100 100)" fill="#03BC2E"/>
   <use href="#dot" transform="rotate(120 100 100)" fill="#6596FF"/>
   <use href="#dot" transform="rotate(150 100 100)" fill="#A918BF"/>
-  <g fill="#613915">
-    <use href="#dot" transform="rotate(180 100 100)"/>
-    <use href="#dot" transform="rotate(210 100 100)"/>
-    <use href="#dot" transform="rotate(240 100 100)"/>
-    <use href="#dot" transform="rotate(270 100 100)"/>
-  </g>
-  <use href="#dot" transform="rotate(300 100 100)" fill="#73E7DD"/>
+  <use href="#dot" transform="rotate(180 100 100)" fill="#613915"/>
+  <use href="#dot" transform="rotate(210 100 100)" fill="#613915"/>
+  <use href="#dot" transform="rotate(240 100 100)" fill="#73E7DD"/>
+  <use href="#dot" transform="rotate(270 100 100)" fill="#73E7DD"/>
+  <use href="#dot" transform="rotate(300 100 100)" fill="#FFAFC7"/>
   <use href="#dot" transform="rotate(330 100 100)" fill="#FFAFC7"/>
 </svg>

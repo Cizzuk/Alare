@@ -17,14 +17,12 @@
     <use href="#dot" transform="rotate(90 100 100)"/>
     <use href="#dot" transform="rotate(120 100 100)"/>
     <use href="#dot" transform="rotate(150 100 100)"/>
-  </g>
-  <g fill="#F9CB00">
     <use href="#dot" transform="rotate(180 100 100)"/>
     <use href="#dot" transform="rotate(210 100 100)"/>
     <use href="#dot" transform="rotate(240 100 100)"/>
-    <use href="#dot" transform="rotate(270 100 100)"/>
   </g>
-  <g fill="#F20011">
+  <g fill="#F9CB00">
+    <use href="#dot" transform="rotate(270 100 100)"/>
     <use href="#dot" transform="rotate(300 100 100)"/>
     <use href="#dot" transform="rotate(330 100 100)"/>
   </g>
