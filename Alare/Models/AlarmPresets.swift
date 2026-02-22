@@ -29,7 +29,7 @@ final class AlarmPresets {
             schedule: schedule,
             attributes: Self.attributes,
             stopIntent: OpenAppIntent(uuid: uuidString),
-            secondaryIntent: OpenAppIntent(uuid: uuidString)
+            secondaryIntent: SnoozeIntent(uuid: uuidString)
         )
     }
 }
