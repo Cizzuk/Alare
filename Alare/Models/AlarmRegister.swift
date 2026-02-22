@@ -49,7 +49,7 @@ final class AlarmRegister: ObservableObject {
     
     func cancelMainAlarm() {
         if let mainAlarm = registereds.mainAlarm {
-            try? cancelAlarmFromSystem(uuid: mainAlarm.uuid)
+            removeAlarm(uuid: mainAlarm.uuid)
             registereds.mainAlarm = nil
             print("Main alarm cancelled: \(mainAlarm.uuid)")
         }
@@ -74,14 +74,17 @@ final class AlarmRegister: ObservableObject {
     
     func cancelSnooze() {
         if let nextSnooze = registereds.nextSnooze {
-            try? stopAlarmFromSystem(uuid: nextSnooze.uuid)
-            try? cancelAlarmFromSystem(uuid: nextSnooze.uuid)
+            removeAlarm(uuid: nextSnooze.uuid)
             registereds.nextSnooze = nil
             print("Snooze cancelled: \(nextSnooze.uuid)")
         }
     }
     
     // MARK: - Alarm Control
+    
+    func stopAlarm(uuid: UUID) {
+        try? alarmManager.stop(id: uuid)
+    }
     
     func removeAlarm(uuid: UUID) {
         try? alarmManager.stop(id: uuid)
@@ -138,13 +141,5 @@ final class AlarmRegister: ObservableObject {
             id: uuid,
             configuration: configuration
         )
-    }
-    
-    private func cancelAlarmFromSystem(uuid: UUID) throws {
-        try alarmManager.cancel(id: uuid)
-    }
-    
-    private func stopAlarmFromSystem(uuid: UUID) throws {
-        try alarmManager.stop(id: uuid)
     }
 }
