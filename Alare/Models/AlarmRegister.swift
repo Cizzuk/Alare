@@ -80,7 +80,13 @@ final class AlarmRegister {
         }
     }
     
-    func stopSnooze() {
+    // MARK: - Alarm Control
+    
+    func stopAlarm(uuid: UUID) throws {
+        try alarmManager.stop(id: uuid)
+    }
+    
+    func killAlarm() {
         cancelSnooze()
         registereds.snoozeCount = 0
     }
@@ -96,9 +102,5 @@ final class AlarmRegister {
     
     private func unregisterAlarmFromSystem(uuid: UUID) throws {
         try alarmManager.cancel(id: uuid)
-    }
-    
-    private func stopAlarm(uuid: UUID) throws {
-        try alarmManager.stop(id: uuid)
     }
 }

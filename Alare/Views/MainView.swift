@@ -23,7 +23,7 @@ struct MainView: View {
             List {
                 if alarm.register.registereds.nextSnooze != nil {
                     Section("You are currently snoozing!") {
-                        Button(action: { vm.stopAlarm() }) {
+                        Button(action: { vm.killAlarm() }) {
                             Label("Stop the alarm completely", systemImage: "stop.circle")
                         }
                     }

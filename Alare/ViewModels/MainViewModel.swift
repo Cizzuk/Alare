@@ -42,8 +42,8 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    func stopAlarm() {
-        alarm.stop()
+    func killAlarm() {
+        alarm.kill()
         syncDraft()
     }
 }

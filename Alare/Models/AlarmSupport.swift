@@ -39,7 +39,7 @@ final class AlarmSupport: ObservableObject {
     // Validate current settings and registered alarms
     func validate() async {
         if !settings.isEnabled {
-            stop()
+            kill()
             return
         }
     }
@@ -53,7 +53,7 @@ final class AlarmSupport: ObservableObject {
     // Sync settings to system alarm
     func sync() async {
         if !settings.isEnabled {
-            stop()
+            kill()
             return
         }
         
@@ -88,7 +88,7 @@ final class AlarmSupport: ObservableObject {
     }
     
     // Stop the alarms completely
-    func stop() {
+    func kill() {
         register.cancelSnooze()
         if settings.repeats.isEmpty {
             settings.isEnabled = false
