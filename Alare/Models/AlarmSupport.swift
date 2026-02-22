@@ -111,7 +111,9 @@ final class AlarmSupport: ObservableObject {
     
     // Stop the alarms completely
     func kill() {
-        register.cancelSnooze()
+        register.killAlarm()
+        
+        // If the alarm is not set to repeat, disable it
         if settings.repeats.isEmpty {
             settings.isEnabled = false
             register.cancelMainAlarm()
