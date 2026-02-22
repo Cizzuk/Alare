@@ -15,8 +15,6 @@ struct MainView: View {
     @StateObject private var register = AlarmRegister.shared
     @StateObject private var vm = MainViewModel()
     
-    @State private var showChangeIconView = false
-    
     // Pseudo loop
     let hourArray = Array(repeating: Array(0...23), count: 11).flatMap { $0 }
     let minuteArray = Array(repeating: Array(0...59), count: 11).flatMap { $0 }
@@ -101,15 +99,15 @@ struct MainView: View {
                             .foregroundColor(.primary)
                     }
                     if UIApplication.shared.supportsAlternateIcons {
-                        Button(action: { showChangeIconView = true }) {
+                        NavigationLink(destination: ChangeIconView()) {
                             Label("Change App Icon", systemImage: "app.dashed")
+                                .foregroundColor(.primary)
                         }
                     }
                 }
             } // List
             .navigationTitle("Alare")
         } // NavigationStack
-        .sheet(isPresented: $showChangeIconView) { ChangeIconView() }
         // MARK: - Events
         .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }
