@@ -95,8 +95,12 @@ struct MainView: View {
 //                    }
                 }
                 
-                if UIApplication.shared.supportsAlternateIcons {
-                    Section {
+                Section {
+                    NavigationLink(destination: AboutView()) {
+                        Label("About", systemImage: "info.circle")
+                            .foregroundColor(.primary)
+                    }
+                    if UIApplication.shared.supportsAlternateIcons {
                         Button(action: { showChangeIconView = true }) {
                             Label("Change App Icon", systemImage: "app.dashed")
                         }
