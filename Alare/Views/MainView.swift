@@ -51,14 +51,17 @@ struct MainView: View {
                                 Text("\(hourArray[index])").tag(index)
                             }
                         }
-                        .pickerStyle(.wheel)
+                        .onChange(of: hourSelectionIndex) { applyTimeChange() }
+                        
                         Picker("Minute", selection: $minuteSelectionIndex) {
                             ForEach(minuteArray.indices, id: \.self) { index in
                                 Text("\(minuteArray[index])").tag(index)
                             }
                         }
-                        .pickerStyle(.wheel)
+                        .onChange(of: minuteSelectionIndex) { applyTimeChange() }
                     }
+                    .pickerStyle(.wheel)
+                    
                     Toggle("Enabled", isOn: $vm.draft.isEnabled)
                 }
                 
@@ -100,7 +103,5 @@ struct MainView: View {
             vm.onChange(scenePhase: scenePhase)
             syncTimeSelection()
         }
-        .onChange(of: hourSelectionIndex) { applyTimeChange() }
-        .onChange(of: minuteSelectionIndex) { applyTimeChange() }
     }
 }
