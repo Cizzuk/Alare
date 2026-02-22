@@ -6,7 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
+		BE62B7AF2F4B32FF004B493D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		BE62B7B02F4B3301004B493D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BEEB497B2F458C4B00B06D0B /* Alare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -46,6 +53,8 @@
 		BEEB49722F458C4B00B06D0B = {
 			isa = PBXGroup;
 			children = (
+				BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */,
+				BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */,
 				BEEB497D2F458C4B00B06D0B /* Alare */,
 				BEEB497C2F458C4B00B06D0B /* Products */,
 			);
@@ -105,6 +114,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = BEEB49722F458C4B00B06D0B;
 			minimizedProjectReferenceProxies = 1;
@@ -123,6 +133,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE62B7AF2F4B32FF004B493D /* InfoPlist.strings in Resources */,
+				BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +149,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE62B7B02F4B3301004B493D /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		BEEB49862F458C4C00B06D0B /* Debug */ = {
@@ -199,6 +222,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -256,6 +280,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -267,7 +292,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -307,7 +332,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

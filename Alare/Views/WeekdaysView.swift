@@ -38,6 +38,7 @@ struct WeekdaysView: View {
         } else {
             repeats.insert(weekday)
         }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 
     var body: some View {
@@ -59,10 +60,10 @@ struct WeekdaysView: View {
                     }
                     .frame(width: 32, height: 32)
                 }
+                .accessibilityAddTraits(isOn ? [.isToggle, .isSelected] : [.isToggle])
                 .buttonStyle(.plain)
             }
         }
-        .animation(.easeOut, value: repeats)
         .frame(maxWidth: .infinity)
     }
 }
