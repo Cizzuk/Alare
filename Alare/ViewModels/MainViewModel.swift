@@ -46,7 +46,9 @@ class MainViewModel: ObservableObject {
     }
     
     func killAlarm() {
-        support.kill()
-        syncDraft()
+        Task {
+            await support.kill()
+            syncDraft()
+        }
     }
 }

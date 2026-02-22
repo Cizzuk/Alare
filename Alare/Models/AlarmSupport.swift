@@ -110,7 +110,7 @@ final class AlarmSupport: ObservableObject {
     }
     
     // Stop the alarms completely
-    func kill() {
+    func kill() async {
         register.killAlarm()
         
         // If the alarm is not set to repeat, disable it
@@ -118,5 +118,7 @@ final class AlarmSupport: ObservableObject {
             settings.isEnabled = false
             register.cancelMainAlarm()
         }
+        
+        await validate()
     }
 }
