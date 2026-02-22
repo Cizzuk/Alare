@@ -42,7 +42,7 @@ final class AlarmRegister {
         let schedule = item.schedule
         registereds.mainAlarm = item
         
-        let configuration = AlarmPresets.makeConfiguration(schedule: schedule)
+        let configuration = AlarmPresets.makeConfiguration(uuid: uuid, schedule: schedule)
         try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
         print("Main alarm scheduled: \(uuid) with schedule: \(schedule)")
     }
@@ -67,7 +67,7 @@ final class AlarmRegister {
         registereds.snoozeCount += 1
         registereds.nextSnooze = AlarmItem(uuid: uuid, schedule: schedule)
         
-        let configuration = AlarmPresets.makeConfiguration(schedule: schedule)
+        let configuration = AlarmPresets.makeConfiguration(uuid: uuid, schedule: schedule)
         try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
         print("Snooze scheduled: \(uuid) at \(date)")
     }
