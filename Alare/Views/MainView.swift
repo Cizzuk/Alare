@@ -85,6 +85,9 @@ struct MainView: View {
                                 .font(.default.monospacedDigit())
                         }
                     }
+                    .onChange(of: vm.draft.snoozeInterval) {
+                        UISelectionFeedbackGenerator().selectionChanged()
+                    }
                     
 //                    Picker("Sound", selection: $vm.draft.sound) {
 //                        ForEach(AlarmSound.allCases, id: \.self) { sound in
