@@ -61,6 +61,8 @@ struct MainView: View {
                         }
                         .onChange(of: minuteSelectionIndex) { applyTimeChange() }
                     }
+                    .onAppear { syncTimeSelection() }
+                    .onChange(of: support.settings) { syncTimeSelection() }
                     .pickerStyle(.wheel)
                     
                     Toggle("Enabled", isOn: $vm.draft.isEnabled)
@@ -99,10 +101,6 @@ struct MainView: View {
         } // NavigationStack
         .sheet(isPresented: $showChangeIconView) { ChangeIconView() }
         // MARK: - Events
-        .onAppear { syncTimeSelection() }
-        .onChange(of: scenePhase) {
-            vm.onChange(scenePhase: scenePhase)
-            syncTimeSelection()
-        }
+        .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }
 }
