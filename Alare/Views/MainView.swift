@@ -75,6 +75,30 @@ struct MainView: View {
                         }
                     }
                 }
+                
+                #if !targetEnvironment(simulator)
+                Section {
+                    // 時刻と繰り返しの設定をして、アラームをオンにします。
+                    // アラームが鳴ると、画面に「スヌーズ」と「停止」ボタンが表示されます。
+                    // しかし、どちらを選択しても、強制的にスヌーズがかかります。
+                    // 停止を選択すると、Alareアプリが開きます。アプリ内で停止ボタンを押さない限り、強制スヌーズが続きます。
+                    Text("Set the time and repeat settings, and then turn on the alarm.")
+                    Text("When the alarm rings, Snooze and Stop buttons will appear on the screen.")
+                    Text("However, regardless of which you select, it will be forced into snooze mode.")
+                    Text("If you select the stop, the Alare app will open. Forced snooze will continue unless you press the stop button in the app.")
+                } header: { Label("What is this", systemImage: "questionmark.circle") }
+                Section {
+                    Text("Its operation may be unstable, and settings may not be carried over to future versions.")
+                    Text("I would appreciate it if you could send us feedback if you encounter any issues.")
+                    Link(destination:URL(string: "https://github.com/Cizzuk/Alare")!, label: {
+                        Label("Source", systemImage: "ladybug")
+                    })
+                    Link(destination:URL(string: "https://cizzuk.net/contact/")!, label: {
+                        Label("Contact", systemImage: "envelope")
+                    })
+                } header: { Label("This app is currentry in Beta", systemImage: "exclamationmark.circle") }
+                #endif
+                
             } // List
             .navigationTitle("Alare")
             .animation(.default, value: register.registereds.nextSnooze != nil)

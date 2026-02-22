@@ -81,6 +81,16 @@
         }
       }
     },
+    "Contact" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "連絡先"
+          }
+        }
+      }
+    },
     "Developer" : {
       "localizations" : {
         "ja" : {
@@ -97,6 +107,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "あられ"
+          }
+        }
+      }
+    },
+    "However, regardless of which you select, it will be forced into snooze mode." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "しかし、どちらを選択しても、強制的にスヌーズがかかります。"
+          }
+        }
+      }
+    },
+    "I would appreciate it if you could send us feedback if you encounter any issues." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "問題が発生した場合は、フィードバックを送ってくださると嬉しいです。"
+          }
+        }
+      }
+    },
+    "If you select the stop, the Alare app will open. Forced snooze will continue unless you press the stop button in the app." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止を選択すると、Alareアプリが開きます。アプリ内で停止ボタンを押さない限り、強制スヌーズが続きます。"
+          }
+        }
+      }
+    },
+    "Its operation may be unstable, and settings may not be carried over to future versions." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ベータ版は不安定で、設定は将来のバージョンに引き継がれない可能性があります。"
           }
         }
       }
@@ -150,6 +200,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "繰り返し"
+          }
+        }
+      }
+    },
+    "Set the time and repeat settings, and then turn on the alarm." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時刻と繰り返しの設定をして、アラームをオンにします"
           }
         }
       }
@@ -224,12 +284,22 @@
         }
       }
     },
+    "This app is currentry in Beta" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このアプリはベータ版です"
+          }
+        }
+      }
+    },
     "Time" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "時間"
+            "value" : "時刻"
           }
         }
       }
@@ -253,6 +323,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "バージョン"
+          }
+        }
+      }
+    },
+    "What is this" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このアプリについて"
+          }
+        }
+      }
+    },
+    "When the alarm rings, Snooze and Stop buttons will appear on the screen." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームが鳴ると、画面に「スヌーズ」と「停止」ボタンが表示されます。"
           }
         }
       }
