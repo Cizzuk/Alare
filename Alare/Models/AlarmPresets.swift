@@ -49,7 +49,7 @@ struct OpenAppIntent: LiveActivityIntent {
     static var openAppWhenRun = true
     static var isDiscoverable = false
     
-    @Parameter(title: "uuid")
+    @Parameter(title: "UUID")
     var uuid: String
     init(uuid: String) { self.uuid = uuid }
     init() { self.uuid = "" }
@@ -68,7 +68,7 @@ struct SnoozeIntent: LiveActivityIntent {
     static var openAppWhenRun = false
     static var isDiscoverable = false
     
-    @Parameter(title: "uuid")
+    @Parameter(title: "UUID")
     var uuid: String
     init(uuid: String) { self.uuid = uuid }
     init() { self.uuid = "" }

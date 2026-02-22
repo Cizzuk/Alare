@@ -64,7 +64,7 @@ struct MainView: View {
                     .onChange(of: support.settings) { syncTimeSelection() }
                     .pickerStyle(.wheel)
                     
-                    Toggle("Enabled", isOn: $vm.draft.isEnabled)
+                    Toggle("Turn on Alarm", isOn: $vm.draft.isEnabled)
                         .disabled(AlarmManager.shared.authorizationState == .denied)
                 } footer: {
                     if AlarmManager.shared.authorizationState == .denied {
