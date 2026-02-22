@@ -60,6 +60,7 @@ struct WeekdaysView: View {
                     }
                     .frame(width: 32, height: 32)
                 }
+                .accessibilityAddTraits(isOn ? [.isToggle, .isSelected] : [.isToggle])
                 .buttonStyle(.plain)
             }
         }
