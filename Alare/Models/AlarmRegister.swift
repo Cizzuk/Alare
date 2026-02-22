@@ -74,6 +74,7 @@ final class AlarmRegister: ObservableObject {
     
     func cancelSnooze() {
         if let nextSnooze = registereds.nextSnooze {
+            try? stopAlarmFromSystem(uuid: nextSnooze.uuid)
             try? cancelAlarmFromSystem(uuid: nextSnooze.uuid)
             registereds.nextSnooze = nil
             print("Snooze cancelled: \(nextSnooze.uuid)")

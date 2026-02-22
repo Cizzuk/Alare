@@ -43,7 +43,7 @@ final class AlarmSupport: ObservableObject {
         
         if AlarmManager.shared.authorizationState == .denied {
             settings.isEnabled = false
-            kill()
+            register.cancelMainAlarm()
             return true
         }
         
@@ -52,14 +52,14 @@ final class AlarmSupport: ObservableObject {
     
     // Validate current settings and registered alarms
     func validate() async {
-        if await isAuthorizationDenied() { return }
-        
         // Remove invalid alarms from system
         try? await register.validateSystemAlarms()
         
+        if await isAuthorizationDenied() { return }
+        
         // If the alarm is disabled, kill
         if !settings.isEnabled {
-            kill()
+            register.cancelMainAlarm()
             return
         }
     }
@@ -75,7 +75,7 @@ final class AlarmSupport: ObservableObject {
         if await isAuthorizationDenied() { return }
         
         if !settings.isEnabled {
-            kill()
+            register.cancelMainAlarm()
             return
         }
         
@@ -111,7 +111,9 @@ final class AlarmSupport: ObservableObject {
     
     // Stop the alarms completely
     func kill() {
-        register.cancelSnooze()
+        register.killAlarm()
+        
+        // If the alarm is not set to repeat, disable it
         if settings.repeats.isEmpty {
             settings.isEnabled = false
             register.cancelMainAlarm()
