@@ -1,5 +1,5 @@
 //
-//  AlermPresets.swift
+//  AlarmPresets.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/20.
@@ -9,12 +9,12 @@ import AlarmKit
 import AppIntents
 import SwiftUI
 
-final class AlermPresets {
+final class AlarmPresets {
     typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
     
     static let content = AlarmPresentation.Alert(
         title: "Alarm",
-        secondaryButton: .stopWithAction,
+        secondaryButton: .snoozeButton,
         secondaryButtonBehavior: .custom
     )
     
@@ -23,19 +23,19 @@ final class AlermPresets {
         tintColor: .accent
     )
     
-    static func makeConfiguration(date: Date) -> AlarmConfiguration {
+    static func makeConfiguration(schedule: Alarm.Schedule) -> AlarmConfiguration {
         return AlarmConfiguration(
-            schedule: .fixed(date),
+            schedule: schedule,
             attributes: Self.attributes,
-            stopIntent: SnoozeIntent(),
-            secondaryIntent: OpenAppIntent()
+            stopIntent: OpenAppIntent(),
+            secondaryIntent: SnoozeIntent()
         )
     }
 }
 
 extension AlarmButton {
     static var snoozeButton: Self {
-        AlarmButton(text: "Snooze", textColor: .white, systemImageName: "forward.fill")
+        AlarmButton(text: "Snooze", textColor: .white, systemImageName: "bed.double.fill")
     }
     
     static var stopWithAction: Self {
@@ -49,7 +49,8 @@ struct OpenAppIntent: LiveActivityIntent {
     static var isDiscoverable = false
     
     func perform() throws -> some IntentResult {
-        Task { await AlarmSupport.shared.snooze() }
+        let interval = AlarmSupport.shared.settings.snoozeInterval
+        Task { await AlarmRegister.shared.newSnooze(interval: interval) }
         return .result()
     }
 }
@@ -60,7 +61,8 @@ struct SnoozeIntent: LiveActivityIntent {
     static var isDiscoverable = false
     
     func perform() throws -> some IntentResult {
-        Task { await AlarmSupport.shared.snooze() }
+        let interval = AlarmSupport.shared.settings.snoozeInterval
+        Task { await AlarmRegister.shared.newSnooze(interval: interval) }
         return .result()
     }
 }
