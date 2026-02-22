@@ -15,8 +15,23 @@ struct MainView: View {
     
     @State private var showChangeIconView = false
     
-    let hourArray = Array(0...23)
-    let minuteArray = Array(0...59)
+    // Pseudo loop
+    let hourArray = Array(repeating: Array(0...23), count: 11).flatMap { $0 }
+    let minuteArray = Array(repeating: Array(0...59), count: 11).flatMap { $0 }
+    
+    @State private var hourSelectionIndex: Int = 9
+    @State private var minuteSelectionIndex: Int = 0
+    
+    func syncTimeSelection() {
+        hourSelectionIndex = vm.draft.hour + 24 * 5
+        minuteSelectionIndex = vm.draft.minute + 60 * 5
+    }
+    
+    func applyTimeChange() {
+        vm.draft.hour = hourArray[hourSelectionIndex]
+        vm.draft.minute = minuteArray[minuteSelectionIndex]
+        syncTimeSelection()
+    }
 
     var body: some View {
         NavigationStack {
@@ -30,21 +45,21 @@ struct MainView: View {
                 }
                 
                 Section {
-                    Toggle("Enabled", isOn: $vm.draft.isEnabled)
                     HStack {
-                        Picker("Hour", selection: $vm.draft.hour) {
-                            ForEach(hourArray, id: \.self) { hour in
-                                Text(String(format: "%02d", hour)).tag(hour)
+                        Picker("Hour", selection: $hourSelectionIndex) {
+                            ForEach(hourArray.indices, id: \.self) { index in
+                                Text("\(hourArray[index])").tag(index)
                             }
                         }
                         .pickerStyle(.wheel)
-                        Picker("Minute", selection: $vm.draft.minute) {
-                            ForEach(minuteArray, id: \.self) { minute in
-                                Text(String(format: "%02d", minute)).tag(minute)
+                        Picker("Minute", selection: $minuteSelectionIndex) {
+                            ForEach(minuteArray.indices, id: \.self) { index in
+                                Text("\(minuteArray[index])").tag(index)
                             }
                         }
                         .pickerStyle(.wheel)
                     }
+                    Toggle("Enabled", isOn: $vm.draft.isEnabled)
                 }
                 
                 Section("Repeat") {
@@ -53,7 +68,12 @@ struct MainView: View {
                 
                 Section("Options") {
                     Stepper(value: $vm.draft.snoozeInterval, in: 1...15) {
-                        Text("Snooze Duration: \(vm.draft.snoozeInterval)m")
+                        HStack {
+                            Text("Snooze Duration")
+                            Spacer()
+                            Text("\(vm.draft.snoozeInterval)m")
+                                .font(.default.monospacedDigit())
+                        }
                     }
                     
 //                    Picker("Sound", selection: $vm.draft.sound) {
@@ -75,6 +95,12 @@ struct MainView: View {
         } // NavigationStack
         .sheet(isPresented: $showChangeIconView) { ChangeIconView() }
         // MARK: - Events
-        .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
+        .onAppear { syncTimeSelection() }
+        .onChange(of: scenePhase) {
+            vm.onChange(scenePhase: scenePhase)
+            syncTimeSelection()
+        }
+        .onChange(of: hourSelectionIndex) { applyTimeChange() }
+        .onChange(of: minuteSelectionIndex) { applyTimeChange() }
     }
 }
