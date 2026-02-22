@@ -14,17 +14,14 @@ struct MainView: View {
     @StateObject private var vm = MainViewModel()
     
     @State private var showChangeIconView = false
+    
+    let hourArray = Array(0...23)
+    let minuteArray = Array(0...59)
 
     var body: some View {
         NavigationStack {
             List {
-                if let nextAlarm = alarm.session.registeredAlarmDate {
-                    Section {} footer: {
-                        Text("Next Alarm: \(nextAlarm.formatted(date: .abbreviated, time: .shortened))")
-                    }
-                }
-                
-                if alarm.session.isSnoozing {
+                if alarm.register.registereds.nextSnooze != nil {
                     Section("You are currently snoozing!") {
                         Button(action: { vm.stopAlarm() }) {
                             Label("Stop the alarm completely", systemImage: "stop.circle")
@@ -34,20 +31,29 @@ struct MainView: View {
                 
                 Section {
                     Toggle("Enabled", isOn: $vm.draft.isEnabled)
-                    DatePicker(
-                        "Next Alarm",
-                        selection: $vm.draft.next,
-                        in: Date().addingTimeInterval(1 * 60)...,
-                    )
+                    HStack {
+                        Picker("Hour", selection: $vm.draft.hour) {
+                            ForEach(hourArray, id: \.self) { hour in
+                                Text(String(format: "%02d", hour)).tag(hour)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        Picker("Minute", selection: $vm.draft.minute) {
+                            ForEach(minuteArray, id: \.self) { minute in
+                                Text(String(format: "%02d", minute)).tag(minute)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                    }
                 }
                 
-//                Section("Repeat") {
-//                    
-//                }
+                Section("Repeat") {
+                    
+                }
                 
                 Section("Options") {
-                    Stepper(value: $vm.draft.snoozeIntervalMinutes, in: 1...15) {
-                        Text("Snooze Duration: \(vm.draft.snoozeIntervalMinutes)m")
+                    Stepper(value: $vm.draft.snoozeInterval, in: 1...15) {
+                        Text("Snooze Duration: \(vm.draft.snoozeInterval)m")
                     }
                     
 //                    Picker("Sound", selection: $vm.draft.sound) {

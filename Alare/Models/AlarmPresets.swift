@@ -49,8 +49,7 @@ struct OpenAppIntent: LiveActivityIntent {
     static var isDiscoverable = false
     
     func perform() throws -> some IntentResult {
-        let interval = AlarmSupport.shared.settings.snoozeInterval
-        Task { await AlarmRegister.shared.newSnooze(interval: interval) }
+        Task { await AlarmSupport.shared.snooze() }
         return .result()
     }
 }
@@ -61,8 +60,7 @@ struct SnoozeIntent: LiveActivityIntent {
     static var isDiscoverable = false
     
     func perform() throws -> some IntentResult {
-        let interval = AlarmSupport.shared.settings.snoozeInterval
-        Task { await AlarmRegister.shared.newSnooze(interval: interval) }
+        Task { await AlarmSupport.shared.snooze() }
         return .result()
     }
 }

@@ -13,14 +13,6 @@ class MainViewModel: ObservableObject {
     
     @Published var draft: AlarmSettings = AlarmSupport.shared.settings {
         didSet {
-            // Date validation
-            let next = AlarmSupport.cutSeconds(draft.next)
-            let now = AlarmSupport.cutSeconds(Date())
-            if next <= now {
-                // Add 1 day
-                draft.next = Calendar.current.date(byAdding: .day, value: 1, to: draft.next) ?? draft.next
-            }
-            
             // Push changes
             Task {
                 if draft != alarm.settings {
@@ -51,9 +43,7 @@ class MainViewModel: ObservableObject {
     }
     
     func stopAlarm() {
-        Task {
-            await alarm.stop()
-            syncDraft()
-        }
+        alarm.stop()
+        syncDraft()
     }
 }

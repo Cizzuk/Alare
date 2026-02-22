@@ -10,11 +10,12 @@ import AlarmKit
 import Combine
 import Foundation
 
+// Manages user settings and communication with AlarmRegister
+
 final class AlarmSupport: ObservableObject {
-    typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
-    
     static let shared = AlarmSupport()
-    @ObservationIgnored private let alarmManager = AlarmManager.shared
+    
+    @Published private(set) var register = AlarmRegister.shared
     
     @Published private(set) var settings: AlarmSettings = {
         if let rawData = UserDefaults.standard.data(forKey: AlarmSettings.userDefaultsKey) {
@@ -31,97 +32,67 @@ final class AlarmSupport: ObservableObject {
         }
     }
     
-    @Published private(set) var session: AlarmSession = {
-        if let rawData = UserDefaults.standard.data(forKey: AlarmSession.userDefaultsKey) {
-            if let alarmData = try? JSONDecoder().decode(AlarmSession.self, from: rawData) {
-                return alarmData
-            }
-        }
-        return AlarmSession()
-    }() {
-        didSet {
-            if let data = try? JSONEncoder().encode(session) {
-                UserDefaults.standard.set(data, forKey: AlarmSession.userDefaultsKey)
-            }
-        }
-    }
-    
     private init() {
         Task { await validate() }
     }
     
-    func push(_ newAlarm: AlarmSettings) async {
-        settings = newAlarm
-        if settings.isEnabled {
-            await register(date: settings.next)
-        } else {
-            await unregister()
-            session = AlarmSession()
+    // Validate current settings and registered alarms
+    func validate() async {
+        if !settings.isEnabled {
+            stop()
+            return
         }
     }
     
-    func snooze() async {
-        session.isSnoozing = true
-        session.snoozes.append(Date())
-        
-        // Create new alarm
-        let snoozeInterval = settings.snoozeIntervalMinutes
-        let date = Date().addingTimeInterval(TimeInterval(snoozeInterval * 60))
-        await register(date: date)
+    // Push new settings and update main alarm
+    func push(_ newAlarm: AlarmSettings) async {
+        settings = newAlarm
+        await sync()
     }
     
-    // Stop the alarm and set the next one if needed
-    func stop() async {
-        await unregister()
-        session.isSnoozing = false
-        session.snoozes.removeAll()
-        
-        // If the alarm is repeating, register the next one
-        
-        // Else disable alarm
-        settings.isEnabled = false
-    }
-    
-    func validate() async {
+    // Sync settings to system alarm
+    func sync() async {
         if !settings.isEnabled {
-            await unregister()
+            stop()
             return
         }
         
-        // if the last registered alarm has passed
-    }
-    
-    // (Re)Register next alarms
-    func register(date: Date) async {
-        await unregister()
-        
+        // Create AlarmItem
         let uuid = UUID()
-        session.registeredAlarm = uuid
-        session.registeredAlarmDate = date
         
-        let configuration = AlermPresets.makeConfiguration(date: date)
+        // Create schedule
+        let time = Alarm.Schedule.Relative.Time(
+            hour: settings.hour,
+            minute: settings.minute
+        )
         
-        do {
-            try await registerAlarmToSystem(uuid: uuid, configuration: configuration)
-            print("Registered alarm with ID: \(uuid), Date: \(date)")
-        } catch {
-            session.registeredAlarm = nil
-            session.registeredAlarmDate = nil
-            print("Error encountered when registering alarm: \(error), ID: \(uuid)")
-        }
+        let repeats: Alarm.Schedule.Relative.Recurrence = {
+            if settings.repeats.isEmpty {
+                return .never
+            } else {
+                return .weekly(Array(settings.repeats))
+            }
+        }()
+        
+        let schedule = Alarm.Schedule.relative(
+            Alarm.Schedule.Relative(time: time, repeats: repeats)
+        )
+        
+        let item = AlarmItem(uuid: uuid, schedule: schedule)
+        await register.scheduleMainAlarm(item: item)
     }
     
-    // Unregister all registered alarms
-    func unregister() async {
-        if let uuid = session.registeredAlarm {
-            do {
-                try await unregisterAlarmFromSystem(uuid: uuid)
-                session.registeredAlarm = nil
-                session.registeredAlarmDate = nil
-                print("Unregistered alarm with ID: \(uuid)")
-            } catch {
-                print("Error encountered when unregistering alarm: \(error), ID: \(uuid)")
-            }
+    func snooze() async {
+        let interval = settings.snoozeInterval
+        await register.scheduleSnooze(interval: interval)
+    }
+    
+    // Stop the alarms completely
+    func stop() {
+        register.cancelSnooze()
+        if settings.repeats.isEmpty {
+            settings.isEnabled = false
+            register.cancelMainAlarm()
         }
     }
     
@@ -131,18 +102,4 @@ final class AlarmSupport: ObservableObject {
         let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
         return calendar.date(from: components) ?? date
     }
-    
-    // MARK: - Helpers, Private Methods
-    
-    private func registerAlarmToSystem(uuid: UUID, configuration: AlarmConfiguration) async throws {
-        _ = try await alarmManager.schedule(
-            id: uuid,
-            configuration: configuration
-        )
-    }
-    
-    private func unregisterAlarmFromSystem(uuid: UUID) async throws {
-        try alarmManager.cancel(id: uuid)
-    }
-
 }

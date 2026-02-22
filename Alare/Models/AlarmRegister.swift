@@ -8,6 +8,8 @@
 import AlarmKit
 import Combine
 
+// Communication with AlarmManager and manage registered alarms
+
 final class AlarmRegister {
     typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
     static let shared = AlarmRegister()
@@ -42,12 +44,14 @@ final class AlarmRegister {
         
         let configuration = AlarmPresets.makeConfiguration(schedule: schedule)
         try? await registerAlarmToSystem(uuid: uuid, configuration: configuration)
+        print("Main alarm scheduled: \(uuid) with schedule: \(schedule)")
     }
     
     func cancelMainAlarm() {
         if let mainAlarm = registereds.mainAlarm {
             try? unregisterAlarmFromSystem(uuid: mainAlarm.uuid)
             registereds.mainAlarm = nil
+            print("Main alarm cancelled: \(mainAlarm.uuid)")
         }
     }
     
@@ -65,12 +69,14 @@ final class AlarmRegister {
         
         let configuration = AlarmPresets.makeConfiguration(schedule: schedule)
         try? await registerAlarmToSystem(uuid: uuid, configuration: configuration)
+        print("Snooze scheduled: \(uuid) at \(date)")
     }
     
     func cancelSnooze() {
         if let nextSnooze = registereds.nextSnooze {
             try? unregisterAlarmFromSystem(uuid: nextSnooze.uuid)
             registereds.nextSnooze = nil
+            print("Snooze cancelled: \(nextSnooze.uuid)")
         }
     }
     
