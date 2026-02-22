@@ -1,0 +1,41 @@
+{
+  "fill" : "automatic",
+  "groups" : [
+    {
+      "blur-material" : null,
+      "layers" : [
+        {
+          "image-name-specializations" : [
+            {
+              "value" : "pride.svg"
+            },
+            {
+              "appearance" : "dark",
+              "value" : "dark.svg"
+            },
+            {
+              "appearance" : "tinted",
+              "value" : "dark.svg"
+            }
+          ],
+          "name" : "clock"
+        }
+      ],
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.25
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

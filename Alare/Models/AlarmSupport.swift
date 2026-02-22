@@ -1,0 +1,127 @@
+//
+//  AlarmSupport.swift
+//  Alare
+//
+//  Created by Cizzuk on 2026/02/19.
+//
+
+import ActivityKit
+import AlarmKit
+import Combine
+import Foundation
+
+// Manages user settings and communication with AlarmRegister
+
+final class AlarmSupport: ObservableObject {
+    static let shared = AlarmSupport()
+    
+    @ObservationIgnored private var register = AlarmRegister.shared
+    
+    @Published private(set) var settings: AlarmSettings = {
+        if let rawData = UserDefaults.standard.data(forKey: AlarmSettings.userDefaultsKey) {
+            if let alarmData = try? JSONDecoder().decode(AlarmSettings.self, from: rawData) {
+                return alarmData
+            }
+        }
+        return AlarmSettings()
+    }() {
+        didSet {
+            if let data = try? JSONEncoder().encode(settings) {
+                UserDefaults.standard.set(data, forKey: AlarmSettings.userDefaultsKey)
+            }
+        }
+    }
+    
+    private init() {
+        Task { await validate() }
+    }
+    
+    func isAuthorizationDenied() async -> Bool {
+        if AlarmManager.shared.authorizationState == .notDetermined {
+            _ = try? await AlarmManager.shared.requestAuthorization()
+        }
+        
+        if AlarmManager.shared.authorizationState == .denied {
+            settings.isEnabled = false
+            kill()
+            return true
+        }
+        
+        return false
+    }
+    
+    // Validate current settings and registered alarms
+    func validate() async {
+        if await isAuthorizationDenied() { return }
+        
+        // Remove invalid alarms from system
+        try? await register.validateSystemAlarms()
+        
+        // If the alarm is disabled, kill
+        if !settings.isEnabled {
+            kill()
+            return
+        }
+    }
+    
+    // Push new settings and update main alarm
+    func push(_ newAlarm: AlarmSettings) async {
+        settings = newAlarm
+        await sync()
+    }
+    
+    // Sync settings to system alarm
+    func sync() async {
+        if await isAuthorizationDenied() { return }
+        
+        if !settings.isEnabled {
+            kill()
+            return
+        }
+        
+        // Create AlarmItem
+        let uuid = UUID()
+        
+        // Create schedule
+        let time = Alarm.Schedule.Relative.Time(
+            hour: settings.hour,
+            minute: settings.minute
+        )
+        
+        let repeats: Alarm.Schedule.Relative.Recurrence = {
+            if settings.repeats.isEmpty {
+                return .never
+            } else {
+                return .weekly(Array(settings.repeats))
+            }
+        }()
+        
+        let schedule = Alarm.Schedule.relative(
+            Alarm.Schedule.Relative(time: time, repeats: repeats)
+        )
+        
+        let item = AlarmItem(uuid: uuid, schedule: schedule)
+        await register.scheduleMainAlarm(item: item)
+    }
+    
+    func snooze() async {
+        let interval = settings.snoozeInterval
+        await register.scheduleSnooze(interval: interval)
+    }
+    
+    // Stop the alarms completely
+    func kill() {
+        register.cancelSnooze()
+        if settings.repeats.isEmpty {
+            settings.isEnabled = false
+            register.cancelMainAlarm()
+        }
+    }
+    
+    // MARK: - Public Helpers
+    static func cutSeconds(_ date: Date) -> Date {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+        return calendar.date(from: components) ?? date
+    }
+}
