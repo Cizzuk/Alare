@@ -121,6 +121,16 @@
         }
       }
     },
+    "I plan to increase the required actions to stop in future updates." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今後のアップデートで停止するために必要なアクションを増やす予定です。"
+          }
+        }
+      }
+    },
     "I would appreciate it if you could send us feedback if you encounter any issues." : {
       "localizations" : {
         "ja" : {
