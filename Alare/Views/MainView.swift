@@ -69,7 +69,7 @@ struct MainView: View {
                 }
                 
                 Section("Repeat") {
-                    
+                    WeekdaysView(repeats: $vm.draft.repeats)
                 }
                 
                 Section("Options") {
