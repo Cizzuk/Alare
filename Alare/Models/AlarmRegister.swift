@@ -43,13 +43,13 @@ final class AlarmRegister {
         registereds.mainAlarm = item
         
         let configuration = AlarmPresets.makeConfiguration(schedule: schedule)
-        try? await registerAlarmToSystem(uuid: uuid, configuration: configuration)
+        try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
         print("Main alarm scheduled: \(uuid) with schedule: \(schedule)")
     }
     
     func cancelMainAlarm() {
         if let mainAlarm = registereds.mainAlarm {
-            try? unregisterAlarmFromSystem(uuid: mainAlarm.uuid)
+            try? cancelAlarmFromSystem(uuid: mainAlarm.uuid)
             registereds.mainAlarm = nil
             print("Main alarm cancelled: \(mainAlarm.uuid)")
         }
@@ -68,13 +68,13 @@ final class AlarmRegister {
         registereds.nextSnooze = AlarmItem(uuid: uuid, schedule: schedule)
         
         let configuration = AlarmPresets.makeConfiguration(schedule: schedule)
-        try? await registerAlarmToSystem(uuid: uuid, configuration: configuration)
+        try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
         print("Snooze scheduled: \(uuid) at \(date)")
     }
     
     func cancelSnooze() {
         if let nextSnooze = registereds.nextSnooze {
-            try? unregisterAlarmFromSystem(uuid: nextSnooze.uuid)
+            try? cancelAlarmFromSystem(uuid: nextSnooze.uuid)
             registereds.nextSnooze = nil
             print("Snooze cancelled: \(nextSnooze.uuid)")
         }
@@ -82,8 +82,9 @@ final class AlarmRegister {
     
     // MARK: - Alarm Control
     
-    func stopAlarm(uuid: UUID) throws {
-        try alarmManager.stop(id: uuid)
+    func removeAlarm(uuid: UUID) {
+        try? alarmManager.stop(id: uuid)
+        try? alarmManager.cancel(id: uuid)
     }
     
     func killAlarm() {
@@ -91,16 +92,32 @@ final class AlarmRegister {
         registereds.snoozeCount = 0
     }
     
-    // MARK: - Helpers, Private Methods
+    func validateSystemAlarms() throws {
+        let allSystemAlarms = try alarmManager.alarms
+        let validAlarms = [registereds.mainAlarm, registereds.nextSnooze].compactMap { $0?.uuid }
+        
+        for alarm in allSystemAlarms {
+            if !validAlarms.contains(alarm.id) {
+                removeAlarm(uuid: alarm.id)
+                print("Cleaned up orphaned alarm: \(alarm.id)")
+            }
+        }
+    }
     
-    private func registerAlarmToSystem(uuid: UUID, configuration: AlarmConfiguration) async throws {
+    // MARK: - Communication with AlarmManager
+    
+    private func scheduleAlarmToSystem(uuid: UUID, configuration: AlarmConfiguration) async throws {
         _ = try await alarmManager.schedule(
             id: uuid,
             configuration: configuration
         )
     }
     
-    private func unregisterAlarmFromSystem(uuid: UUID) throws {
+    private func cancelAlarmFromSystem(uuid: UUID) throws {
         try alarmManager.cancel(id: uuid)
+    }
+    
+    private func stopAlarmFromSystem(uuid: UUID) throws {
+        try alarmManager.stop(id: uuid)
     }
 }
