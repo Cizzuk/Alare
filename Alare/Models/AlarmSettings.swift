@@ -6,7 +6,6 @@
 //
 
 import AlarmKit
-import SwiftData
 
 struct AlarmSettings: AlarmMetadata, Codable {
     static let userDefaultsKey = "AlarmData"
