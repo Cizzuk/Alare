@@ -10,7 +10,7 @@ import Combine
 
 // Communication with AlarmManager and manage registered alarms
 
-final class AlarmRegister {
+final class AlarmRegister: ObservableObject {
     typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
     static let shared = AlarmRegister()
     

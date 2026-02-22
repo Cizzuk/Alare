@@ -10,7 +10,8 @@ import SwiftUI
 struct MainView: View {
     @Environment(\.scenePhase) private var scenePhase
     
-    @StateObject private var alarm = AlarmSupport.shared
+    @StateObject private var support = AlarmSupport.shared
+    @StateObject private var register = AlarmRegister.shared
     @StateObject private var vm = MainViewModel()
     
     @State private var showChangeIconView = false
@@ -36,7 +37,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
-                if alarm.register.registereds.nextSnooze != nil {
+                if register.registereds.nextSnooze != nil {
                     Section("You are currently snoozing!") {
                         Button(action: { vm.killAlarm() }) {
                             Label("Stop the alarm completely", systemImage: "stop.circle")

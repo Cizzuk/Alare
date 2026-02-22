@@ -15,7 +15,7 @@ import Foundation
 final class AlarmSupport: ObservableObject {
     static let shared = AlarmSupport()
     
-    @Published private(set) var register = AlarmRegister.shared
+    @ObservationIgnored private var register = AlarmRegister.shared
     
     @Published private(set) var settings: AlarmSettings = {
         if let rawData = UserDefaults.standard.data(forKey: AlarmSettings.userDefaultsKey) {

@@ -9,14 +9,14 @@ import Combine
 import SwiftUI
 
 class MainViewModel: ObservableObject {
-    private var alarm = AlarmSupport.shared
+    @ObservationIgnored private var support = AlarmSupport.shared
     
     @Published var draft: AlarmSettings = AlarmSupport.shared.settings {
         didSet {
             // Push changes
             Task {
-                if draft != alarm.settings {
-                    await alarm.push(draft)
+                if draft != support.settings {
+                    await support.push(draft)
                     syncDraft()
                 }
             }
@@ -26,7 +26,10 @@ class MainViewModel: ObservableObject {
     func onChange(scenePhase: ScenePhase) {
         switch scenePhase {
         case .active:
-            syncDraft()
+            Task {
+                await support.validate()
+                syncDraft()
+            }
         case .inactive:
             break
         case .background:
@@ -37,13 +40,13 @@ class MainViewModel: ObservableObject {
     }
     
     func syncDraft() {
-        if alarm.settings != draft {
-            draft = alarm.settings
+        if support.settings != draft {
+            draft = support.settings
         }
     }
     
     func killAlarm() {
-        alarm.kill()
+        support.kill()
         syncDraft()
     }
 }
