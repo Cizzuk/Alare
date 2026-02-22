@@ -29,6 +29,7 @@ struct MainView: View {
                     DatePicker("Time", selection: $vm.timeSelection, displayedComponents: .hourAndMinute)
                         .datePickerStyle(.wheel)
                         .labelsHidden()
+                        .frame(maxWidth: .infinity)
                     
                     Toggle("Turn on Alarm", isOn: $vm.draft.isEnabled)
                         .disabled(AlarmManager.shared.authorizationState == .denied)
@@ -76,6 +77,7 @@ struct MainView: View {
                 }
             } // List
             .navigationTitle("Alare")
+            .animation(.default, value: register.registereds.nextSnooze != nil)
         } // NavigationStack
         // MARK: - Events
         .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
