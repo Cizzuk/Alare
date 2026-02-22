@@ -48,8 +48,16 @@ struct OpenAppIntent: LiveActivityIntent {
     static var openAppWhenRun = true
     static var isDiscoverable = false
     
+    @Parameter(title: "uuid")
+    var uuid: String
+    init(uuid: String) { self.uuid = uuid }
+    init() { self.uuid = "" }
+    
     func perform() throws -> some IntentResult {
         Task { await AlarmSupport.shared.snooze() }
+        if let uuid = UUID(uuidString: uuid) {
+            try? AlarmRegister.shared.stopAlarm(uuid: uuid)
+        }
         return .result()
     }
 }
@@ -59,8 +67,16 @@ struct SnoozeIntent: LiveActivityIntent {
     static var openAppWhenRun = false
     static var isDiscoverable = false
     
+    @Parameter(title: "uuid")
+    var uuid: String
+    init(uuid: String) { self.uuid = uuid }
+    init() { self.uuid = "" }
+    
     func perform() throws -> some IntentResult {
         Task { await AlarmSupport.shared.snooze() }
+        if let uuid = UUID(uuidString: uuid) {
+            try? AlarmRegister.shared.stopAlarm(uuid: uuid)
+        }
         return .result()
     }
 }
