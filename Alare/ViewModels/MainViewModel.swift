@@ -80,6 +80,7 @@ class MainViewModel: ObservableObject {
         Task {
             await support.kill()
             syncDraft()
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
 }
