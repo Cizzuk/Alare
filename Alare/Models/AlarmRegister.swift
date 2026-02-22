@@ -112,7 +112,8 @@ final class AlarmRegister: ObservableObject {
                 uuid: mainAlarm.uuid,
                 configuration: AlarmPresets.makeConfiguration(
                     uuid: mainAlarm.uuid,
-                    schedule: mainAlarm.schedule)
+                    schedule: mainAlarm.schedule
+                )
             )
             print("Main alarm missing from system, rescheduled: \(mainAlarm.uuid)")
         }
@@ -122,7 +123,8 @@ final class AlarmRegister: ObservableObject {
             try? await scheduleAlarmToSystem(
                 uuid: nextSnooze.uuid,
                 configuration: AlarmPresets.makeConfiguration(
-                    uuid: nextSnooze.uuid, schedule: nextSnooze.schedule
+                    uuid: nextSnooze.uuid,
+                    schedule: nextSnooze.schedule
                 )
             )
             print("Snooze alarm missing from system, rescheduled: \(nextSnooze.uuid)")
