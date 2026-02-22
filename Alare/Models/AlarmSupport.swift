@@ -50,10 +50,10 @@ final class AlarmSupport: ObservableObject {
     
     // Validate current settings and registered alarms
     func validate() async {
-        // Remove invalid alarms from system
-        try? register.validateSystemAlarms()
-        
         if await isAuthorizationDenied() { return }
+        
+        // Remove invalid alarms from system
+        try? await register.validateSystemAlarms()
         
         // If the alarm is disabled, kill
         if !settings.isEnabled {

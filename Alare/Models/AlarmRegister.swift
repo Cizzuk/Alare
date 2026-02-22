@@ -92,15 +92,39 @@ final class AlarmRegister: ObservableObject {
         registereds.snoozeCount = 0
     }
     
-    func validateSystemAlarms() throws {
+    func validateSystemAlarms() async throws {
         let allSystemAlarms = try alarmManager.alarms
         let validAlarms = [registereds.mainAlarm, registereds.nextSnooze].compactMap { $0?.uuid }
         
+        // Remove invalid alarms from the system
         for alarm in allSystemAlarms {
             if !validAlarms.contains(alarm.id) {
                 removeAlarm(uuid: alarm.id)
                 print("Found invalid alarm from system: \(alarm.id)")
             }
+        }
+        
+        // Reschedule missing alarms to the system
+        if let mainAlarm = registereds.mainAlarm,
+           !allSystemAlarms.contains(where: { $0.id == mainAlarm.uuid }) {
+            try? await scheduleAlarmToSystem(
+                uuid: mainAlarm.uuid,
+                configuration: AlarmPresets.makeConfiguration(
+                    uuid: mainAlarm.uuid,
+                    schedule: mainAlarm.schedule)
+            )
+            print("Main alarm missing from system, rescheduled: \(mainAlarm.uuid)")
+        }
+        
+        if let nextSnooze = registereds.nextSnooze,
+           !allSystemAlarms.contains(where: { $0.id == nextSnooze.uuid }) {
+            try? await scheduleAlarmToSystem(
+                uuid: nextSnooze.uuid,
+                configuration: AlarmPresets.makeConfiguration(
+                    uuid: nextSnooze.uuid, schedule: nextSnooze.schedule
+                )
+            )
+            print("Snooze alarm missing from system, rescheduled: \(nextSnooze.uuid)")
         }
     }
     
