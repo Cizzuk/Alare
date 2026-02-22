@@ -56,7 +56,7 @@ struct OpenAppIntent: LiveActivityIntent {
     func perform() throws -> some IntentResult {
         Task { await AlarmSupport.shared.snooze() }
         if let uuid = UUID(uuidString: uuid) {
-            try? AlarmRegister.shared.stopAlarm(uuid: uuid)
+            AlarmRegister.shared.removeAlarm(uuid: uuid)
         }
         return .result()
     }
@@ -75,7 +75,7 @@ struct SnoozeIntent: LiveActivityIntent {
     func perform() throws -> some IntentResult {
         Task { await AlarmSupport.shared.snooze() }
         if let uuid = UUID(uuidString: uuid) {
-            try? AlarmRegister.shared.stopAlarm(uuid: uuid)
+            AlarmRegister.shared.removeAlarm(uuid: uuid)
         }
         return .result()
     }
