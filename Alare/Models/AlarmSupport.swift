@@ -36,10 +36,24 @@ final class AlarmSupport: ObservableObject {
         Task { await validate() }
     }
     
+    func isAuthorizationDenied() async -> Bool {
+        if AlarmManager.shared.authorizationState == .notDetermined {
+            _ = try? await AlarmManager.shared.requestAuthorization()
+        }
+        if AlarmManager.shared.authorizationState == .denied {
+            settings.isEnabled = false
+            kill()
+            return true
+        }
+        return false
+    }
+    
     // Validate current settings and registered alarms
     func validate() async {
         // Remove invalid alarms from system
         try? register.validateSystemAlarms()
+        
+        if await isAuthorizationDenied() { return }
         
         // If the alarm is disabled, kill
         if !settings.isEnabled {
@@ -56,6 +70,8 @@ final class AlarmSupport: ObservableObject {
     
     // Sync settings to system alarm
     func sync() async {
+        if await isAuthorizationDenied() { return }
+        
         if !settings.isEnabled {
             kill()
             return

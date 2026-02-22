@@ -5,6 +5,7 @@
 //  Created by Cizzuk on 2026/02/18.
 //
 
+import AlarmKit
 import SwiftUI
 
 struct MainView: View {
@@ -66,6 +67,11 @@ struct MainView: View {
                     .pickerStyle(.wheel)
                     
                     Toggle("Enabled", isOn: $vm.draft.isEnabled)
+                        .disabled(AlarmManager.shared.authorizationState == .denied)
+                } footer: {
+                    if AlarmManager.shared.authorizationState == .denied {
+                        Text("Alarm permission is not granted. Please enable it in Settings to use the Alare.")
+                    }
                 }
                 
                 Section("Repeat") {
