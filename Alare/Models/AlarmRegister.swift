@@ -99,7 +99,6 @@ final class AlarmRegister {
         for alarm in allSystemAlarms {
             if !validAlarms.contains(alarm.id) {
                 removeAlarm(uuid: alarm.id)
-                print("Cleaned up orphaned alarm: \(alarm.id)")
             }
         }
     }
