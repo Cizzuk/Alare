@@ -40,11 +40,13 @@ final class AlarmSupport: ObservableObject {
         if AlarmManager.shared.authorizationState == .notDetermined {
             _ = try? await AlarmManager.shared.requestAuthorization()
         }
+        
         if AlarmManager.shared.authorizationState == .denied {
             settings.isEnabled = false
             kill()
             return true
         }
+        
         return false
     }
     
