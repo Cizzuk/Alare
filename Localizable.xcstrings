@@ -12,9 +12,6 @@
       },
       "shouldTranslate" : false
     },
-    "%lld" : {
-      "shouldTranslate" : false
-    },
     "%lldm" : {
       "localizations" : {
         "ja" : {
@@ -104,32 +101,12 @@
         }
       }
     },
-    "Hour" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "時"
-          }
-        }
-      }
-    },
     "License" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ライセンス"
-          }
-        }
-      }
-    },
-    "Minute" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "分"
           }
         }
       }
@@ -243,6 +220,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ボタンをタップする"
+          }
+        }
+      }
+    },
+    "Time" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時間"
           }
         }
       }
