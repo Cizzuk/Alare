@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
+		BE62B7AF2F4B32FF004B493D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		BE62B7B02F4B3301004B493D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BEEB497B2F458C4B00B06D0B /* Alare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -51,6 +53,7 @@
 		BEEB49722F458C4B00B06D0B = {
 			isa = PBXGroup;
 			children = (
+				BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */,
 				BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */,
 				BEEB497D2F458C4B00B06D0B /* Alare */,
 				BEEB497C2F458C4B00B06D0B /* Products */,
@@ -130,6 +133,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE62B7AF2F4B32FF004B493D /* InfoPlist.strings in Resources */,
 				BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,6 +149,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE62B7B02F4B3301004B493D /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		BEEB49862F458C4C00B06D0B /* Debug */ = {

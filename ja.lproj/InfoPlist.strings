@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Alare
+
+  Created by Cizzuk on 2026/02/22.
+  
+*/
+
+NSAlarmKitUsageDescription = "設定したアラームを鳴らします。";
