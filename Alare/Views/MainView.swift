@@ -116,13 +116,11 @@ struct MainView: View {
                     // 時刻と繰り返しの設定をして、アラームをオンにします。
                     // アラームが鳴ると、画面に「スヌーズ」と「停止」ボタンが表示されます。
                     // しかし、どちらを選択しても、強制的にスヌーズがかかります。
-                    // 停止を選択すると、Alareアプリが開きます。アプリ内で停止ボタンを押さない限り、強制スヌーズが続きます。
-                    // 今後のアップデートで停止するために必要なアクションを増やす予定です。
+                    // 停止を選択するとAlareが開きます。起床アクションを行わないと、スヌーズを解除できません。
                     Text("Set the time and repeat settings, and then turn on the alarm.")
                     Text("When the alarm rings, Snooze and Stop buttons will appear on the screen.")
                     Text("However, regardless of which you select, it will be forced into snooze mode.")
-                    Text("If you select the stop, the Alare app will open. Forced snooze will continue unless you press the stop button in the app.")
-                    Text("I plan to increase the required actions to stop in future updates.")
+                    Text("If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake up Action.")
                 } header: { Label("What is this", systemImage: "questionmark.circle") }
                 Section {
                     Text("Its operation may be unstable, and settings may not be carried over to future versions.")

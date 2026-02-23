@@ -211,16 +211,6 @@
         }
       }
     },
-    "I plan to increase the required actions to stop in future updates." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "今後のアップデートで停止するために必要なアクションを増やす予定です。"
-          }
-        }
-      }
-    },
     "I would appreciate it if you could send us feedback if you encounter any issues." : {
       "localizations" : {
         "ja" : {
@@ -231,12 +221,12 @@
         }
       }
     },
-    "If you select the stop, the Alare app will open. Forced snooze will continue unless you press the stop button in the app." : {
+    "If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake up Action." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "停止を選択すると、Alareアプリが開きます。アプリ内で停止ボタンを押さない限り、強制スヌーズが続きます。"
+            "value" : "停止を選択するとAlareが開きます。起床アクションを行わないと、スヌーズを解除できません。"
           }
         }
       }
