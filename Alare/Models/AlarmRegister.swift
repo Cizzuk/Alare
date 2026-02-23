@@ -5,6 +5,7 @@
 //  Created by Cizzuk on 2026/02/22.
 //
 
+import ActivityKit
 import AlarmKit
 import Combine
 
@@ -38,17 +39,19 @@ final class AlarmRegister: ObservableObject {
     func scheduleMainAlarm(item: AlarmItem) async {
         cancelMainAlarm()
         
-        let uuid = item.uuid
-        let schedule = item.schedule
         registereds.mainAlarm = item
         
-        let configuration = AlarmPresets.makeConfiguration(
-            uuid: uuid,
-            schedule: schedule
+        let alarmItem = AlarmItem(
+            uuid: item.uuid,
+            schedule: item.schedule,
+            title: item.title,
+            sound: item.sound
         )
         
-        try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
-        print("Main alarm scheduled: \(uuid) with schedule: \(schedule)")
+        let configuration = AlarmPresets.makeConfiguration(item: alarmItem)
+        
+        try? await scheduleAlarmToSystem(uuid: item.uuid, configuration: configuration)
+        print("Main alarm scheduled: \(item.uuid) with schedule: \(item.schedule)")
     }
     
     func cancelMainAlarm() {
@@ -71,11 +74,14 @@ final class AlarmRegister: ObservableObject {
         registereds.snoozeCount += 1
         registereds.nextSnooze = AlarmItem(uuid: uuid, schedule: schedule)
         
-        let configuration = AlarmPresets.makeConfiguration(
+        let alarmItem = AlarmItem(
             uuid: uuid,
             schedule: schedule,
-            title: "Snooze \(registereds.snoozeCount)"
+            title: "Snooze \(registereds.snoozeCount)",
+            sound: registereds.mainAlarm?.sound
         )
+        
+        let configuration = AlarmPresets.makeConfiguration(item: alarmItem)
         
         try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
         print("Snooze scheduled: \(uuid) at \(date)")
@@ -120,26 +126,27 @@ final class AlarmRegister: ObservableObject {
         // Reschedule missing alarms to the system
         if let mainAlarm = registereds.mainAlarm,
            !allSystemAlarms.contains(where: { $0.id == mainAlarm.uuid }) {
-            try? await scheduleAlarmToSystem(
+            let alarmItem = AlarmItem(
                 uuid: mainAlarm.uuid,
-                configuration: AlarmPresets.makeConfiguration(
-                    uuid: mainAlarm.uuid,
-                    schedule: mainAlarm.schedule
-                )
+                schedule: mainAlarm.schedule,
+                title: mainAlarm.title,
+                sound: mainAlarm.sound
             )
+            let configuration = AlarmPresets.makeConfiguration(item: alarmItem)
+            try? await scheduleAlarmToSystem(uuid: mainAlarm.uuid, configuration: configuration)
             print("Main alarm missing from system, rescheduled: \(mainAlarm.uuid)")
         }
         
         if let nextSnooze = registereds.nextSnooze,
            !allSystemAlarms.contains(where: { $0.id == nextSnooze.uuid }) {
-            try? await scheduleAlarmToSystem(
+            let alarmItem = AlarmItem(
                 uuid: nextSnooze.uuid,
-                configuration: AlarmPresets.makeConfiguration(
-                    uuid: nextSnooze.uuid,
-                    schedule: nextSnooze.schedule,
-                    title: "Snooze \(registereds.snoozeCount)"
-                )
+                schedule: nextSnooze.schedule,
+                title: "Snooze \(registereds.snoozeCount)",
+                sound: registereds.mainAlarm?.sound
             )
+            let configuration = AlarmPresets.makeConfiguration(item: alarmItem)
+            try? await scheduleAlarmToSystem(uuid: nextSnooze.uuid, configuration: configuration)
             print("Snooze alarm missing from system, rescheduled: \(nextSnooze.uuid)")
         }
     }
