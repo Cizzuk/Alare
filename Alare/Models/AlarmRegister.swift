@@ -135,4 +135,17 @@ final class AlarmRegister: ObservableObject {
             configuration: configuration
         )
     }
+    
+    func clearAllAlarmsFromSystem() {
+        do {
+            let allAlarms = try alarmManager.alarms
+            for alarm in allAlarms {
+                removeAlarm(uuid: alarm.id)
+                print("Cleared alarm from system: \(alarm.id)")
+            }
+        } catch {
+            print("Failed to clear alarms from system: \(error)")
+        }
+    }
+        
 }

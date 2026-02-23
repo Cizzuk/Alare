@@ -44,6 +44,7 @@ final class AlarmSupport: ObservableObject {
             settings.isEnabled = false
             register.cancelMainAlarm()
             register.killAlarm()
+            register.clearAllAlarmsFromSystem()
             return true
         }
         
