@@ -20,25 +20,6 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
-                // Wake up Action Button
-                if register.registereds.nextSnooze != nil {
-                    Section {} header: {
-                        Label("Alarm is Snoozing", systemImage: "zzz")
-                            .foregroundStyle(.primary)
-                    } footer: {
-                        Button(action: { vm.killAlarm() }) {
-                            Label("Stop with Wake up Action", systemImage: "stop.circle")
-                                .frame(maxWidth: .infinity)
-                                .bold()
-                                .padding(15)
-                        }
-                        .buttonStyle(.glassProminent)
-                        .tint(.dropblue)
-                        .foregroundStyle(.white)
-                        .padding(.bottom, 30)
-                    }
-                }
-                
                 // Header and Time
                 Section {} header: {
                     HStack {
@@ -54,6 +35,7 @@ struct MainView: View {
                             .labelsHidden()
                     }
                     .foregroundStyle(.primary)
+                    .padding(.top, 30)
                 } footer: {
                     VStack {
                         DatePicker("Time", selection: $vm.timeSelection, displayedComponents: .hourAndMinute)
@@ -64,7 +46,26 @@ struct MainView: View {
                             Text("Alarm permission is not granted. Please enable it in Settings to use the Alare.")
                         }
                     }
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 15)
+                }
+                
+                // Wake up Action Button
+                if register.registereds.nextSnooze != nil {
+                    Section {} header: {
+                        Label("Alarm is Snoozing", systemImage: "zzz")
+                            .foregroundStyle(.primary)
+                    } footer: {
+                        Button(action: { vm.killAlarm() }) {
+                            Label("Stop with Wake up Action", systemImage: "stop.circle")
+                                .frame(maxWidth: .infinity)
+                                .bold()
+                                .padding(10)
+                        }
+                        .buttonStyle(.glassProminent)
+                        .tint(.dropblue)
+                        .foregroundStyle(.white)
+                        .padding(.bottom, 30)
+                    }
                 }
                 
                 Section("Repeat") {
@@ -134,7 +135,6 @@ struct MainView: View {
                 #endif
                 
             } // List
-            .padding(.top, 50)
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
             .scrollContentBackground(.hidden)
