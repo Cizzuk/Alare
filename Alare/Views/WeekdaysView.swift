@@ -50,15 +50,15 @@ struct WeekdaysView: View {
                     ZStack {
                         Circle()
                             .fill(isOn ? .dropblue : .clear)
-                            .stroke(.dropblue, lineWidth: 1.5)
+                            .stroke(isOn ? .dropblue : .secondary, lineWidth: 1.5)
                         
                         Text(shortSymbol[index])
                             .accessibilityLabel(symbol[index])
                             .font(.default)
-                            .fontWeight(isOn ? .semibold : .regular)
-                            .foregroundStyle(isOn ? .white : .primary)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(isOn ? .white : .secondary)
                     }
-                    .frame(width: 32, height: 32)
+                    
                 }
                 .accessibilityAddTraits(isOn ? [.isToggle, .isSelected] : [.isToggle])
                 .buttonStyle(.plain)
