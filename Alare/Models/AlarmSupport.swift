@@ -8,7 +8,6 @@
 import ActivityKit
 import AlarmKit
 import Combine
-import Foundation
 
 // Manages user settings and communication with AlarmRegister
 
@@ -19,8 +18,8 @@ final class AlarmSupport: ObservableObject {
     
     @Published private(set) var settings: AlarmSettings = {
         if let rawData = userDefaults.data(forKey: AlarmSettings.userDefaultsKey) {
-            if let alarmData = try? JSONDecoder().decode(AlarmSettings.self, from: rawData) {
-                return alarmData
+            if let data = try? JSONDecoder().decode(AlarmSettings.self, from: rawData) {
+                return data
             }
         }
         return AlarmSettings()
