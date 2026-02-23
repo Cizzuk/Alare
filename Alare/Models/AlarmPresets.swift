@@ -24,14 +24,18 @@ final class AlarmPresets {
         tintColor: .accent
     )
     
-    static func makeConfiguration(uuid: UUID, schedule: Alarm.Schedule) -> AlarmConfiguration {
+    static func makeConfiguration(
+        uuid: UUID,
+        schedule: Alarm.Schedule,
+        sound: AlertConfiguration.AlertSound = .default
+    ) -> AlarmConfiguration {
         let uuidString = uuid.uuidString
         return AlarmConfiguration(
             schedule: schedule,
             attributes: Self.attributes,
             stopIntent: OpenAppIntent(uuid: uuidString),
             secondaryIntent: SnoozeIntent(uuid: uuidString),
-            sound: .default
+            sound: sound
         )
     }
 }
