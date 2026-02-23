@@ -20,17 +20,26 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
+                // Wake up Action Button
                 if register.registereds.nextSnooze != nil {
-                    Section {
-                        Button(action: { vm.killAlarm() }) {
-                            Label("Stop with Wake up Action", systemImage: "stop.circle")
-                        }
-                    } header: {
+                    Section {} header: {
                         Label("Alarm is Snoozing", systemImage: "zzz")
                             .foregroundStyle(.primary)
+                    } footer: {
+                        Button(action: { vm.killAlarm() }) {
+                            Label("Stop with Wake up Action", systemImage: "stop.circle")
+                                .frame(maxWidth: .infinity)
+                                .bold()
+                                .padding(15)
+                        }
+                        .buttonStyle(.glassProminent)
+                        .tint(.dropblue)
+                        .foregroundStyle(.white)
+                        .padding(.bottom, 30)
                     }
                 }
                 
+                // Header and Time
                 Section {} header: {
                     HStack {
                         Text(vm.titleText)
@@ -100,6 +109,7 @@ struct MainView: View {
                     }
                 }
                 
+                // TODO: - Remove this section before release the stable version.
                 #if !targetEnvironment(simulator)
                 Section {
                     // 時刻と繰り返しの設定をして、アラームをオンにします。
