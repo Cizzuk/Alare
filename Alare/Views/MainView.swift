@@ -121,6 +121,15 @@ struct MainView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.dropblue.opacity(0.2), Color(.systemGroupedBackground)]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+            )
         } // NavigationStack
         .fileImporter(
             isPresented: $showCustomSoundImporter,
