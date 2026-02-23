@@ -110,9 +110,17 @@ struct MainView: View {
                 #endif
                 
             } // List
-            .navigationTitle("Alare")
+            .navigationTitle(vm.titleText)
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
+            .toolbar {
+                ToolbarItem(placement: .largeTitle) {
+                    Text(vm.titleText)
+                        .font(.largeTitle)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
         } // NavigationStack
         .fileImporter(
             isPresented: $showCustomSoundImporter,
@@ -122,6 +130,7 @@ struct MainView: View {
             vm.importCustomSound(result)
         }
         // MARK: - Events
+        .onAppear { vm.onAppear() }
         .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }
 }
