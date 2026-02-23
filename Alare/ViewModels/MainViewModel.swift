@@ -56,7 +56,7 @@ class MainViewModel: ObservableObject {
         case 4..<12: return "Good Morning"
         case 12..<18: return "Good Afternoon"
         case 18..<22: return "Good Evening"
-        case 22..<4: return "Good Night"
+        case 22..<24, 0..<4: return "Good Night"
         default: return "Hi"
         }
     }
