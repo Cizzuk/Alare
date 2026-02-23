@@ -7,12 +7,15 @@
 
 import AlarmKit
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct MainView: View {
     @Environment(\.scenePhase) private var scenePhase
     
     @StateObject private var register = AlarmRegister.shared
     @StateObject private var vm = MainViewModel()
+    
+    @State private var showCustomSoundImporter = false
 
     var body: some View {
         NavigationStack {
@@ -61,7 +64,13 @@ struct MainView: View {
                             Text(sound.displayName).tag(sound)
                         }
                     }
+                    if vm.draft.sound == .custom {
+                        Button(action: { showCustomSoundImporter = true }) {
+                            Text("Import Custom Sound")
+                        }
+                    }
                 }
+                .animation(.default, value: vm.draft.sound)
                 
                 Section {
                     NavigationLink(destination: AboutView()) {
@@ -105,6 +114,13 @@ struct MainView: View {
             .navigationTitle("Alare")
             .animation(.default, value: register.registereds.nextSnooze != nil)
         } // NavigationStack
+        .fileImporter(
+            isPresented: $showCustomSoundImporter,
+            allowedContentTypes: [.audio],
+            allowsMultipleSelection: false
+        ) { result in
+            vm.importCustomSound(result)
+        }
         // MARK: - Events
         .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }

@@ -91,6 +91,16 @@
         }
       }
     },
+    "Custom" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カスタム"
+          }
+        }
+      }
+    },
     "Developer" : {
       "localizations" : {
         "ja" : {
@@ -147,6 +157,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "停止を選択すると、Alareアプリが開きます。アプリ内で停止ボタンを押さない限り、強制スヌーズが続きます。"
+          }
+        }
+      }
+    },
+    "Import Custom Sound" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カスタムサウンドをインポート"
           }
         }
       }

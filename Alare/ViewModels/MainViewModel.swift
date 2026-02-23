@@ -83,4 +83,19 @@ class MainViewModel: ObservableObject {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
+    
+    func importCustomSound(_ result: Result<[URL], Error>) {
+        switch result {
+        case .success(let urls):
+            if let url = urls.first,
+               AlarmSound.importCustomSound(from: url) {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+            } else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+            }
+        case .failure(let error):
+            print("Custom sound file import error: ", error)
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
+        }
+    }
 }
