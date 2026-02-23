@@ -11,6 +11,7 @@ import Foundation
 enum AlarmSound: String, CaseIterable, Codable {
     case hailing
     case sysDefault
+    case custom
     
     static let `default` = hailing
     
@@ -20,6 +21,8 @@ enum AlarmSound: String, CaseIterable, Codable {
             return "Hailing"
         case .sysDefault:
             return "System Default"
+        case .custom:
+            return "Custom"
         }
     }
     
@@ -28,6 +31,8 @@ enum AlarmSound: String, CaseIterable, Codable {
         case .hailing:
             return .default
         case .sysDefault:
+            return .default
+        case .custom:
             return .default
         }
     }
