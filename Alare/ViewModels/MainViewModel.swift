@@ -61,6 +61,8 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    var lastScenePhase: ScenePhase = .active
+    
     // MARK: - Public Methods
     
     func onAppear() {
@@ -74,7 +76,9 @@ class MainViewModel: ObservableObject {
     func onChange(scenePhase: ScenePhase) {
         switch scenePhase {
         case .active:
-            showHelloMessage()
+            if lastScenePhase == .background {
+                showHelloMessage()
+            }
             Task {
                 await support.validate()
                 syncDraft()
@@ -86,6 +90,7 @@ class MainViewModel: ObservableObject {
         @unknown default:
             break
         }
+        lastScenePhase = scenePhase
     }
     
     func showHelloMessage() {
