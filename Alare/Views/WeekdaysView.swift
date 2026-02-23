@@ -43,7 +43,7 @@ struct WeekdaysView: View {
 
     var body: some View {
         ZStack {
-            HStack(spacing: 10) {
+            HStack(spacing: 15) {
                 ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
                     let isOn = repeats.contains(weekday)
                     
