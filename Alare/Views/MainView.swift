@@ -54,7 +54,6 @@ struct MainView: View {
                             .labelsHidden()
                     }
                     .foregroundStyle(.primary)
-                    .padding(.top, 50)
                 } footer: {
                     VStack {
                         DatePicker("Time", selection: $vm.timeSelection, displayedComponents: .hourAndMinute)
@@ -135,12 +134,13 @@ struct MainView: View {
                 #endif
                 
             } // List
+            .padding(.top, 50)
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
             .scrollContentBackground(.hidden)
             .background(
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.dropblue.opacity(0.2), Color(.systemGroupedBackground)]),
+                    gradient: Gradient(colors: [.dropblue.opacity(0.2), .black]),
                     startPoint: .top,
                     endPoint: .bottom
                 )
