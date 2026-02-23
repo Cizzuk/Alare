@@ -61,8 +61,6 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    var lastScenePhase: ScenePhase = .active
-    
     // MARK: - Public Methods
     
     func onAppear() {
@@ -73,10 +71,11 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    var isReturnFromBackground = false
     func onChange(scenePhase: ScenePhase) {
         switch scenePhase {
         case .active:
-            if lastScenePhase == .background {
+            if isReturnFromBackground {
                 showHelloMessage()
             }
             Task {
@@ -86,11 +85,11 @@ class MainViewModel: ObservableObject {
         case .inactive:
             break
         case .background:
+            isReturnFromBackground = true
             break
         @unknown default:
             break
         }
-        lastScenePhase = scenePhase
     }
     
     func showHelloMessage() {
