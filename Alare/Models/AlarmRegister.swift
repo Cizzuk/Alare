@@ -18,7 +18,7 @@ final class AlarmRegister: ObservableObject {
     @ObservationIgnored private let alarmManager = AlarmManager.shared
     
     @Published private(set) var registereds: RegisteredAlarms = {
-        if let rawData = UserDefaults.standard.data(forKey: RegisteredAlarms.userDefaultsKey) {
+        if let rawData = userDefaults.data(forKey: RegisteredAlarms.userDefaultsKey) {
             if let alarmData = try? JSONDecoder().decode(RegisteredAlarms.self, from: rawData) {
                 return alarmData
             }
@@ -27,7 +27,7 @@ final class AlarmRegister: ObservableObject {
     }() {
         didSet {
             if let data = try? JSONEncoder().encode(registereds) {
-                UserDefaults.standard.set(data, forKey: RegisteredAlarms.userDefaultsKey)
+                userDefaults.set(data, forKey: RegisteredAlarms.userDefaultsKey)
             }
         }
     }
