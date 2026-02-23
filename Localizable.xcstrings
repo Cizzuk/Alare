@@ -389,7 +389,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "寝坊防止アクションをして止める"
+            "value" : "起床アクションをして止める"
           }
         }
       }
