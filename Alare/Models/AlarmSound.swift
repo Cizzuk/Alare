@@ -5,6 +5,7 @@
 //  Created by Cizzuk on 2026/02/19.
 //
 
+import ActivityKit
 import Foundation
 
 enum AlarmSound: String, CaseIterable, Codable {
@@ -19,6 +20,15 @@ enum AlarmSound: String, CaseIterable, Codable {
             return "Hailing"
         case .sysDefault:
             return "System Default"
+        }
+    }
+    
+    var alertSound: AlertConfiguration.AlertSound {
+        switch self {
+        case .hailing:
+            return .default
+        case .sysDefault:
+            return .default
         }
     }
 }
