@@ -56,11 +56,11 @@ struct MainView: View {
                         UISelectionFeedbackGenerator().selectionChanged()
                     }
                     
-//                    Picker("Sound", selection: $vm.draft.sound) {
-//                        ForEach(AlarmSound.allCases, id: \.self) { sound in
-//                            Text(sound.displayName).tag(sound)
-//                        }
-//                    }
+                    Picker("Sound", selection: $vm.draft.sound) {
+                        ForEach(AlarmSound.allCases, id: \.self) { sound in
+                            Text(sound.displayName).tag(sound)
+                        }
+                    }
                 }
                 
                 Section {

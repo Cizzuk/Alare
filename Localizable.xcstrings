@@ -254,6 +254,16 @@
         }
       }
     },
+    "Sound" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サウンド"
+          }
+        }
+      }
+    },
     "Source" : {
       "localizations" : {
         "ja" : {
