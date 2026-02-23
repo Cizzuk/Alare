@@ -26,7 +26,7 @@ final class AlarmPresets {
         
         let attributes = AlarmAttributes<AlarmSettings>(
             presentation: AlarmPresentation(alert: content),
-            tintColor: .accent
+            tintColor: .dropblue
         )
         
         return AlarmConfiguration(
