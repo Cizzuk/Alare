@@ -46,9 +46,9 @@ enum AlarmSound: String, CaseIterable, Codable {
     var alertSoundSnooze: AlertConfiguration.AlertSound {
         switch self {
         case .hailing:
-            return .named("Hailing.caf")
+            return .named("Hailing-Snooze.caf")
         case .attention:
-            return .named("Attention.caf")
+            return .named("Attention-Snooze.caf")
         default:
             return self.alertSound
         }
