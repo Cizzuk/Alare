@@ -42,7 +42,7 @@ struct WeekdaysView: View {
     }
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 15) {
             ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
                 let isOn = repeats.contains(weekday)
                 
@@ -54,7 +54,6 @@ struct WeekdaysView: View {
                         
                         Text(shortSymbol[index])
                             .accessibilityLabel(symbol[index])
-                            .font(.default)
                             .fontWeight(.semibold)
                             .foregroundStyle(isOn ? .white : .secondary)
                     }
