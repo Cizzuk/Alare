@@ -28,18 +28,32 @@ struct MainView: View {
                     }
                 }
                 
-                Section {
-                    DatePicker("Time", selection: $vm.timeSelection, displayedComponents: .hourAndMinute)
-                        .datePickerStyle(.wheel)
-                        .labelsHidden()
-                        .frame(maxWidth: .infinity)
-                    
-                    Toggle("Turn on Alarm", isOn: $vm.draft.isEnabled)
-                        .disabled(AlarmManager.shared.authorizationState == .denied)
-                } footer: {
-                    if AlarmManager.shared.authorizationState == .denied {
-                        Text("Alarm permission is not granted. Please enable it in Settings to use the Alare.")
+                Section {} header: {
+                    HStack {
+                        Text(vm.titleText)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.largeTitle)
+                            .bold()
+                            .accessibilityAddTraits(.isHeader)
+                            .accessibilityLabel("Alare")
+                        Spacer()
+                        Toggle("Turn on Alarm", isOn: $vm.draft.isEnabled)
+                            .disabled(AlarmManager.shared.authorizationState == .denied)
+                            .labelsHidden()
                     }
+                    .padding(.top, 50)
+                    .foregroundStyle(.primary)
+                } footer: {
+                    VStack {
+                        DatePicker("Time", selection: $vm.timeSelection, displayedComponents: .hourAndMinute)
+                            .datePickerStyle(.wheel)
+                            .labelsHidden()
+                            .frame(maxWidth: .infinity)
+                        if AlarmManager.shared.authorizationState == .denied {
+                            Text("Alarm permission is not granted. Please enable it in Settings to use the Alare.")
+                        }
+                    }
+                    .padding(.bottom, 20)
                 }
                 
                 Section("Repeat") {
@@ -110,17 +124,8 @@ struct MainView: View {
                 #endif
                 
             } // List
-            .navigationTitle(vm.titleText)
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
-            .toolbar {
-                ToolbarItem(placement: .largeTitle) {
-                    Text(vm.titleText)
-                        .font(.largeTitle)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-            }
             .scrollContentBackground(.hidden)
             .background(
                 LinearGradient(
