@@ -65,6 +65,16 @@
         }
       }
     },
+    "Attention" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アテンション"
+          }
+        }
+      }
+    },
     "Change App Icon" : {
       "localizations" : {
         "ja" : {

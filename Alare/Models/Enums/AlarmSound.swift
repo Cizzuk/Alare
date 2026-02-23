@@ -10,6 +10,7 @@ import Foundation
 
 enum AlarmSound: String, CaseIterable, Codable {
     case hailing
+    case attention
     case sysDefault
     case custom
     
@@ -19,6 +20,8 @@ enum AlarmSound: String, CaseIterable, Codable {
         switch self {
         case .hailing:
             return "Hailing"
+        case .attention:
+            return "Attention"
         case .sysDefault:
             return "System Default"
         case .custom:
@@ -30,6 +33,8 @@ enum AlarmSound: String, CaseIterable, Codable {
         switch self {
         case .hailing:
             return .named("Hailing.caf")
+        case .attention:
+            return .named("Attention.caf")
         case .sysDefault:
             return .default
         case .custom:
@@ -39,11 +44,14 @@ enum AlarmSound: String, CaseIterable, Codable {
     }
     
     var alertSoundSnooze: AlertConfiguration.AlertSound {
-        if self == .hailing {
-            return .named("Hailing-Snooze.caf")
+        switch self {
+        case .hailing:
+            return .named("Hailing.caf")
+        case .attention:
+            return .named("Attention.caf")
+        default:
+            return self.alertSound
         }
-        
-        return self.alertSound
     }
     
     private static var customSoundDir: URL {
