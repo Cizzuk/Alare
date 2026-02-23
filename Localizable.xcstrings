@@ -111,6 +111,16 @@
         }
       }
     },
+    "Drum Roll" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画面を連打"
+          }
+        }
+      }
+    },
     "Hailing" : {
       "localizations" : {
         "ja" : {
@@ -230,6 +240,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "繰り返し"
+          }
+        }
+      }
+    },
+    "Scan Code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードをスキャン"
           }
         }
       }
@@ -373,6 +393,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "バージョン"
+          }
+        }
+      }
+    },
+    "Wave Device" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスを振る"
           }
         }
       }
