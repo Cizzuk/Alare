@@ -43,6 +43,7 @@ final class AlarmSupport: ObservableObject {
         if AlarmManager.shared.authorizationState == .denied {
             settings.isEnabled = false
             register.cancelMainAlarm()
+            register.killAlarm()
             return true
         }
         
