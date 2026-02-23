@@ -49,14 +49,14 @@ struct WeekdaysView: View {
                 Button(action: { toggle(weekday) }) {
                     ZStack {
                         Circle()
-                            .fill(isOn ? Color.accent : .clear)
-                            .stroke(Color.accent, lineWidth: 1.5)
+                            .fill(isOn ? .dropblue : .clear)
+                            .stroke(.dropblue, lineWidth: 1.5)
                         
                         Text(shortSymbol[index])
                             .accessibilityLabel(symbol[index])
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(isOn ? .white : Color.accentColor)
+                            .font(.default)
+                            .fontWeight(isOn ? .semibold : .regular)
+                            .foregroundStyle(isOn ? .white : .primary)
                     }
                     .frame(width: 32, height: 32)
                 }
