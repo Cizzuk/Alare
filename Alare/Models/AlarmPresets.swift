@@ -5,6 +5,7 @@
 //  Created by Cizzuk on 2026/02/20.
 //
 
+import ActivityKit
 import AlarmKit
 import AppIntents
 import SwiftUI
@@ -29,7 +30,8 @@ final class AlarmPresets {
             schedule: schedule,
             attributes: Self.attributes,
             stopIntent: OpenAppIntent(uuid: uuidString),
-            secondaryIntent: SnoozeIntent(uuid: uuidString)
+            secondaryIntent: SnoozeIntent(uuid: uuidString),
+            sound: .default
         )
     }
 }
