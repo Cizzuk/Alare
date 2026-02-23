@@ -54,6 +54,7 @@ struct MainView: View {
                             .labelsHidden()
                     }
                     .foregroundStyle(.primary)
+                    .padding(.top, 50)
                 } footer: {
                     VStack {
                         DatePicker("Time", selection: $vm.timeSelection, displayedComponents: .hourAndMinute)
@@ -136,7 +137,6 @@ struct MainView: View {
                 #endif
                 
             } // List
-            .toolbarBackground(.visible, for: .navigationBar)
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
             .scrollContentBackground(.hidden)
