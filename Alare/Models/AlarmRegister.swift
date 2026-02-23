@@ -19,8 +19,8 @@ final class AlarmRegister: ObservableObject {
     
     @Published private(set) var registereds: RegisteredAlarms = {
         if let rawData = userDefaults.data(forKey: RegisteredAlarms.userDefaultsKey) {
-            if let alarmData = try? JSONDecoder().decode(RegisteredAlarms.self, from: rawData) {
-                return alarmData
+            if let data = try? JSONDecoder().decode(RegisteredAlarms.self, from: rawData) {
+                return data
             }
         }
         return RegisteredAlarms()
