@@ -119,7 +119,7 @@ final class AlarmSupport: ObservableObject {
         let alarmItem = AlarmItem(
             uuid: uuid,
             schedule: schedule,
-            title: "Snooze \(register.registereds.snoozeCount)",
+            title: "Snooze \(register.registereds.snoozeCount + 1)",
             sound: settings.sound
         )
         
