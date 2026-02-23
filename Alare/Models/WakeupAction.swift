@@ -1,5 +1,5 @@
 //
-//  StopAction.swift
+//  WakeupAction.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/19.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StopAction: String, CaseIterable, Codable {
+enum WakeupAction: String, CaseIterable, Codable {
     case waveDevice
     case scanCode
     case drumRoll
