@@ -42,27 +42,30 @@ struct WeekdaysView: View {
     }
 
     var body: some View {
-        HStack(spacing: 15) {
-            ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
-                let isOn = repeats.contains(weekday)
-                
-                Button(action: { toggle(weekday) }) {
-                    ZStack {
-                        Circle()
-                            .fill(isOn ? .dropblue : .clear)
-                            .stroke(isOn ? .dropblue : .secondary, lineWidth: 1.5)
-                        
-                        Text(shortSymbol[index])
-                            .accessibilityLabel(symbol[index])
-                            .fontWeight(.semibold)
-                            .foregroundStyle(isOn ? .white : .secondary)
-                    }
+        ZStack {
+            HStack(spacing: 10) {
+                ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
+                    let isOn = repeats.contains(weekday)
                     
+                    Button(action: { toggle(weekday) }) {
+                        ZStack {
+                            Circle()
+                                .fill(isOn ? .dropblue : .clear)
+                                .stroke(isOn ? .dropblue : .secondary, lineWidth: 1.5)
+                            
+                            Text(shortSymbol[index])
+                                .accessibilityLabel(symbol[index])
+                                .fontWeight(.semibold)
+                                .foregroundStyle(isOn ? .white : .secondary)
+                        }
+                        
+                    }
+                    .accessibilityAddTraits(isOn ? [.isToggle, .isSelected] : [.isToggle])
+                    .buttonStyle(.plain)
                 }
-                .accessibilityAddTraits(isOn ? [.isToggle, .isSelected] : [.isToggle])
-                .buttonStyle(.plain)
             }
+            .frame(maxWidth: 400, alignment: .center)
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
