@@ -100,13 +100,30 @@ final class AlarmSupport: ObservableObject {
             Alarm.Schedule.Relative(time: time, repeats: repeats)
         )
         
-        let item = AlarmItem(uuid: uuid, schedule: schedule)
-        await register.scheduleMainAlarm(item: item)
+        let item = AlarmItem(
+            uuid: uuid,
+            schedule: schedule,
+            title: "Alarm",
+            sound: settings.sound
+        )
+        await register.pushMainAlarm(item: item)
     }
     
     func snooze() async {
-        let interval = settings.snoozeInterval
-        await register.scheduleSnooze(interval: interval)
+        let uuid = UUID()
+        
+        let interval = TimeInterval(settings.snoozeInterval * 60)
+        let date = Date().addingTimeInterval(interval)
+        let schedule = Alarm.Schedule.fixed(date)
+        
+        let alarmItem = AlarmItem(
+            uuid: uuid,
+            schedule: schedule,
+            title: "Snooze \(register.registereds.snoozeCount)",
+            sound: settings.sound
+        )
+        
+        await register.pushSnooze(item: alarmItem)
     }
     
     // Stop the alarms completely
