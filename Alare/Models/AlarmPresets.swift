@@ -41,7 +41,7 @@ final class AlarmPresets {
 
 extension AlarmButton {
     static var snoozeButton: Self {
-        AlarmButton(text: "Snooze", textColor: .white, systemImageName: "bed.double.fill")
+        AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz")
     }
     
     static var stopWithAction: Self {

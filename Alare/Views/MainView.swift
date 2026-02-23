@@ -21,10 +21,13 @@ struct MainView: View {
         NavigationStack {
             List {
                 if register.registereds.nextSnooze != nil {
-                    Section("You are currently snoozing!") {
+                    Section {
                         Button(action: { vm.killAlarm() }) {
-                            Label("Stop the alarm completely", systemImage: "stop.circle")
+                            Label("Stop with Wake up Action", systemImage: "stop.circle")
                         }
+                    } header: {
+                        Label("Alarm is Snoozing", systemImage: "zzz")
+                            .foregroundStyle(.primary)
                     }
                 }
                 
