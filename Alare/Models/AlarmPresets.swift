@@ -13,26 +13,28 @@ import SwiftUI
 final class AlarmPresets {
     typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
     
-    static let content = AlarmPresentation.Alert(
-        title: "Alarm",
-        secondaryButton: .snoozeButton,
-        secondaryButtonBehavior: .custom
-    )
-    
-    static let attributes = AlarmAttributes<AlarmSettings>(
-        presentation: AlarmPresentation(alert: content),
-        tintColor: .accent
-    )
-    
     static func makeConfiguration(
         uuid: UUID,
         schedule: Alarm.Schedule,
+        title: LocalizedStringResource = "Alarm",
         sound: AlertConfiguration.AlertSound = .default
     ) -> AlarmConfiguration {
+        
+        let content = AlarmPresentation.Alert(
+            title: title,
+            secondaryButton: .snoozeButton,
+            secondaryButtonBehavior: .custom
+        )
+        
+        let attributes = AlarmAttributes<AlarmSettings>(
+            presentation: AlarmPresentation(alert: content),
+            tintColor: .accent
+        )
+        
         let uuidString = uuid.uuidString
         return AlarmConfiguration(
             schedule: schedule,
-            attributes: Self.attributes,
+            attributes: attributes,
             stopIntent: OpenAppIntent(uuid: uuidString),
             secondaryIntent: SnoozeIntent(uuid: uuidString),
             sound: sound

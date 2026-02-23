@@ -234,6 +234,16 @@
         }
       }
     },
+    "Snooze %lld" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スヌーズ%lld回目"
+          }
+        }
+      }
+    },
     "Snooze Duration" : {
       "localizations" : {
         "ja" : {

@@ -42,7 +42,11 @@ final class AlarmRegister: ObservableObject {
         let schedule = item.schedule
         registereds.mainAlarm = item
         
-        let configuration = AlarmPresets.makeConfiguration(uuid: uuid, schedule: schedule)
+        let configuration = AlarmPresets.makeConfiguration(
+            uuid: uuid,
+            schedule: schedule
+        )
+        
         try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
         print("Main alarm scheduled: \(uuid) with schedule: \(schedule)")
     }
@@ -67,7 +71,12 @@ final class AlarmRegister: ObservableObject {
         registereds.snoozeCount += 1
         registereds.nextSnooze = AlarmItem(uuid: uuid, schedule: schedule)
         
-        let configuration = AlarmPresets.makeConfiguration(uuid: uuid, schedule: schedule)
+        let configuration = AlarmPresets.makeConfiguration(
+            uuid: uuid,
+            schedule: schedule,
+            title: "Snooze \(registereds.snoozeCount)"
+        )
+        
         try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
         print("Snooze scheduled: \(uuid) at \(date)")
     }
@@ -127,7 +136,8 @@ final class AlarmRegister: ObservableObject {
                 uuid: nextSnooze.uuid,
                 configuration: AlarmPresets.makeConfiguration(
                     uuid: nextSnooze.uuid,
-                    schedule: nextSnooze.schedule
+                    schedule: nextSnooze.schedule,
+                    title: "Snooze \(registereds.snoozeCount)"
                 )
             )
             print("Snooze alarm missing from system, rescheduled: \(nextSnooze.uuid)")
