@@ -27,4 +27,17 @@ enum WakeupAction: String, CaseIterable, Codable {
             return "Tap Button"
         }
     }
+    
+    var systemImage: String {
+        switch self {
+        case .waveDevice:
+            return "flag.pattern.checkered.2.crossed"
+        case .scanCode:
+            return "qrcode.viewfinder"
+        case .drumRoll:
+            return "hand.tap"
+        case .tapButton:
+            return "button.horizontal.top.press"
+        }
+    }
 }
