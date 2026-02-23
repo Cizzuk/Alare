@@ -82,6 +82,7 @@ class MainViewModel: ObservableObject {
                 await support.validate()
                 syncDraft()
             }
+            isReturnFromBackground = false
         case .inactive:
             break
         case .background:
