@@ -70,7 +70,6 @@ struct MainView: View {
                         }
                     }
                 }
-                .animation(.default, value: vm.draft.sound)
                 
                 Section {
                     NavigationLink(destination: AboutView()) {
@@ -113,6 +112,7 @@ struct MainView: View {
             } // List
             .navigationTitle("Alare")
             .animation(.default, value: register.registereds.nextSnooze != nil)
+            .animation(.default, value: vm.draft.sound)
         } // NavigationStack
         .fileImporter(
             isPresented: $showCustomSoundImporter,
