@@ -29,13 +29,21 @@ enum AlarmSound: String, CaseIterable, Codable {
     var alertSound: AlertConfiguration.AlertSound {
         switch self {
         case .hailing:
-            return .default
+            return .named("Hailing.caf")
         case .sysDefault:
             return .default
         case .custom:
             guard let soundURL = Self.customSoundFileURL() else { return .default }
             return .named("CustomSound/\(soundURL.lastPathComponent)")
         }
+    }
+    
+    var alertSoundSnooze: AlertConfiguration.AlertSound {
+        if self == .hailing {
+            return .named("Hailing-Snooze.caf")
+        }
+        
+        return self.alertSound
     }
     
     private static var customSoundDir: URL {

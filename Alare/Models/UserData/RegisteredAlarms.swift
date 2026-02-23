@@ -19,6 +19,7 @@ struct RegisteredAlarms: Codable {
 struct AlarmItem: Codable {
     var uuid: UUID
     var schedule: Alarm.Schedule
-    var title: String.LocalizationValue?
-    var sound: AlarmSound?
+    var title: String.LocalizationValue
+    var sound: AlarmSound
+    var isSnooze: Bool = false
 }

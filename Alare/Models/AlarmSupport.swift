@@ -103,7 +103,8 @@ final class AlarmSupport: ObservableObject {
             uuid: uuid,
             schedule: schedule,
             title: "Alarm",
-            sound: settings.sound
+            sound: settings.sound,
+            isSnooze: false
         )
         await register.pushMainAlarm(item: item)
     }
@@ -119,7 +120,8 @@ final class AlarmSupport: ObservableObject {
             uuid: uuid,
             schedule: schedule,
             title: "Snooze \(register.registereds.snoozeCount + 1)",
-            sound: settings.sound
+            sound: settings.sound,
+            isSnooze: true
         )
         
         await register.pushSnooze(item: alarmItem)

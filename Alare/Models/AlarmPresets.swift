@@ -15,8 +15,8 @@ final class AlarmPresets {
     
     static func makeConfiguration(item: AlarmItem) -> AlarmConfiguration {
         let uuidString = item.uuid.uuidString
-        let titleLocalized = item.title ?? "Alarm"
-        let alertSound = item.sound?.alertSound ?? AlarmSound.default.alertSound
+        let titleLocalized = item.title
+        let alertSound = item.isSnooze ? item.sound.alertSoundSnooze : item.sound.alertSound
         
         let content = AlarmPresentation.Alert(
             title: LocalizedStringResource(titleLocalized),
