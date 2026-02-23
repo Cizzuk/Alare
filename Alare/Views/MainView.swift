@@ -41,7 +41,6 @@ struct MainView: View {
                             .disabled(AlarmManager.shared.authorizationState == .denied)
                             .labelsHidden()
                     }
-                    .padding(.top, 50)
                     .foregroundStyle(.primary)
                 } footer: {
                     VStack {
@@ -53,7 +52,7 @@ struct MainView: View {
                             Text("Alarm permission is not granted. Please enable it in Settings to use the Alare.")
                         }
                     }
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 30)
                 }
                 
                 Section("Repeat") {
@@ -124,6 +123,7 @@ struct MainView: View {
                 #endif
                 
             } // List
+            .toolbarBackground(.visible, for: .navigationBar)
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
             .scrollContentBackground(.hidden)
