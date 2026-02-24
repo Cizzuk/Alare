@@ -55,10 +55,15 @@ struct MainView: View {
                             .foregroundStyle(.primary)
                     } footer: {
                         Button(action: { vm.killAlarm() }) {
-                            Label("Stop with Wake-up Action", systemImage: "stop.circle")
-                                .frame(maxWidth: .infinity)
-                                .bold()
-                                .padding(10)
+                            HStack(alignment: .center, spacing: 10) {
+                                Image("bolt.alare")
+                                    .font(.title)
+                                Text("Stop with Wake-up Action")
+                                    .bold()
+                                    .padding(.vertical, 10)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, 10)
                         }
                         .buttonStyle(.glassProminent)
                         .tint(.dropblue)
