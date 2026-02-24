@@ -72,7 +72,7 @@ struct MainView: View {
                 }
                 
                 NavigationLink(destination: WakeupActionSettingsView()) {
-                    Label("Wake-up Action", systemImage: "bold.fill")
+                    Label("Wake-up Action", systemImage: "bolt.fill")
                         .foregroundColor(.primary)
                 }
                 
