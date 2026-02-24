@@ -104,6 +104,7 @@ struct WakeupActionSettingsView: View {
                     }
                     
                     Toggle("Use This Action", isOn: $isSelected)
+                        .disabled(action == .default && isSelected)
                         .onAppear {
                             isSelected = manager.settings.selected == action
                         }
