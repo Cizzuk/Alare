@@ -60,21 +60,16 @@ struct DrumRollWakeupActionExecutionView: View {
     }
 
     var body: some View {
-        LazyVStack(spacing: 50) {
-            Text("Drum Roll!")
+        VStack(spacing: 50) {
+            Text("Drum Roll the Screen to Wake Up!")
                 .font(.largeTitle)
                 .bold()
             Text("\(tapsRequired - taps) remaining")
                 .font(.title.monospacedDigit())
                 .foregroundStyle(.secondary)
-            Spacer(minLength: 100)
-            Circle()
-                .fill(.dropblue)
-                .glassEffect()
-                .frame(width: 150, height: 150)
-                .onTapGesture { addTap() }
-                .accessibilityAddTraits(.isButton)
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onTapGesture { addTap() }
     }
 }
