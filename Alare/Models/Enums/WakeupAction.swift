@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WakeupAction: String, CaseIterable, Codable {
+enum WakeupAction: String, CaseIterable, Codable, Identifiable {
     case waveDevice
     case scanCode
     case drumRoll
@@ -15,6 +15,10 @@ enum WakeupAction: String, CaseIterable, Codable {
     
     static let `default` = tapButton
     
+    var id: String { rawValue }
+}
+
+extension WakeupAction {
     var displayName: LocalizedStringResource {
         switch self {
         case .waveDevice:
