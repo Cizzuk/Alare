@@ -13,24 +13,34 @@
       "shouldTranslate" : false
     },
     "%lld" : {
-
+      "shouldTranslate" : false
     },
     "%lld min" : {
-
-    },
-    "%lld remaining" : {
-
-    },
-    "%lld Taps" : {
-
-    },
-    "%lldm" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld分"
+          }
+        }
+      }
+    },
+    "%lld remaining" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "のこり%lld回"
+          }
+        }
+      }
+    },
+    "%lld Taps" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lldタップ"
           }
         }
       }
@@ -109,7 +119,14 @@
       }
     },
     "Cancel" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
+          }
+        }
+      }
     },
     "Change App Icon" : {
       "localizations" : {
@@ -138,7 +155,14 @@
       }
     },
     "Code" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コード"
+          }
+        }
+      }
     },
     "Contact" : {
       "localizations" : {
@@ -191,10 +215,24 @@
       }
     },
     "Drum Roll!" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画面を連打！"
+          }
+        }
+      }
     },
     "Good Morning" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "おはようございます"
+          }
+        }
+      }
     },
     "Hailing" : {
       "localizations" : {
@@ -227,7 +265,14 @@
       }
     },
     "I'm Awake!" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床を確認"
+          }
+        }
+      }
     },
     "If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake-up Action." : {
       "localizations" : {
@@ -353,7 +398,14 @@
       }
     },
     "Required Taps" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "必要なタップ数"
+          }
+        }
+      }
     },
     "Scan Code" : {
       "localizations" : {
@@ -456,15 +508,11 @@
       }
     },
     "Stop the Alarm" : {
-
-    },
-    "Stop with Wake-up Action" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "起床アクションをして止める"
+            "value" : "アラームを止める"
           }
         }
       }
