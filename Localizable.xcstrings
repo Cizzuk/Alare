@@ -30,7 +30,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "のこり%lld回"
+            "value" : "あと%lld回"
           }
         }
       }
@@ -204,22 +204,22 @@
         }
       }
     },
+    "Drum Roll the Screen to Wake Up!" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画面を連打してアラームを解除"
+          }
+        }
+      }
+    },
     "Drum roll your fingers on the screen." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "画面をドラムロールするように何度もタップ。"
-          }
-        }
-      }
-    },
-    "Drum Roll!" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "画面を連打！"
           }
         }
       }
