@@ -98,7 +98,11 @@ class MainViewModel: ObservableObject {
     func completeWakeupAction() {
         killAlarm()
         doingWakeupAction = nil
-        HapticManager.shared.playHaptics(.success)
+        if waManager.settings.relaxationMode {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        } else {
+            HapticManager.shared.playHaptics(.success)
+        }
     }
     
     func killAlarm() {
