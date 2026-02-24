@@ -10,6 +10,9 @@ import SwiftUI
 
 class MainViewModel: ObservableObject {
     @ObservationIgnored private var support = AlarmSupport.shared
+    @ObservationIgnored private var waManager = WakeupActionManager.shared
+    
+    @Published var doingWakeupAction: WakeupAction? = nil
     
     @Published var draft: AlarmSettings = AlarmSupport.shared.settings {
         didSet {
@@ -84,11 +87,24 @@ class MainViewModel: ObservableObject {
         timeSelection = date
     }
     
+    func startWakeupAction() {
+        if waManager.settings.relaxationMode {
+            completeWakeupAction()
+        } else {
+            doingWakeupAction = waManager.settings.selected
+        }
+    }
+    
+    func completeWakeupAction() {
+        killAlarm()
+        doingWakeupAction = nil
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
+    
     func killAlarm() {
         Task {
             await support.kill()
             syncDraft()
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
     

@@ -12,6 +12,15 @@
       },
       "shouldTranslate" : false
     },
+    "%lld" : {
+
+    },
+    "%lld remaining" : {
+
+    },
+    "%lld Taps" : {
+
+    },
     "%lldm" : {
       "localizations" : {
         "ja" : {
@@ -95,6 +104,9 @@
         }
       }
     },
+    "Cancel" : {
+
+    },
     "Change App Icon" : {
       "localizations" : {
         "ja" : {
@@ -120,6 +132,9 @@
           }
         }
       }
+    },
+    "Code" : {
+
     },
     "Contact" : {
       "localizations" : {
@@ -171,6 +186,12 @@
         }
       }
     },
+    "Drum Roll!" : {
+
+    },
+    "Good Morning" : {
+
+    },
     "Hailing" : {
       "localizations" : {
         "ja" : {
@@ -200,6 +221,9 @@
           }
         }
       }
+    },
+    "I'm Awake!" : {
+
     },
     "If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake-up Action." : {
       "localizations" : {
@@ -324,6 +348,9 @@
         }
       }
     },
+    "Required Taps" : {
+
+    },
     "Scan Code" : {
       "localizations" : {
         "ja" : {
@@ -424,7 +451,11 @@
         }
       }
     },
+    "Stop the Alarm" : {
+
+    },
     "Stop with Wake-up Action" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {

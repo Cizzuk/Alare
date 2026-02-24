@@ -60,14 +60,21 @@ struct MainView: View {
                 // Wake-up Action Button
                 if register.registereds.nextSnooze != nil {
                     Section {} header: {
-                        Label("Alarm is Snoozing", systemImage: "zzz")
-                            .foregroundStyle(.primary)
+                        HStack {
+                            Label("Alarm is Snoozing", systemImage: "zzz")
+                                .foregroundStyle(.primary)
+                            if waManager.settings.relaxationMode {
+                                Spacer()
+                                Text("Relaxation Mode")
+                                    .font(.footnote)
+                            }
+                        }
                     } footer: {
-                        Button(action: { vm.killAlarm() }) {
+                        Button(action: { vm.startWakeupAction() }) {
                             HStack(alignment: .center, spacing: 10) {
                                 Image("bolt.alare")
                                     .font(.title)
-                                Text("Stop with Wake-up Action")
+                                Text("Stop the Alarm")
                                     .bold()
                                     .padding(.vertical, 10)
                             }
@@ -181,6 +188,13 @@ struct MainView: View {
             allowsMultipleSelection: false
         ) { result in
             vm.importCustomSound(result)
+        }
+        .fullScreenCover(item: $vm.doingWakeupAction) { action in
+            WakeupActionExecutionView(action: action) {
+                vm.completeWakeupAction()
+            } onCancel: {
+                vm.doingWakeupAction = nil
+            }
         }
         // MARK: - Events
         .onAppear { vm.onAppear() }

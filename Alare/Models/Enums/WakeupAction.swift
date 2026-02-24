@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum WakeupAction: String, CaseIterable, Codable, Identifiable {
     case waveDevice
@@ -57,13 +58,46 @@ extension WakeupAction {
             return "Just tap the button once."
         }
     }
-    
-    var isAvailable: Bool {
+
+    func isAvailable(settings: WakeupActionSettings) -> Bool {
         switch self {
-        case .waveDevice, .scanCode:
+        case .waveDevice:
             return false
+        case .scanCode:
+            return false
+            // TODO: Add checker for camera permission
+//            return settings.scanCode_code != nil
         case .drumRoll, .tapButton:
             return true
         }
     }
+
+    @ViewBuilder
+    func settingsView(manager: WakeupActionManager) -> some View {
+        switch self {
+        case .waveDevice:
+            EmptyView()
+        case .scanCode:
+            ScanCodeWakeupActionSettingsView(manager: manager)
+        case .drumRoll:
+            DrumRollWakeupActionSettingsView(manager: manager)
+        case .tapButton:
+            EmptyView()
+        }
+    }
+
+    @ViewBuilder
+    func executionView(vm: WakeupActionExecutionViewModel) -> some View {
+        switch self {
+        case .waveDevice:
+            WaveDeviceWakeupActionExecutionView(vm: vm)
+        case .scanCode:
+            ScanCodeWakeupActionExecutionView(vm: vm)
+        case .drumRoll:
+            DrumRollWakeupActionExecutionView(vm: vm)
+        case .tapButton:
+            TapButtonWakeupActionExecutionView(vm: vm)
+        }
+    }
+    
 }

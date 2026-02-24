@@ -9,7 +9,6 @@ import SwiftUI
 
 struct WakeupActionSettingsView: View {
     @StateObject private var manager = WakeupActionManager.shared
-    @StateObject private var vm = WakeupActionSettingsViewModel()
     
     var body: some View {
         NavigationStack {
@@ -81,6 +80,7 @@ struct WakeupActionSettingsView: View {
         var action: WakeupAction
         
         @StateObject private var manager = WakeupActionManager.shared
+        @State private var isTrying: Bool = false
         @State private var isSelected: Bool = false
         
         var body: some View {
@@ -105,7 +105,7 @@ struct WakeupActionSettingsView: View {
                     
                     Toggle("Use This Action", isOn: $isSelected)
                         .disabled(action == .default && isSelected)
-                        .disabled(!action.isAvailable && !isSelected)
+                        .disabled(!action.isAvailable(settings: manager.settings) && !isSelected)
                         .onAppear {
                             isSelected = manager.settings.selected == action
                         }
@@ -118,14 +118,27 @@ struct WakeupActionSettingsView: View {
                         }
                 }
                 
-                Button(action: {}) {
-                    Label("Try This Action", systemImage: "play.circle")
+                Section {
+                    Button(action: { isTrying = true }) {
+                        Label("Try This Action", systemImage: "play.circle")
+                    }
+                    .disabled(!action.isAvailable(settings: manager.settings))
+                    .foregroundStyle(action.isAvailable(settings: manager.settings) ? .accent : .secondary)
                 }
                 
-                // Action-specific settings can be added here
+                // Action Specific Settings
+                action.settingsView(manager: manager)
             }
             .navigationTitle(action.displayName)
             .toolbarTitleDisplayMode(.inline)
+            .fullScreenCover(isPresented: $isTrying) {
+                WakeupActionExecutionView(action: action) {
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    isTrying = false
+                } onCancel: {
+                    isTrying = false
+                }
+            }
         }
     }
 }
