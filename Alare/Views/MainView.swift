@@ -27,7 +27,6 @@ struct MainView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.largeTitle)
                             .bold()
-                            .lineLimit(1)
                             .accessibilityAddTraits(.isHeader)
                         Spacer()
                         Toggle("Turn on Alarm", isOn: $vm.draft.isEnabled)
