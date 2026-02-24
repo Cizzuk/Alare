@@ -12,4 +12,10 @@ struct WakeupActionSettings: Codable {
     
     var selected: WakeupAction = .default
     var relaxationMode: Bool = false
+    
+    // Scan Code Settings
+    var scanCode_code: String? // Required
+    
+    // Drum Roll Settings
+    var drumRoll_tapsRequired: Int = 50
 }
