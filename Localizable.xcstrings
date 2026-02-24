@@ -284,6 +284,16 @@
         }
       }
     },
+    "Relaxation Mode" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "緩和モード"
+          }
+        }
+      }
+    },
     "Repeat" : {
       "localizations" : {
         "ja" : {
@@ -513,6 +523,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アラームが鳴ると、画面に「スヌーズ」と「停止」ボタンが表示されます。"
+          }
+        }
+      }
+    },
+    "While Relaxation Mode is on, you can skip the Wake-up Action." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "緩和モードをオンにしている間は、起床アクションをスキップすることができます。"
           }
         }
       }
