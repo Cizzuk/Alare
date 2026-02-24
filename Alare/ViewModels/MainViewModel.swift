@@ -48,23 +48,9 @@ class MainViewModel: ObservableObject {
         return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: base) ?? base
     }
     
-    @Published var titleText: LocalizedStringResource = makeHelloMessage()
-    
-    private static func makeHelloMessage() -> LocalizedStringResource {
-        let hour = Calendar.current.component(.hour, from: Date())
-        switch hour {
-        case 4..<12: return "Good Morning"
-        case 12..<18: return "Good Afternoon"
-        case 18..<22: return "Good Evening"
-        case 22..<24, 0..<4: return "Good Night"
-        default: return "Hi"
-        }
-    }
-    
     // MARK: - Public Methods
     
     func onAppear() {
-        showHelloMessage()
         Task {
             await support.validate()
             syncDraft()
@@ -75,35 +61,16 @@ class MainViewModel: ObservableObject {
     func onChange(scenePhase: ScenePhase) {
         switch scenePhase {
         case .active:
-            if isReturnFromBackground {
-                showHelloMessage()
-            }
             Task {
                 await support.validate()
                 syncDraft()
             }
-            isReturnFromBackground = false
         case .inactive:
             break
         case .background:
-            isReturnFromBackground = true
             break
         @unknown default:
             break
-        }
-    }
-    
-    func showHelloMessage() {
-        let message = Self.makeHelloMessage()
-        DispatchQueue.main.async() {
-            withAnimation {
-                self.titleText = message
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                withAnimation {
-                    self.titleText = "Alare"
-                }
-            }
         }
     }
     

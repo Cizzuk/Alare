@@ -23,12 +23,12 @@ struct MainView: View {
                 // Header and Time
                 Section {} header: {
                     HStack {
-                        Text(vm.titleText)
+                        Text("Alare")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.largeTitle)
                             .bold()
+                            .lineLimit(1)
                             .accessibilityAddTraits(.isHeader)
-                            .accessibilityLabel("Alare")
                         Spacer()
                         Toggle("Turn on Alarm", isOn: $vm.draft.isEnabled)
                             .disabled(AlarmManager.shared.authorizationState == .denied)
