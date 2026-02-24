@@ -13,7 +13,7 @@
             {
                 "Time": 0.0,
                 "EventType": "AudioCustom",
-                "EventWaveformPath": "Sounds/Success.m4a",
+                "EventWaveformPath": "Success.m4a",
                 "EventParameters":
                 [
                     { "ParameterID": "AudioVolume", "ParameterValue": 1.0 }

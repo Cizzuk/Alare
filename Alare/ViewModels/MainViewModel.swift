@@ -5,6 +5,8 @@
 //  Created by Cizzuk on 2026/02/19.
 //
 
+import AVFoundation
+import CoreHaptics
 import Combine
 import SwiftUI
 
@@ -98,7 +100,7 @@ class MainViewModel: ObservableObject {
     func completeWakeupAction() {
         killAlarm()
         doingWakeupAction = nil
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        HapticManager.shared.playHaptics(.success)
     }
     
     func killAlarm() {
