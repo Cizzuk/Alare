@@ -5,8 +5,6 @@
 //  Created by Cizzuk on 2026/02/19.
 //
 
-import AVFoundation
-import CoreHaptics
 import Combine
 import SwiftUI
 
