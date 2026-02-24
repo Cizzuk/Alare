@@ -83,7 +83,7 @@ struct MainView: View {
                             .foregroundColor(.primary)
                         Spacer()
                         if waManager.settings.relaxationMode {
-                            Text("Relaxation Mode")
+                            Text("Relaxation")
                                 .foregroundColor(.secondary)
                         } else {
                             Text(waManager.settings.selected.displayName)

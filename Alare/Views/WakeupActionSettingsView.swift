@@ -33,7 +33,7 @@ struct WakeupActionSettingsView: View {
                 
                 Section("Actions") {
                     ForEach(WakeupAction.allCases, id: \.self) { action in
-                        NavigationLink(destination: EmptyView()) {
+                        NavigationLink(destination: ActionSettingsView(action: action)) {
                             HStack(spacing: 15) {
                                 Image(systemName: action.systemImage)
                                     .font(.title)
@@ -73,5 +73,57 @@ struct WakeupActionSettingsView: View {
             .navigationTitle("Wake-up Action")
             .toolbarTitleDisplayMode(.inline)
         } // NavigationStack
+    }
+    
+    // MARK: - Action Settings View
+    
+    struct ActionSettingsView: View {
+        var action: WakeupAction
+        
+        @StateObject private var manager = WakeupActionManager.shared
+        @State private var isSelected: Bool = false
+        
+        var body: some View {
+            List {
+                Section {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Image(systemName: action.systemImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: 50, maxHeight: 50)
+                            .accessibilityHidden(true)
+                            .padding(5)
+                            .padding(.bottom, 10)
+                            .foregroundStyle(.accent)
+                        Text(action.displayName)
+                            .font(.title2)
+                            .bold()
+                            .accessibilityAddTraits(.isHeader)
+                        Text(action.actionDescription)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    Toggle("Use This Action", isOn: $isSelected)
+                        .onAppear {
+                            isSelected = manager.settings.selected == action
+                        }
+                        .onChange(of: isSelected) {
+                            if isSelected {
+                                manager.settings.selected = action
+                            } else {
+                                manager.settings.selected = .default
+                            }
+                        }
+                }
+                
+                Button(action: {}) {
+                    Label("Try This Action", systemImage: "play.circle")
+                }
+                
+                // Action-specific settings can be added here
+            }
+            .navigationTitle(action.displayName)
+            .toolbarTitleDisplayMode(.inline)
+        }
     }
 }

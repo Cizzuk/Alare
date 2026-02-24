@@ -284,6 +284,16 @@
         }
       }
     },
+    "Relaxation" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "緩和モード"
+          }
+        }
+      }
+    },
     "Relaxation Mode" : {
       "localizations" : {
         "ja" : {
@@ -454,12 +464,32 @@
         }
       }
     },
+    "Try This Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このアクションを試す"
+          }
+        }
+      }
+    },
     "Turn on Alarm" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "アラームをオンにする"
+          }
+        }
+      }
+    },
+    "Use This Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このアクションを使用する"
           }
         }
       }
