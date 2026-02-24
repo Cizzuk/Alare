@@ -48,14 +48,14 @@ struct MainView: View {
                     .padding(.bottom, 15)
                 }
                 
-                // Wake up Action Button
+                // Wake-up Action Button
                 if register.registereds.nextSnooze != nil {
                     Section {} header: {
                         Label("Alarm is Snoozing", systemImage: "zzz")
                             .foregroundStyle(.primary)
                     } footer: {
                         Button(action: { vm.killAlarm() }) {
-                            Label("Stop with Wake up Action", systemImage: "stop.circle")
+                            Label("Stop with Wake-up Action", systemImage: "stop.circle")
                                 .frame(maxWidth: .infinity)
                                 .bold()
                                 .padding(10)
@@ -69,6 +69,11 @@ struct MainView: View {
                 
                 Section("Repeat") {
                     WeekdaysView(repeats: $vm.draft.repeats)
+                }
+                
+                NavigationLink(destination: WakeupActionSettingsView()) {
+                    Label("Wake-up Action", systemImage: "wake")
+                        .foregroundColor(.primary)
                 }
                 
                 Section("Options") {
@@ -119,7 +124,7 @@ struct MainView: View {
                     Text("Set the time and repeat settings, and then turn on the alarm.")
                     Text("When the alarm rings, Snooze and Stop buttons will appear on the screen.")
                     Text("However, regardless of which you select, it will be forced into snooze mode.")
-                    Text("If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake up Action.")
+                    Text("If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake-up Action.")
                 } header: { Label("What is this", systemImage: "questionmark.circle") }
                 Section {
                     Text("Its operation may be unstable, and settings may not be carried over to future versions.")

@@ -35,6 +35,16 @@
     "Alare" : {
       "shouldTranslate" : false
     },
+    "Alare's alarm will continue to snooze until you perform a Wake-up Action. To prevent oversleeping, select an action in advance that you believe will wake you up." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームは、起床アクションを行わない限りスヌーズし続けます。目が覚めると思うアクションをあらかじめ選択して、寝坊を防止しましょう。"
+          }
+        }
+      }
+    },
     "Alarm" : {
       "localizations" : {
         "ja" : {
@@ -171,7 +181,7 @@
         }
       }
     },
-    "If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake up Action." : {
+    "If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake-up Action." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -334,7 +344,7 @@
         }
       }
     },
-    "Stop with Wake up Action" : {
+    "Stop with Wake-up Action" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -403,6 +413,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "バージョン"
+          }
+        }
+      }
+    },
+    "Wake-up Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクション"
           }
         }
       }
