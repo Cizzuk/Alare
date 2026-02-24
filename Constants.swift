@@ -6,5 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 let userDefaults = UserDefaults(suiteName: "group.net.cizzuk.alare")!
+
+let NightGradient = LinearGradient(
+    gradient: Gradient(colors: [.dropblue.opacity(0.2), .black]),
+    startPoint: .top,
+    endPoint: .bottom
+)

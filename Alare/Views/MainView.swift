@@ -181,14 +181,7 @@ struct MainView: View {
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
             .scrollContentBackground(.hidden)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors: [.dropblue.opacity(0.2), .black]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
-            )
+            .background(NightGradient.ignoresSafeArea())
         } // NavigationStack
         .fileImporter(
             isPresented: $showCustomSoundImporter,

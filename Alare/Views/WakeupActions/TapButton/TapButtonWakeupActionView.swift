@@ -27,5 +27,7 @@ struct TapButtonWakeupActionExecutionView: View {
             .buttonStyle(.glassProminent)
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(NightGradient.ignoresSafeArea())
     }
 }

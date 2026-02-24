@@ -70,6 +70,7 @@ struct DrumRollWakeupActionExecutionView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(NightGradient.ignoresSafeArea())
         .onTapGesture { addTap() }
     }
 }
