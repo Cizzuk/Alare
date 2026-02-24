@@ -31,13 +31,35 @@ enum WakeupAction: String, CaseIterable, Codable {
     var systemImage: String {
         switch self {
         case .waveDevice:
-            return "flag.pattern.checkered.2.crossed"
+            return "flag"
         case .scanCode:
             return "qrcode.viewfinder"
         case .drumRoll:
             return "hand.tap"
         case .tapButton:
-            return "button.horizontal.top.press"
+            return "button.programmable"
+        }
+    }
+    
+    var actionDescription: LocalizedStringResource {
+        switch self {
+        case .waveDevice:
+            return "Wave the device slowly and broadly like a flag."
+        case .scanCode:
+            return "Scan the code placed outside the bed."
+        case .drumRoll:
+            return "Drum roll your fingers on the screen."
+        case .tapButton:
+            return "Just tap the button once."
+        }
+    }
+    
+    var isAvailable: Bool {
+        switch self {
+        case .waveDevice, .scanCode:
+            return false
+        case .drumRoll, .tapButton:
+            return true
         }
     }
 }

@@ -32,6 +32,16 @@
         }
       }
     },
+    "Actions" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクション"
+          }
+        }
+      }
+    },
     "Alare" : {
       "shouldTranslate" : false
     },
@@ -151,6 +161,16 @@
         }
       }
     },
+    "Drum roll your fingers on the screen." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画面をドラムロールするように何度もタップ。"
+          }
+        }
+      }
+    },
     "Hailing" : {
       "localizations" : {
         "ja" : {
@@ -207,6 +227,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ベータ版は不安定で、設定は将来のバージョンに引き継がれない可能性があります。"
+          }
+        }
+      }
+    },
+    "Just tap the button once." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ボタンを一回タップするだけ。"
           }
         }
       }
@@ -270,6 +300,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "コードをスキャン"
+          }
+        }
+      }
+    },
+    "Scan the code placed outside the bed." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ベッドの外に置いたQRコードをスキャン。"
+          }
+        }
+      }
+    },
+    "Selected" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択中"
           }
         }
       }
@@ -433,6 +483,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デバイスを振る"
+          }
+        }
+      }
+    },
+    "Wave the device slowly and broadly like a flag." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旗を振るように、デバイスを大きくゆっくり振る。"
           }
         }
       }
