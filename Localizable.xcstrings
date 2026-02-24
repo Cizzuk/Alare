@@ -432,7 +432,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ベッドの外に置いたQRコードをスキャン。"
+            "value" : "ベッドの外に置いたコードをスキャン。"
           }
         }
       }
