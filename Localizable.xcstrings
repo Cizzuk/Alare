@@ -264,6 +264,16 @@
         }
       }
     },
+    "Open Settings..." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定を開く…"
+          }
+        }
+      }
+    },
     "Options" : {
       "localizations" : {
         "ja" : {

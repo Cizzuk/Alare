@@ -43,7 +43,15 @@ struct MainView: View {
                             .labelsHidden()
                             .frame(maxWidth: .infinity)
                         if AlarmManager.shared.authorizationState == .denied {
-                            Text("Alarm permission is not granted. Please enable it in Settings to use the Alare.")
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("Alarm permission is not granted. Please enable it in Settings to use the Alare.")
+                                if let url = URL(string: UIApplication.openSettingsURLString) {
+                                    Button(action: { UIApplication.shared.open(url) }) {
+                                        Text("Open Settings...")
+                                    }
+                                }
+                            }
+                            .font(.footnote)
                         }
                     }
                     .padding(.bottom, 15)
