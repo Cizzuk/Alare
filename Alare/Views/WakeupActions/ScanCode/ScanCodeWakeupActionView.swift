@@ -15,8 +15,13 @@ struct ScanCodeWakeupActionSettingsView: View {
             HStack {
                 Text("Code")
                 Spacer()
-                Text(manager.settings.scanCode_code ?? "Not Set")
-                    .foregroundStyle(.secondary)
+                if let code = manager.settings.scanCode_code {
+                    Text(code)
+                        .foregroundStyle(.secondary)
+                } else {
+                    Text("Not Set")
+                        .foregroundStyle(.secondary)
+                }
             }
         }
     }
