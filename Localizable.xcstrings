@@ -15,6 +15,9 @@
     "%lld" : {
 
     },
+    "%lld min" : {
+
+    },
     "%lld remaining" : {
 
     },
@@ -22,6 +25,7 @@
 
     },
     "%lldm" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {

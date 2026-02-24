@@ -17,6 +17,8 @@ struct MainView: View {
     @StateObject private var vm = MainViewModel()
     
     @State private var showCustomSoundImporter = false
+    @State private var showSnoozeIntervalPicker = false
+    private let snoozeIntervalList = Array(1...15)
 
     var body: some View {
         NavigationStack {
@@ -108,16 +110,22 @@ struct MainView: View {
                 }
                 
                 Section("Options") {
-                    Stepper(value: $vm.draft.snoozeInterval, in: 1...15) {
-                        HStack {
-                            Text("Snooze Duration")
-                            Spacer()
-                            Text("\(vm.draft.snoozeInterval)m")
+                    HStack {
+                        Text("Snooze Duration")
+                        Spacer()
+                        Button(action: { withAnimation { showSnoozeIntervalPicker.toggle() } }) {
+                            Text("\(vm.draft.snoozeInterval) min")
                                 .font(.default.monospacedDigit())
                         }
                     }
-                    .onChange(of: vm.draft.snoozeInterval) {
-                        UISelectionFeedbackGenerator().selectionChanged()
+                    
+                    if showSnoozeIntervalPicker {
+                        Picker("Snooze Duration", selection: $vm.draft.snoozeInterval) {
+                            ForEach(snoozeIntervalList, id: \.self) { interval in
+                                Text("\(interval) min").tag(interval)
+                            }
+                        }
+                        .pickerStyle(.wheel)
                     }
                     
                     Picker("Sound", selection: $vm.draft.sound) {
