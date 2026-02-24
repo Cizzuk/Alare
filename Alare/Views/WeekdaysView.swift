@@ -42,28 +42,30 @@ struct WeekdaysView: View {
     }
 
     var body: some View {
-        HStack(spacing: 12) {
-            ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
-                let isOn = repeats.contains(weekday)
-                
-                Button(action: { toggle(weekday) }) {
-                    ZStack {
-                        Circle()
-                            .fill(isOn ? Color.accent : .clear)
-                            .stroke(Color.accent, lineWidth: 1.5)
+        ZStack {
+            HStack(spacing: 15) {
+                ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
+                    let isOn = repeats.contains(weekday)
+                    
+                    Button(action: { toggle(weekday) }) {
+                        ZStack {
+                            Circle()
+                                .fill(isOn ? .dropblue : .clear)
+                                .stroke(isOn ? .dropblue : .secondary, lineWidth: 1.5)
+                            
+                            Text(shortSymbol[index])
+                                .accessibilityLabel(symbol[index])
+                                .fontWeight(.semibold)
+                                .foregroundStyle(isOn ? .white : .secondary)
+                        }
                         
-                        Text(shortSymbol[index])
-                            .accessibilityLabel(symbol[index])
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(isOn ? .white : Color.accentColor)
                     }
-                    .frame(width: 32, height: 32)
+                    .accessibilityAddTraits(isOn ? [.isToggle, .isSelected] : [.isToggle])
+                    .buttonStyle(.plain)
                 }
-                .accessibilityAddTraits(isOn ? [.isToggle, .isSelected] : [.isToggle])
-                .buttonStyle(.plain)
             }
+            .frame(maxWidth: 400, alignment: .center)
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }

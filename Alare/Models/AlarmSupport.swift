@@ -8,7 +8,6 @@
 import ActivityKit
 import AlarmKit
 import Combine
-import Foundation
 
 // Manages user settings and communication with AlarmRegister
 
@@ -18,16 +17,16 @@ final class AlarmSupport: ObservableObject {
     @ObservationIgnored private var register = AlarmRegister.shared
     
     @Published private(set) var settings: AlarmSettings = {
-        if let rawData = UserDefaults.standard.data(forKey: AlarmSettings.userDefaultsKey) {
-            if let alarmData = try? JSONDecoder().decode(AlarmSettings.self, from: rawData) {
-                return alarmData
+        if let rawData = userDefaults.data(forKey: AlarmSettings.userDefaultsKey) {
+            if let data = try? JSONDecoder().decode(AlarmSettings.self, from: rawData) {
+                return data
             }
         }
         return AlarmSettings()
     }() {
         didSet {
             if let data = try? JSONEncoder().encode(settings) {
-                UserDefaults.standard.set(data, forKey: AlarmSettings.userDefaultsKey)
+                userDefaults.set(data, forKey: AlarmSettings.userDefaultsKey)
             }
         }
     }
@@ -44,6 +43,8 @@ final class AlarmSupport: ObservableObject {
         if AlarmManager.shared.authorizationState == .denied {
             settings.isEnabled = false
             register.cancelMainAlarm()
+            register.killAlarm()
+            register.clearAllAlarmsFromSystem()
             return true
         }
         
@@ -100,13 +101,32 @@ final class AlarmSupport: ObservableObject {
             Alarm.Schedule.Relative(time: time, repeats: repeats)
         )
         
-        let item = AlarmItem(uuid: uuid, schedule: schedule)
-        await register.scheduleMainAlarm(item: item)
+        let item = AlarmItem(
+            uuid: uuid,
+            schedule: schedule,
+            title: "Alarm",
+            sound: settings.sound,
+            isSnooze: false
+        )
+        await register.pushMainAlarm(item: item)
     }
     
     func snooze() async {
-        let interval = settings.snoozeInterval
-        await register.scheduleSnooze(interval: interval)
+        let uuid = UUID()
+        
+        let interval = TimeInterval(settings.snoozeInterval * 60)
+        let date = Date().addingTimeInterval(interval)
+        let schedule = Alarm.Schedule.fixed(date)
+        
+        let alarmItem = AlarmItem(
+            uuid: uuid,
+            schedule: schedule,
+            title: "Snooze \(register.registereds.snoozeCount + 1)",
+            sound: settings.sound,
+            isSnooze: true
+        )
+        
+        await register.pushSnooze(item: alarmItem)
     }
     
     // Stop the alarms completely

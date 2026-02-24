@@ -1,0 +1,85 @@
+{
+    "Version": 1.0,
+    "Metadata":
+        {
+            "Project" : "Alare",
+            "Created" : "24 February 2026",
+            "Description" : "For Alare - Created by Cizzuk"
+        },
+    "Pattern":
+    [
+        {
+            "Event":
+            {
+                "Time": 0.0,
+                "EventType": "AudioCustom",
+                "EventWaveformPath": "Success.m4a",
+                "EventParameters":
+                [
+                    { "ParameterID": "AudioVolume", "ParameterValue": 1.0 }
+                ]
+            }
+        },
+        {
+            "Event":
+            {
+                "Time": 0.0,
+                "EventType": "HapticTransient",
+                "EventParameters":
+                [
+                    { "ParameterID": "HapticIntensity", "ParameterValue": 1.0 },
+                    { "ParameterID": "HapticSharpness", "ParameterValue": 0.6 }
+                ]
+            }
+        },
+        {
+            "Event":
+            {
+                "Time": 0.107,
+                "EventType": "HapticTransient",
+                "EventParameters":
+                [
+                    { "ParameterID": "HapticIntensity", "ParameterValue": 1.0 },
+                    { "ParameterID": "HapticSharpness", "ParameterValue": 0.6 }
+                ]
+            }
+        },
+        {
+            "Event":
+            {
+                "Time": 0.214,
+                "EventType": "HapticTransient",
+                "EventParameters":
+                [
+                    { "ParameterID": "HapticIntensity", "ParameterValue": 1.0 },
+                    { "ParameterID": "HapticSharpness", "ParameterValue": 1.0 }
+                ]
+            }
+        },
+        {
+            "Event":
+            {
+                "Time": 0.214,
+                "EventType": "HapticContinuous",
+                "EventDuration": 0.75,
+                "EventParameters":
+                [
+                    { "ParameterID": "HapticIntensity", "ParameterValue": 1.0 },
+                    { "ParameterID": "HapticSharpness", "ParameterValue": 0.4 }
+                ]
+            }
+        },
+        {
+            "ParameterCurve":
+            {
+                "ParameterID": "HapticIntensityControl",
+                "Time": 0.214,
+                "ParameterCurveControlPoints":
+                [
+                    { "Time": 0.0, "ParameterValue": 1.0 },
+                    { "Time": 0.75, "ParameterValue": 0.0 }
+                ]
+            }
+        }
+    ]
+}

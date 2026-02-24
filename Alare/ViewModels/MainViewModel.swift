@@ -10,6 +10,9 @@ import SwiftUI
 
 class MainViewModel: ObservableObject {
     @ObservationIgnored private var support = AlarmSupport.shared
+    @ObservationIgnored private var waManager = WakeupActionManager.shared
+    
+    @Published var doingWakeupAction: WakeupAction? = nil
     
     @Published var draft: AlarmSettings = AlarmSupport.shared.settings {
         didSet {
@@ -50,6 +53,14 @@ class MainViewModel: ObservableObject {
     
     // MARK: - Public Methods
     
+    func onAppear() {
+        Task {
+            await support.validate()
+            syncDraft()
+        }
+    }
+    
+    var isReturnFromBackground = false
     func onChange(scenePhase: ScenePhase) {
         switch scenePhase {
         case .active:
@@ -76,11 +87,43 @@ class MainViewModel: ObservableObject {
         timeSelection = date
     }
     
+    func startWakeupAction() {
+        if waManager.settings.relaxationMode {
+            completeWakeupAction()
+        } else {
+            doingWakeupAction = waManager.settings.selected
+        }
+    }
+    
+    func completeWakeupAction() {
+        killAlarm()
+        doingWakeupAction = nil
+        if waManager.settings.relaxationMode {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        } else {
+            HapticManager.shared.playHaptics(.success)
+        }
+    }
+    
     func killAlarm() {
         Task {
             await support.kill()
             syncDraft()
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
+    }
+    
+    func importCustomSound(_ result: Result<[URL], Error>) {
+        switch result {
+        case .success(let urls):
+            if let url = urls.first,
+               AlarmSound.importCustomSound(from: url) {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+            } else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+            }
+        case .failure(let error):
+            print("Custom sound file import error: ", error)
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
     }
 }

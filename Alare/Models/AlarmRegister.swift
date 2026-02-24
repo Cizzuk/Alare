@@ -5,6 +5,7 @@
 //  Created by Cizzuk on 2026/02/22.
 //
 
+import ActivityKit
 import AlarmKit
 import Combine
 
@@ -17,16 +18,16 @@ final class AlarmRegister: ObservableObject {
     @ObservationIgnored private let alarmManager = AlarmManager.shared
     
     @Published private(set) var registereds: RegisteredAlarms = {
-        if let rawData = UserDefaults.standard.data(forKey: RegisteredAlarms.userDefaultsKey) {
-            if let alarmData = try? JSONDecoder().decode(RegisteredAlarms.self, from: rawData) {
-                return alarmData
+        if let rawData = userDefaults.data(forKey: RegisteredAlarms.userDefaultsKey) {
+            if let data = try? JSONDecoder().decode(RegisteredAlarms.self, from: rawData) {
+                return data
             }
         }
         return RegisteredAlarms()
     }() {
         didSet {
             if let data = try? JSONEncoder().encode(registereds) {
-                UserDefaults.standard.set(data, forKey: RegisteredAlarms.userDefaultsKey)
+                userDefaults.set(data, forKey: RegisteredAlarms.userDefaultsKey)
             }
         }
     }
@@ -35,16 +36,19 @@ final class AlarmRegister: ObservableObject {
     
     // MARK: - Registration
     
-    func scheduleMainAlarm(item: AlarmItem) async {
+    func pushMainAlarm(item: AlarmItem) async {
         cancelMainAlarm()
-        
-        let uuid = item.uuid
-        let schedule = item.schedule
         registereds.mainAlarm = item
+        await scheduleMainAlarm()
+    }
+    
+    // (Re)register current main alarm to the system
+    private func scheduleMainAlarm() async {
+        guard let item = registereds.mainAlarm else { return }
+        let configuration = AlarmPresets.makeConfiguration(item: item)
         
-        let configuration = AlarmPresets.makeConfiguration(uuid: uuid, schedule: schedule)
-        try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
-        print("Main alarm scheduled: \(uuid) with schedule: \(schedule)")
+        try? await scheduleAlarmToSystem(uuid: item.uuid, configuration: configuration)
+        print("Main alarm scheduled: \(item.uuid) with schedule: \(item.schedule)")
     }
     
     func cancelMainAlarm() {
@@ -57,19 +61,20 @@ final class AlarmRegister: ObservableObject {
     
     // MARK: - Snooze
     
-    func scheduleSnooze(interval: Int) async {
+    func pushSnooze(item: AlarmItem) async {
         cancelSnooze()
-        
-        let uuid = UUID()
-        let date = Date().addingTimeInterval(TimeInterval(interval * 60))
-        let schedule = Alarm.Schedule.fixed(date)
-        
         registereds.snoozeCount += 1
-        registereds.nextSnooze = AlarmItem(uuid: uuid, schedule: schedule)
+        registereds.nextSnooze = item
+        await scheduleSnooze()
+    }
+    
+    // (Re)register current snooze to the system
+    private func scheduleSnooze() async {
+        guard let item = registereds.nextSnooze else { return }
+        let configuration = AlarmPresets.makeConfiguration(item: item)
         
-        let configuration = AlarmPresets.makeConfiguration(uuid: uuid, schedule: schedule)
-        try? await scheduleAlarmToSystem(uuid: uuid, configuration: configuration)
-        print("Snooze scheduled: \(uuid) at \(date)")
+        try? await scheduleAlarmToSystem(uuid: item.uuid, configuration: configuration)
+        print("Snooze scheduled: \(item.uuid) with schedule: \(item.schedule)")
     }
     
     func cancelSnooze() {
@@ -111,25 +116,13 @@ final class AlarmRegister: ObservableObject {
         // Reschedule missing alarms to the system
         if let mainAlarm = registereds.mainAlarm,
            !allSystemAlarms.contains(where: { $0.id == mainAlarm.uuid }) {
-            try? await scheduleAlarmToSystem(
-                uuid: mainAlarm.uuid,
-                configuration: AlarmPresets.makeConfiguration(
-                    uuid: mainAlarm.uuid,
-                    schedule: mainAlarm.schedule
-                )
-            )
+            await scheduleMainAlarm()
             print("Main alarm missing from system, rescheduled: \(mainAlarm.uuid)")
         }
         
         if let nextSnooze = registereds.nextSnooze,
            !allSystemAlarms.contains(where: { $0.id == nextSnooze.uuid }) {
-            try? await scheduleAlarmToSystem(
-                uuid: nextSnooze.uuid,
-                configuration: AlarmPresets.makeConfiguration(
-                    uuid: nextSnooze.uuid,
-                    schedule: nextSnooze.schedule
-                )
-            )
+            await scheduleSnooze()
             print("Snooze alarm missing from system, rescheduled: \(nextSnooze.uuid)")
         }
     }
@@ -142,4 +135,17 @@ final class AlarmRegister: ObservableObject {
             configuration: configuration
         )
     }
+    
+    func clearAllAlarmsFromSystem() {
+        do {
+            let allAlarms = try alarmManager.alarms
+            for alarm in allAlarms {
+                removeAlarm(uuid: alarm.id)
+                print("Cleared alarm from system: \(alarm.id)")
+            }
+        } catch {
+            print("Failed to clear alarms from system: \(error)")
+        }
+    }
+        
 }

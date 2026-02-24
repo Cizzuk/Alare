@@ -5,6 +5,7 @@
 //  Created by Cizzuk on 2026/02/20.
 //
 
+import ActivityKit
 import AlarmKit
 import AppIntents
 import SwiftUI
@@ -12,31 +13,35 @@ import SwiftUI
 final class AlarmPresets {
     typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
     
-    static let content = AlarmPresentation.Alert(
-        title: "Alarm",
-        secondaryButton: .snoozeButton,
-        secondaryButtonBehavior: .custom
-    )
-    
-    static let attributes = AlarmAttributes<AlarmSettings>(
-        presentation: AlarmPresentation(alert: content),
-        tintColor: .accent
-    )
-    
-    static func makeConfiguration(uuid: UUID, schedule: Alarm.Schedule) -> AlarmConfiguration {
-        let uuidString = uuid.uuidString
+    static func makeConfiguration(item: AlarmItem) -> AlarmConfiguration {
+        let uuidString = item.uuid.uuidString
+        let titleLocalized = item.title
+        let alertSound = item.isSnooze ? item.sound.alertSoundSnooze : item.sound.alertSound
+        
+        let content = AlarmPresentation.Alert(
+            title: LocalizedStringResource(titleLocalized),
+            secondaryButton: .snoozeButton,
+            secondaryButtonBehavior: .custom
+        )
+        
+        let attributes = AlarmAttributes<AlarmSettings>(
+            presentation: AlarmPresentation(alert: content),
+            tintColor: .dropblue
+        )
+        
         return AlarmConfiguration(
-            schedule: schedule,
-            attributes: Self.attributes,
+            schedule: item.schedule,
+            attributes: attributes,
             stopIntent: OpenAppIntent(uuid: uuidString),
-            secondaryIntent: SnoozeIntent(uuid: uuidString)
+            secondaryIntent: SnoozeIntent(uuid: uuidString),
+            sound: alertSound
         )
     }
 }
 
 extension AlarmButton {
     static var snoozeButton: Self {
-        AlarmButton(text: "Snooze", textColor: .white, systemImageName: "bed.double.fill")
+        AlarmButton(text: "Snooze", textColor: .white, systemImageName: "zzz")
     }
     
     static var stopWithAction: Self {

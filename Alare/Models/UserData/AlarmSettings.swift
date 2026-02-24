@@ -8,7 +8,7 @@
 import AlarmKit
 
 struct AlarmSettings: AlarmMetadata, Codable {
-    static let userDefaultsKey = "AlarmData"
+    static let userDefaultsKey = "AlarmSettings"
 
     var isEnabled: Bool = false
     
