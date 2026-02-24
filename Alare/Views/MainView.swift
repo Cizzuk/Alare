@@ -13,6 +13,7 @@ struct MainView: View {
     @Environment(\.scenePhase) private var scenePhase
     
     @StateObject private var register = AlarmRegister.shared
+    @StateObject private var waManager = WakeupActionManager.shared
     @StateObject private var vm = MainViewModel()
     
     @State private var showCustomSoundImporter = false
@@ -77,8 +78,18 @@ struct MainView: View {
                 }
                 
                 NavigationLink(destination: WakeupActionSettingsView()) {
-                    Label("Wake-up Action", systemImage: "bolt.fill")
-                        .foregroundColor(.primary)
+                    HStack {
+                        Label("Wake-up Action", systemImage: "bolt.fill")
+                            .foregroundColor(.primary)
+                        Spacer()
+                        if waManager.settings.relaxationMode {
+                            Text("Relaxation Mode")
+                                .foregroundColor(.secondary)
+                        } else {
+                            Text(waManager.settings.selected.displayName)
+                                .foregroundColor(.secondary)
+                        }
+                    }
                 }
                 
                 Section("Options") {
