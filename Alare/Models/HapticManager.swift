@@ -51,12 +51,13 @@ final class HapticManager {
     func playHaptics(_ sound: HapticSounds) {
         guard supportsHaptics, let engine = engine else { return }
         
-        guard let path = Bundle.main.path(forResource: sound.filename, ofType: "ahap") else {
-            print("AHAP file not found for sound: \(sound).")
-            return
-        }
         
         DispatchQueue.global(qos: .userInitiated).async {
+            guard let path = Bundle.main.path(forResource: sound.filename, ofType: "ahap") else {
+                print("AHAP file not found for sound: \(sound).")
+                return
+            }
+            
             do {
                 try engine.playPattern(from: URL(fileURLWithPath: path))
             } catch {
