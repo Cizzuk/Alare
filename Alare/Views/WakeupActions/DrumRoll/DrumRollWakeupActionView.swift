@@ -72,5 +72,9 @@ struct DrumRollWakeupActionExecutionView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(NightGradient.ignoresSafeArea())
         .onTapGesture { addTap() }
+        .accessibilityElement(children: .combine)
+        .accessibilityDirectTouch()
+        .accessibilityLabel("Drum Roll the Screen to Wake Up!")
+        .accessibilityHint("\(tapsRequired - taps) remaining")
     }
 }
