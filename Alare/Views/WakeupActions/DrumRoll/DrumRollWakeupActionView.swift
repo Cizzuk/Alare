@@ -11,7 +11,7 @@ struct DrumRollWakeupActionSettingsView: View {
     @ObservedObject private var manager = WakeupActionManager.shared
     
     @State private var showPicker = false
-    private let tapsIntList = Array(10...500)
+    private let tapsIntList = Array(stride(from: 10, through: 300, by: 10))
 
     var body: some View {
         Section {
