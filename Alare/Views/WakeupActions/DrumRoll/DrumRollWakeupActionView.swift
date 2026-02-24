@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DrumRollWakeupActionSettingsView: View {
-    @ObservedObject var manager: WakeupActionManager
+    @ObservedObject private var manager = WakeupActionManager.shared
     
     @State private var showPicker = false
     private let tapsIntList = Array(10...500)

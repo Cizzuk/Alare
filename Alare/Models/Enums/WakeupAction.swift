@@ -59,7 +59,8 @@ extension WakeupAction {
         }
     }
 
-    func isAvailable(settings: WakeupActionSettings) -> Bool {
+    func isAvailable() -> Bool {
+//        let settings = WakeupActionManager.shared.settings
         switch self {
         case .waveDevice:
             return false
@@ -73,14 +74,14 @@ extension WakeupAction {
     }
 
     @ViewBuilder
-    func settingsView(manager: WakeupActionManager) -> some View {
+    func settingsView() -> some View {
         switch self {
         case .waveDevice:
             EmptyView()
         case .scanCode:
-            ScanCodeWakeupActionSettingsView(manager: manager)
+            ScanCodeWakeupActionSettingsView()
         case .drumRoll:
-            DrumRollWakeupActionSettingsView(manager: manager)
+            DrumRollWakeupActionSettingsView()
         case .tapButton:
             EmptyView()
         }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScanCodeWakeupActionSettingsView: View {
-    @ObservedObject var manager: WakeupActionManager
+    @ObservedObject private var manager = WakeupActionManager.shared
 
     var body: some View {
         Section {

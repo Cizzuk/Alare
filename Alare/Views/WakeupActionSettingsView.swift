@@ -105,7 +105,7 @@ struct WakeupActionSettingsView: View {
                     
                     Toggle("Use This Action", isOn: $isSelected)
                         .disabled(action == .default && isSelected)
-                        .disabled(!action.isAvailable(settings: manager.settings) && !isSelected)
+                        .disabled(!action.isAvailable() && !isSelected)
                         .onAppear {
                             isSelected = manager.settings.selected == action
                         }
@@ -122,12 +122,12 @@ struct WakeupActionSettingsView: View {
                     Button(action: { isTrying = true }) {
                         Label("Try This Action", systemImage: "play.circle")
                     }
-                    .disabled(!action.isAvailable(settings: manager.settings))
-                    .foregroundStyle(action.isAvailable(settings: manager.settings) ? .accent : .secondary)
+                    .disabled(!action.isAvailable())
+                    .foregroundStyle(action.isAvailable() ? .accent : .secondary)
                 }
                 
                 // Action Specific Settings
-                action.settingsView(manager: manager)
+                action.settingsView()
             }
             .navigationTitle(action.displayName)
             .toolbarTitleDisplayMode(.inline)
