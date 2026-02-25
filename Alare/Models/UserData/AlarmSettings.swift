@@ -8,8 +8,6 @@
 import AlarmKit
 
 struct AlarmSettings: AlarmMetadata, Codable {
-    static let userDefaultsKey = "AlarmSettings"
-
     var isEnabled: Bool = false
     
     var hour: Int = 9 {
@@ -32,5 +30,26 @@ struct AlarmSettings: AlarmMetadata, Codable {
         if value < min { return min }
         if value > max { return max }
         return value
+    }
+}
+
+// MARK: - UserDefaults Persistence
+
+extension AlarmSettings {
+    static let userDefaultsKey = "AlarmSettings"
+    
+    static func load() -> Self {
+        if let rawData = userDefaults.data(forKey: AlarmSettings.userDefaultsKey) {
+            if let data = try? JSONDecoder().decode(AlarmSettings.self, from: rawData) {
+                return data
+            }
+        }
+        return AlarmSettings()
+    }
+    
+    func save() {
+        if let data = try? JSONEncoder().encode(self) {
+            userDefaults.set(data, forKey: AlarmSettings.userDefaultsKey)
+        }
     }
 }

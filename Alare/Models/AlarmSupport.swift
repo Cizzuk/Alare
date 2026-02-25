@@ -16,19 +16,8 @@ final class AlarmSupport: ObservableObject {
     
     @ObservationIgnored private var register = AlarmRegister.shared
     
-    @Published private(set) var settings: AlarmSettings = {
-        if let rawData = userDefaults.data(forKey: AlarmSettings.userDefaultsKey) {
-            if let data = try? JSONDecoder().decode(AlarmSettings.self, from: rawData) {
-                return data
-            }
-        }
-        return AlarmSettings()
-    }() {
-        didSet {
-            if let data = try? JSONEncoder().encode(settings) {
-                userDefaults.set(data, forKey: AlarmSettings.userDefaultsKey)
-            }
-        }
+    @Published private(set) var settings = AlarmSettings.load() {
+        didSet { settings.save() }
     }
     
     private init() {

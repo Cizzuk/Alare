@@ -8,8 +8,6 @@
 import Foundation
 
 struct WakeupActionSettings: Codable {
-    static let userDefaultsKey = "WakeupActionSettings"
-    
     var selected: WakeupAction = .default
     
     // Scan Code Settings
@@ -17,4 +15,25 @@ struct WakeupActionSettings: Codable {
     
     // Drum Roll Settings
     var drumRoll_tapsRequired: Int = 50
+}
+
+// MARK: - UserDefaults Persistence
+
+extension WakeupActionSettings {
+    static let userDefaultsKey = "WakeupActionSettings"
+    
+    static func load() -> Self {
+        if let rawData = userDefaults.data(forKey: WakeupActionSettings.userDefaultsKey) {
+            if let data = try? JSONDecoder().decode(WakeupActionSettings.self, from: rawData) {
+                return data
+            }
+        }
+        return WakeupActionSettings()
+    }
+    
+    func save() {
+        if let data = try? JSONEncoder().encode(self) {
+            userDefaults.set(data, forKey: WakeupActionSettings.userDefaultsKey)
+        }
+    }
 }

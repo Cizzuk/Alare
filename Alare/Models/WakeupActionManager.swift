@@ -11,19 +11,8 @@ import Foundation
 final class WakeupActionManager: ObservableObject {
     static let shared = WakeupActionManager()
     
-    @Published var settings: WakeupActionSettings = {
-        if let rawData = userDefaults.data(forKey: WakeupActionSettings.userDefaultsKey) {
-            if let data = try? JSONDecoder().decode(WakeupActionSettings.self, from: rawData) {
-                return data
-            }
-        }
-        return WakeupActionSettings()
-    }() {
-        didSet {
-            if let data = try? JSONEncoder().encode(settings) {
-                userDefaults.set(data, forKey: WakeupActionSettings.userDefaultsKey)
-            }
-        }
+    @Published var settings = WakeupActionSettings.load() {
+        didSet { settings.save() }
     }
     
     private init() {}
