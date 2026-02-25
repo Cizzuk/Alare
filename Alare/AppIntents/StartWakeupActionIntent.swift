@@ -6,6 +6,7 @@
 //
 
 import AppIntents
+import SwiftUI
 import WidgetKit
 
 struct StartWakeupActionIntent: AppIntent, CustomIntentMigratedAppIntent {
@@ -19,5 +20,19 @@ struct StartWakeupActionIntent: AppIntent, CustomIntentMigratedAppIntent {
     func perform() async throws -> some IntentResult {
         NotificationCenter.default.post(name: .shouldStartWakeupAction, object: nil)
         return .result()
+    }
+}
+
+struct StartWakeupActionControl: ControlWidget {
+    static let kind = "net.cizzuk.alare.StartWakeupActionControl"
+    static let title: LocalizedStringResource = StartWakeupActionIntent.title
+    
+    var body: some ControlWidgetConfiguration {
+        StaticControlConfiguration(kind: StartWakeupActionControl.kind) {
+            ControlWidgetButton(action: StartWakeupActionIntent()) {
+                Label(StartWakeupActionControl.title, image: "bolt.alare")
+            }
+        }
+        .displayName(StartWakeupActionControl.title)
     }
 }
