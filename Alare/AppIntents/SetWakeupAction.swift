@@ -26,7 +26,7 @@ struct SetWakeupAction: AppIntent, CustomIntentMigratedAppIntent {
         var errorDescription: String? {
             switch self {
             case .actionUnavailable:
-                return "The selected Wake-up Action is not available."
+                return String(localized: "The selected Wake-up Action is not available.")
             }
         }
     }

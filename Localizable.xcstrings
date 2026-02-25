@@ -630,6 +630,16 @@
         }
       }
     },
+    "The selected Wake-up Action is not available." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択された起床アクションは利用できません。"
+          }
+        }
+      }
+    },
     "This app is currentry in Beta" : {
       "localizations" : {
         "ja" : {
