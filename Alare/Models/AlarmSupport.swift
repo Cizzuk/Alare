@@ -111,6 +111,22 @@ final class AlarmSupport: ObservableObject {
         await register.pushMainAlarm(item: item)
     }
     
+    func alarmAction(uuid: UUID?) async {
+        if let uuid = uuid {
+            register.stopAlarm(uuid: uuid)
+        }
+        
+        await snooze()
+        
+        // If the alarm is not set to repeat, disable it
+        if settings.repeats.isEmpty {
+            settings.isEnabled = false
+            register.cancelMainAlarm()
+        }
+        
+        await validate()
+    }
+    
     func snooze() async {
         let uuid = UUID()
         
@@ -132,13 +148,6 @@ final class AlarmSupport: ObservableObject {
     // Stop the alarms completely
     func kill() async {
         register.killAlarm()
-        
-        // If the alarm is not set to repeat, disable it
-        if settings.repeats.isEmpty {
-            settings.isEnabled = false
-            register.cancelMainAlarm()
-        }
-        
         await validate()
     }
 }
