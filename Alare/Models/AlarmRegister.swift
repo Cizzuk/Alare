@@ -37,6 +37,7 @@ final class AlarmRegister: ObservableObject {
     // MARK: - Registration
     
     func pushMainAlarm(item: AlarmItem) async {
+        registereds.lastMainAlarmRegisteredDate = Date()
         cancelMainAlarm()
         registereds.mainAlarm = item
         await scheduleMainAlarm()
@@ -62,6 +63,7 @@ final class AlarmRegister: ObservableObject {
     // MARK: - Snooze
     
     func pushSnooze(item: AlarmItem) async {
+        registereds.lastSnoozeOrKillDate = Date()
         cancelSnooze()
         registereds.snoozeCount += 1
         registereds.nextSnooze = item
@@ -97,6 +99,7 @@ final class AlarmRegister: ObservableObject {
     }
     
     func killAlarm() {
+        registereds.lastSnoozeOrKillDate = Date()
         cancelSnooze()
         registereds.snoozeCount = 0
     }

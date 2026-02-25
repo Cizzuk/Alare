@@ -11,9 +11,12 @@ struct RegisteredAlarms: Codable {
     static let userDefaultsKey = "RegisteredAlarms"
     
     var mainAlarm: AlarmItem?
+    var lastMainAlarmRegisteredDate: Date?
     
     var snoozeCount: Int = 0
     var nextSnooze: AlarmItem?
+    
+    var lastSnoozeOrKillDate: Date?
 }
 
 struct AlarmItem: Codable {
