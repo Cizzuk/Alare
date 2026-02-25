@@ -287,6 +287,16 @@
         }
       }
     },
+    "Even without a Wake-up Action, running this shortcut will forcefully stop the current alarm and snooze." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクションを行わなくても、このショートカットを実行するとスヌーズを強制的に解除できます。"
+          }
+        }
+      }
+    },
     "Good Morning" : {
       "localizations" : {
         "ja" : {
@@ -616,6 +626,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "状態"
+          }
+        }
+      }
+    },
+    "Stop Current Alarm and Snooze Forcefully" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在のアラームとスヌーズを強制的に停止"
           }
         }
       }
