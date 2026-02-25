@@ -64,6 +64,7 @@
 			membershipExceptions = (
 				AppIntents/StartWakeupActionIntent.swift,
 				Models/Enums/AlarmSound.swift,
+				Models/UserData/AlarmSettings.swift,
 				Models/UserData/RegisteredAlarms.swift,
 			);
 			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtensionExtension */;
