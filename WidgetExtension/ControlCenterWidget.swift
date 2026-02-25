@@ -14,11 +14,11 @@ struct StartWakeupActionControl: ControlWidget {
     
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(
-            kind: StartWakeupActionControl.kind,
+            kind: Self.kind,
             provider: Provider()
         ) { value in
             ControlWidgetButton(
-                StartWakeupActionControl.title,
+                Self.title,
                 action: StartWakeupActionIntent()
             ) { _ in
                 if value {
