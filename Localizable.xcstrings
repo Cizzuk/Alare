@@ -510,6 +510,16 @@
         }
       }
     },
+    "Scan to Set a New Code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいコードをスキャンして設定"
+          }
+        }
+      }
+    },
     "Selected" : {
       "localizations" : {
         "ja" : {

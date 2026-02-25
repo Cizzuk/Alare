@@ -23,6 +23,9 @@ struct ScanCodeWakeupActionSettingsView: View {
                         .foregroundStyle(.secondary)
                 }
             }
+            Button(action: {}) {
+                Text("Scan to Set a New Code")
+            }
         }
     }
 }
