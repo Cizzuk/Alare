@@ -88,21 +88,13 @@ class MainViewModel: ObservableObject {
     }
     
     func startWakeupAction() {
-        if waManager.settings.relaxationMode {
-            doingWakeupAction = .tapButton
-        } else {
-            doingWakeupAction = waManager.settings.selected
-        }
+        doingWakeupAction = waManager.settings.selected
     }
     
     func completeWakeupAction() {
         killAlarm()
         doingWakeupAction = nil
-        if waManager.settings.relaxationMode {
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-        } else {
-            HapticManager.shared.playHaptics(.success)
-        }
+        HapticManager.shared.playHaptics(.success)
     }
     
     func killAlarm() {

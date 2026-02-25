@@ -62,15 +62,8 @@ struct MainView: View {
                 // Wake-up Action Button
                 if register.registereds.nextSnooze != nil {
                     Section {} header: {
-                        HStack {
-                            Label("Alarm is Snoozing", systemImage: "zzz")
-                                .foregroundStyle(.primary)
-                            if waManager.settings.relaxationMode {
-                                Spacer()
-                                Text("Relaxation Mode")
-                                    .font(.footnote)
-                            }
-                        }
+                        Label("Alarm is Snoozing", systemImage: "zzz")
+                            .foregroundStyle(.primary)
                     } footer: {
                         Button(action: { vm.startWakeupAction() }) {
                             HStack(alignment: .center, spacing: 10) {
@@ -99,13 +92,8 @@ struct MainView: View {
                         Label("Wake-up Action", systemImage: "bolt.fill")
                             .foregroundColor(.primary)
                         Spacer()
-                        if waManager.settings.relaxationMode {
-                            Text("Relaxation")
-                                .foregroundColor(.secondary)
-                        } else {
-                            Text(waManager.settings.selected.displayName)
-                                .foregroundColor(.secondary)
-                        }
+                        Text(waManager.settings.selected.displayName)
+                            .foregroundColor(.secondary)
                     }
                 }
                 

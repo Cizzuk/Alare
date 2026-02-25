@@ -59,15 +59,6 @@ struct WakeupActionSettingsView: View {
                         }
                     }
                 }
-                
-                Section {
-                    Toggle(isOn: $manager.settings.relaxationMode) {
-                        Label("Relaxation Mode", systemImage: "heart")
-                            .foregroundStyle(.primary)
-                    }
-                } footer: {
-                    Text("While Relaxation Mode is on, you can skip the Wake-up Action.")
-                }
             } // List
             .navigationTitle("Wake-up Action")
             .toolbarTitleDisplayMode(.inline)
