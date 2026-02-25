@@ -10,7 +10,7 @@ import WidgetKit
 
 struct StartWakeupActionControl: ControlWidget {
     static let kind = "net.cizzuk.alare.WidgetExtension.StartWakeupActionControl"
-    static let title: LocalizedStringResource = StartWakeupActionIntent.title
+    static let title: LocalizedStringResource = "Alare"
     
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(
@@ -18,7 +18,7 @@ struct StartWakeupActionControl: ControlWidget {
             provider: Provider()
         ) { value in
             ControlWidgetButton(
-                "Alare",
+                StartWakeupActionControl.title,
                 action: StartWakeupActionIntent()
             ) { _ in
                 if value {
