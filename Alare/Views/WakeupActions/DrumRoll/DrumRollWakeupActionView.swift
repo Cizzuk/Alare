@@ -52,7 +52,7 @@ struct DrumRollWakeupActionExecutionView: View {
 
     var body: some View {
         VStack(spacing: 50) {
-            Text("Drum Roll the Screen to Wake Up!")
+            Text("Drum Roll to Wake Up!")
                 .font(.largeTitle)
                 .bold()
             Text("\(remainingTaps()) remaining")
@@ -69,7 +69,7 @@ struct DrumRollWakeupActionExecutionView: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityDirectTouch()
-        .accessibilityLabel("Drum Roll the Screen to Wake Up!")
+        .accessibilityLabel("Drum Roll to Wake Up!")
         .accessibilityHint("\(tapsRequired - taps) remaining")
     }
     

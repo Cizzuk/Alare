@@ -199,17 +199,17 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "画面を連打"
+            "value" : "連打"
           }
         }
       }
     },
-    "Drum Roll the Screen to Wake Up!" : {
+    "Drum Roll to Wake Up!" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "画面を連打してアラームを解除"
+            "value" : "連打してアラームを解除"
           }
         }
       }
