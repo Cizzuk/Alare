@@ -147,5 +147,4 @@ final class AlarmRegister: ObservableObject {
             print("Failed to clear alarms from system: \(error)")
         }
     }
-        
 }
