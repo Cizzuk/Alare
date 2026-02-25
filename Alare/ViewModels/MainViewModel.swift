@@ -97,6 +97,7 @@ class MainViewModel: ObservableObject {
               doingWakeupAction == nil
         else { return }
         
+        // Start action
         if focusFilterWakeupAction != nil {
             doingWakeupAction = focusFilterWakeupAction
         } else {
