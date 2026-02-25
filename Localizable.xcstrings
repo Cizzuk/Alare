@@ -547,6 +547,16 @@
         }
       }
     },
+    "Test Alarm" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームテスト"
+          }
+        }
+      }
+    },
     "This app is currentry in Beta" : {
       "localizations" : {
         "ja" : {

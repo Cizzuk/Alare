@@ -147,4 +147,22 @@ final class AlarmRegister: ObservableObject {
             print("Failed to clear alarms from system: \(error)")
         }
     }
+    
+    func testAlarm() async {
+        let uuid = UUID()
+        let date = Date().addingTimeInterval(1)
+        let schedule = Alarm.Schedule.fixed(date)
+        
+        let alarmItem = AlarmItem(
+            uuid: uuid,
+            schedule: schedule,
+            title: "Test Alarm",
+            sound: AlarmSupport.shared.settings.sound,
+            isSnooze: false
+        )
+        
+        let configuration = AlarmPresets.makeConfiguration(item: alarmItem)
+        
+        try? await scheduleAlarmToSystem(uuid: alarmItem.uuid, configuration: configuration)
+    }
 }
