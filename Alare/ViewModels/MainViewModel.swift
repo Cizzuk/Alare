@@ -10,6 +10,7 @@ import Combine
 import SwiftUI
 
 class MainViewModel: ObservableObject {
+    @ObservationIgnored private var register = AlarmRegister.shared
     @ObservationIgnored private var support = AlarmSupport.shared
     @ObservationIgnored private var waManager = WakeupActionManager.shared
     
@@ -91,6 +92,11 @@ class MainViewModel: ObservableObject {
     }
     
     func startWakeupAction() {
+        // Check if alarm is snoozed and action is not already doing
+        guard register.registereds.nextSnooze != nil,
+              doingWakeupAction == nil
+        else { return }
+        
         if focusFilterWakeupAction != nil {
             doingWakeupAction = focusFilterWakeupAction
         } else {
