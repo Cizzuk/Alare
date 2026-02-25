@@ -150,7 +150,7 @@ final class AlarmRegister: ObservableObject {
     
     func testAlarm() async {
         let uuid = UUID()
-        let date = Date().addingTimeInterval(1)
+        let date = Date().addingTimeInterval(5)
         let schedule = Alarm.Schedule.fixed(date)
         
         let alarmItem = AlarmItem(
