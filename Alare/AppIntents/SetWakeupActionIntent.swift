@@ -1,5 +1,5 @@
 //
-//  SetWakeupAction.swift
+//  SetWakeupActionIntent.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/25.
@@ -8,7 +8,7 @@
 import AppIntents
 import WidgetKit
 
-struct SetWakeupAction: AppIntent, CustomIntentMigratedAppIntent {
+struct SetWakeupActionIntent: AppIntent, CustomIntentMigratedAppIntent {
     static let intentClassName = "SetWakeupAction"
     static var title: LocalizedStringResource = "Set Wake-up Action"
     static var description: LocalizedStringResource = "Set a Wake-up Action to stop the alarm."

@@ -1,5 +1,5 @@
 //
-//  ChangeAlarmTime.swift
+//  ChangeAlarmTimeIntent.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/25.
@@ -8,7 +8,7 @@
 import AppIntents
 import WidgetKit
 
-struct ChangeAlarmTime: AppIntent, CustomIntentMigratedAppIntent {
+struct ChangeAlarmTimeIntent: AppIntent, CustomIntentMigratedAppIntent {
     static let intentClassName = "ChangeAlarmTime"
     static var title: LocalizedStringResource = "Change Alare's Alarm Time"
     static var description: LocalizedStringResource = "Changes the time of the Alare's alarm."

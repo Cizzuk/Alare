@@ -1,5 +1,5 @@
 //
-//  FocusFilter.swift
+//  FocusFilterIntent.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/25.
@@ -7,7 +7,7 @@
 
 import AppIntents
 
-struct FocusFilter : SetFocusFilterIntent {
+struct FocusFilterIntent : SetFocusFilterIntent {
     static var title: LocalizedStringResource = "Set Wake-up Action"
     static var description: LocalizedStringResource = "Sets a Wake-up Action to be used during this Focus."
     

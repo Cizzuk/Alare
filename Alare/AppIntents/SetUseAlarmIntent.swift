@@ -1,5 +1,5 @@
 //
-//  SetUseAlarm.swift
+//  SetUseAlarmIntent.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/25.
@@ -8,7 +8,7 @@
 import AppIntents
 import WidgetKit
 
-struct SetUseAlarm: AppIntent, CustomIntentMigratedAppIntent {
+struct SetUseAlarmIntent: AppIntent, CustomIntentMigratedAppIntent {
     static let intentClassName = "SetUseAlarm"
     static var title: LocalizedStringResource = "Set Use Alare's Alarm"
     static var description: LocalizedStringResource = "Turn Alare's alarm On or Off."
