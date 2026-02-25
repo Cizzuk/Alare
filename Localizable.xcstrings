@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+      "shouldTranslate" : false
+    },
     "%@ (%@)" : {
       "localizations" : {
         "en" : {
@@ -423,6 +426,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "時刻と繰り返しの設定をして、アラームをオンにします"
+          }
+        }
+      }
+    },
+    "Set Wake-up Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクションを設定"
+          }
+        }
+      }
+    },
+    "Sets a Wake-up Action to be used during this Focus." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この集中モード中に使用する起床アクションを設定します。"
           }
         }
       }
