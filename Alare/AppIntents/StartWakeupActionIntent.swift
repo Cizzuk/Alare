@@ -24,7 +24,7 @@ struct StartWakeupActionIntent: AppIntent, CustomIntentMigratedAppIntent {
 }
 
 struct StartWakeupActionControl: ControlWidget {
-    static let kind = "net.cizzuk.alare.StartWakeupActionControl"
+    static let kind = "net.cizzuk.alare.WidgetExtension.StartWakeupActionControl"
     static let title: LocalizedStringResource = StartWakeupActionIntent.title
     
     var body: some ControlWidgetConfiguration {

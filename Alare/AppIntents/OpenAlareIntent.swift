@@ -22,7 +22,7 @@ struct OpenAlareIntent: AppIntent {
 }
 
 struct OpenAlareControl: ControlWidget {
-    static let kind = "net.cizzuk.alare.OpenAlareControl"
+    static let kind = "net.cizzuk.alare.WidgetExtension.OpenAlareControl"
     static let title: LocalizedStringResource = OpenAlareIntent.title
     
     var body: some ControlWidgetConfiguration {
