@@ -127,7 +127,7 @@ class MainViewModel: ObservableObject {
         Task {
             focusFilterWakeupAction = nil
             do {
-                let filter: FocusFilter = try await FocusFilter.current
+                let filter: FocusFilterIntent = try await FocusFilterIntent.current
                 focusFilterWakeupAction = filter.action
             } catch {
                 focusFilterWakeupAction = nil
