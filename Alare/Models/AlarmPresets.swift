@@ -51,7 +51,7 @@ extension AlarmButton {
 
 struct AlarmStartWakeupActionIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Start Wake-up Action"
-    static var openAppWhenRun = true
+    static var openAppWhenRun = false
     static var isDiscoverable = false
     
     @Parameter(title: "UUID")
@@ -60,11 +60,10 @@ struct AlarmStartWakeupActionIntent: LiveActivityIntent {
     init() { self.uuid = "" }
     
     @MainActor
-    func perform() throws -> some IntentResult {
+    func perform() async throws -> some IntentResult {
         let uuid = UUID(uuidString: uuid)
-        Task { await AlarmSupport.shared.alarmAction(uuid: uuid) }
-        NotificationCenter.default.post(name: .shouldStartWakeupAction, object: nil)
-        return .result()
+        await AlarmSupport.shared.alarmAction(uuid: uuid)
+        return .result(opensIntent: StartWakeupActionIntent())
     }
 }
 
@@ -79,9 +78,9 @@ struct AlarmSnoozeIntent: LiveActivityIntent {
     init() { self.uuid = "" }
     
     @MainActor
-    func perform() throws -> some IntentResult {
+    func perform() async throws -> some IntentResult {
         let uuid = UUID(uuidString: uuid)
-        Task { await AlarmSupport.shared.alarmAction(uuid: uuid) }
+        await AlarmSupport.shared.alarmAction(uuid: uuid)
         return .result()
     }
 }
