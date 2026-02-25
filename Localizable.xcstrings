@@ -161,12 +161,42 @@
         }
       }
     },
+    "Change Alare's Alarm Time" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームの時刻を変更する"
+          }
+        }
+      }
+    },
+    "Change Alare's Alarm Time to ${time}" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alare のアラームの時刻を${time}に変更"
+          }
+        }
+      }
+    },
     "Change App Icon" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "アイコンを変更"
+          }
+        }
+      }
+    },
+    "Changes the time of the Alare's alarm." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームの時刻を変更します。"
           }
         }
       }
