@@ -184,7 +184,7 @@ struct MainView: View {
             allowedContentTypes: [.audio],
             allowsMultipleSelection: false
         ) { result in
-            vm.importCustomSound(result)
+            vm.importCustomSoundHandler(result)
         }
         .fullScreenCover(item: $vm.doingWakeupAction) { action in
             WakeupActionExecutionView(action: action) {

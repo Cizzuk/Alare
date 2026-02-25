@@ -44,7 +44,7 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Public Methods
+    // MARK: - Lifecycle
     
     func onAppear() {
         syncAll()
@@ -62,6 +62,8 @@ class MainViewModel: ObservableObject {
             break
         }
     }
+    
+    // MARK: - Alarm Management
     
     func syncAll() {
         Task {
@@ -108,11 +110,13 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    func importCustomSound(_ result: Result<[URL], Error>) {
+    // MARK: - Custom Sound
+    
+    func importCustomSoundHandler(_ result: Result<[URL], Error>) {
         switch result {
         case .success(let urls):
             if let url = urls.first,
-               AlarmSound.importCustomSound(from: url) {
+               importCustomSoundFile(from: url) {
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
             } else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
@@ -122,6 +126,39 @@ class MainViewModel: ObservableObject {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
     }
+    
+    func importCustomSoundFile(from url: URL) -> Bool {
+        guard url.startAccessingSecurityScopedResource() else { return false }
+        defer { url.stopAccessingSecurityScopedResource() }
+
+        let fileManager = FileManager.default
+        let customSoundDir = AlarmSound.customSoundDir
+        let destinationURL = customSoundDir.appendingPathComponent(url.lastPathComponent)
+
+        do {
+            try fileManager.createDirectory(at: customSoundDir, withIntermediateDirectories: true)
+
+            // Clear custom sound directory
+            let existingFiles = try fileManager.contentsOfDirectory(
+                at: customSoundDir,
+                includingPropertiesForKeys: nil
+            )
+            for fileURL in existingFiles {
+                try fileManager.removeItem(at: fileURL)
+            }
+
+            // Copy new custom sound
+            try fileManager.copyItem(at: url, to: destinationURL)
+            
+            // Sync alarm
+            Task { await AlarmSupport.shared.sync() }
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    // MARK: - Focus Filter
     
     func syncFocusFilter() {
         Task {
