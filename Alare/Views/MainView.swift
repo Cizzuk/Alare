@@ -175,13 +175,14 @@ struct MainView: View {
                         Label("Contact", systemImage: "envelope")
                     })
                 } header: { Label("This app is currentry in Beta", systemImage: "exclamationmark.circle") }
+                #endif
                 
+                #if DEBUG
                 Button(action: {
                     Task { await register.testAlarm() }
                 }) {
                     Text("Test Alarm")
                 }
-                
                 #endif
                 
             } // List
