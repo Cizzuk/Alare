@@ -21,6 +21,7 @@ final class AlarmRegister: ObservableObject {
     @Published private(set) var registereds = RegisteredAlarms.load() {
         didSet {
             registereds.save()
+            WidgetCenter.shared.reloadAllTimelines()
             ControlCenter.shared.reloadAllControls()
         }
     }

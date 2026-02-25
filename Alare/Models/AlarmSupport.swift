@@ -8,6 +8,7 @@
 import ActivityKit
 import AlarmKit
 import Combine
+import WidgetKit
 
 // Manages user settings and communication with AlarmRegister
 
@@ -17,7 +18,10 @@ final class AlarmSupport: ObservableObject {
     @ObservationIgnored private var register = AlarmRegister.shared
     
     @Published private(set) var settings = AlarmSettings.load() {
-        didSet { settings.save() }
+        didSet {
+            settings.save()
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
     
     private init() {
