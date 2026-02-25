@@ -11,7 +11,7 @@ struct FocusFilter : SetFocusFilterIntent {
     static var title: LocalizedStringResource = "Set Wake-up Action"
     static var description: LocalizedStringResource = "Sets a Wake-up Action to be used during this Focus."
     
-    @Parameter(title: "Actions", default: nil)
+    @Parameter(title: "Action", default: nil)
     var action: WakeupAction?
     
     var displayRepresentation: DisplayRepresentation {
