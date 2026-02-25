@@ -5,6 +5,7 @@
 //  Created by Cizzuk on 2026/02/19.
 //
 
+import AppIntents
 import Combine
 import SwiftUI
 
@@ -13,6 +14,7 @@ class MainViewModel: ObservableObject {
     @ObservationIgnored private var waManager = WakeupActionManager.shared
     
     @Published var doingWakeupAction: WakeupAction? = nil
+    var focusFilterWakeupAction: WakeupAction? = nil
     
     @Published var draft: AlarmSettings = AlarmSupport.shared.settings {
         didSet {
@@ -54,26 +56,27 @@ class MainViewModel: ObservableObject {
     // MARK: - Public Methods
     
     func onAppear() {
-        Task {
-            await support.validate()
-            syncDraft()
-        }
+        syncAll()
     }
     
-    var isReturnFromBackground = false
     func onChange(scenePhase: ScenePhase) {
         switch scenePhase {
         case .active:
-            Task {
-                await support.validate()
-                syncDraft()
-            }
+            syncAll()
         case .inactive:
             break
         case .background:
             break
         @unknown default:
             break
+        }
+    }
+    
+    func syncAll() {
+        Task {
+            await support.validate()
+            syncDraft()
+            syncFocusFilter()
         }
     }
     
@@ -88,7 +91,11 @@ class MainViewModel: ObservableObject {
     }
     
     func startWakeupAction() {
-        doingWakeupAction = waManager.settings.selected
+        if focusFilterWakeupAction != nil {
+            doingWakeupAction = focusFilterWakeupAction
+        } else {
+            doingWakeupAction = waManager.settings.selected
+        }
     }
     
     func completeWakeupAction() {
@@ -116,6 +123,19 @@ class MainViewModel: ObservableObject {
         case .failure(let error):
             print("Custom sound file import error: ", error)
             UINotificationFeedbackGenerator().notificationOccurred(.error)
+        }
+    }
+    
+    func syncFocusFilter() {
+        Task {
+            focusFilterWakeupAction = nil
+            do {
+                let filter: FocusFilter = try await FocusFilter.current
+                focusFilterWakeupAction = filter.action
+            } catch {
+                focusFilterWakeupAction = nil
+                print("Failed to fetch focus filter: ", error)
+            }
         }
     }
 }

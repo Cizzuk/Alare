@@ -200,6 +200,9 @@ struct MainView: View {
         .onReceive(NotificationCenter.default.publisher(for: .alarmSettingsDidChangeOutsideMainApp)) { _ in
             vm.syncDraft()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .focusFilterDidChange)) { _ in
+            vm.syncFocusFilter()
+        }
         .onAppear { vm.onAppear() }
         .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }
