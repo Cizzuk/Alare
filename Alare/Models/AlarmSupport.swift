@@ -174,4 +174,34 @@ final class AlarmSupport: ObservableObject {
         let components = calendar.dateComponents([.hour, .minute], from: date)
         return (components.hour ?? 0, components.minute ?? 0)
     }
+    
+    // Locale.Weekday to Int
+    static func weekdayToInt(_ weekday: Locale.Weekday) -> Int? {
+        switch weekday {
+        case .sunday: return 1
+        case .monday: return 2
+        case .tuesday: return 3
+        case .wednesday: return 4
+        case .thursday: return 5
+        case .friday: return 6
+        case .saturday: return 7
+        @unknown default:
+            return nil
+        }
+    }
+    
+    // Int to Locale.Weekday
+    static func intToWeekday(_ int: Int) -> Locale.Weekday? {
+        switch int {
+        case 1: return .sunday
+        case 2: return .monday
+        case 3: return .tuesday
+        case 4: return .wednesday
+        case 5: return .thursday
+        case 6: return .friday
+        case 7: return .saturday
+        default:
+            return nil
+        }
+    }
 }
