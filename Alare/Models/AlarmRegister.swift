@@ -8,6 +8,7 @@
 import ActivityKit
 import AlarmKit
 import Combine
+import WidgetKit
 
 // Communication with AlarmManager and manage registered alarms
 
@@ -18,7 +19,10 @@ final class AlarmRegister: ObservableObject {
     @ObservationIgnored private let alarmManager = AlarmManager.shared
     
     @Published private(set) var registereds = RegisteredAlarms.load() {
-        didSet { registereds.save() }
+        didSet {
+            registereds.save()
+            ControlCenter.shared.reloadAllControls()
+        }
     }
     
     private init() {}

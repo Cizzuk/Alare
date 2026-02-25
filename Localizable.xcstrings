@@ -410,6 +410,16 @@
         }
       }
     },
+    "Open Alare and Start Wake-up Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareを開いて起床アクションをはじめる"
+          }
+        }
+      }
+    },
     "Open Settings..." : {
       "localizations" : {
         "ja" : {

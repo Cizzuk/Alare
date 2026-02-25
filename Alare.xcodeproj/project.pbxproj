@@ -44,6 +44,7 @@
 		BE3D015E2F4F2C8800BB83E2 /* WidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE3D01602F4F2C8800BB83E2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BE3D01622F4F2C8800BB83E2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		BE3D01FD2F4F3D5F00BB83E2 /* WidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		BE62B7B02F4B3301004B493D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BE72C5252F4C486800308751 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -61,8 +62,9 @@
 		BE3D01792F4F2CC100BB83E2 /* Exceptions for "Alare" folder in "WidgetExtensionExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				AppIntents/OpenAlareIntent.swift,
 				AppIntents/StartWakeupActionIntent.swift,
+				Models/Enums/AlarmSound.swift,
+				Models/UserData/RegisteredAlarms.swift,
 			);
 			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtensionExtension */;
 		};
@@ -128,6 +130,7 @@
 		BEEB49722F458C4B00B06D0B = {
 			isa = PBXGroup;
 			children = (
+				BE3D01FD2F4F3D5F00BB83E2 /* WidgetExtensionExtension.entitlements */,
 				BE72C5252F4C486800308751 /* Constants.swift */,
 				BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */,
 				BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */,
@@ -298,6 +301,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
@@ -332,6 +336,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
