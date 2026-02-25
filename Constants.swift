@@ -19,4 +19,5 @@ let NightGradient = LinearGradient(
 // NotificationCenter Names
 extension Notification.Name {
     static let shouldStartWakeupAction = Notification.Name("shouldStartWakeupAction")
+    static let alarmSettingsDidChangeOutsideMainApp = Notification.Name("alarmSettingsDidChangeOutsideMainApp")
 }

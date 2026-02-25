@@ -197,6 +197,9 @@ struct MainView: View {
         .onReceive(NotificationCenter.default.publisher(for: .shouldStartWakeupAction)) { _ in
             vm.startWakeupAction()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .alarmSettingsDidChangeOutsideMainApp)) { _ in
+            vm.syncDraft()
+        }
         .onAppear { vm.onAppear() }
         .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }
