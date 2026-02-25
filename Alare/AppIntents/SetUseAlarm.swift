@@ -16,19 +16,19 @@ struct SetUseAlarm: AppIntent, CustomIntentMigratedAppIntent {
     enum TurnOrToggle: String, AppEnum {
         case turn
         case toggle
-
+        
         static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Operation")
         static var caseDisplayRepresentations: [Self: DisplayRepresentation] = [
             .turn: "Turn",
             .toggle: "Toggle"
         ]
     }
-
+    
     @Parameter(title: "Operation", default: .turn)
-        var toggle: TurnOrToggle?
-
+    var toggle: TurnOrToggle?
+    
     @Parameter(title: "State", default: true)
-        var state: Bool
+    var state: Bool
     
     static var parameterSummary: some ParameterSummary {
         When(\.$toggle, .equalTo, .turn) {
@@ -37,7 +37,7 @@ struct SetUseAlarm: AppIntent, CustomIntentMigratedAppIntent {
             Summary("\(\.$toggle) Alare's Alarm")
         }
     }
-
+    
     @MainActor
     func perform() async throws -> some IntentResult {
         let support = AlarmSupport.shared
