@@ -48,12 +48,42 @@
         }
       }
     },
+    "${toggle} Alare's Alarm" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームを${toggle}"
+          }
+        }
+      }
+    },
+    "${toggle} Alare's Alarm ${state}" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームを${state}に${toggle}"
+          }
+        }
+      }
+    },
     "About" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "情報"
+          }
+        }
+      }
+    },
+    "Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクション"
           }
         }
       }
@@ -350,6 +380,16 @@
         }
       }
     },
+    "Operation" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "操作"
+          }
+        }
+      }
+    },
     "Options" : {
       "localizations" : {
         "ja" : {
@@ -420,6 +460,16 @@
         }
       }
     },
+    "Set a Wake-up Action to stop the alarm." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームを止めるために使用する起床アクションを設定します。"
+          }
+        }
+      }
+    },
     "Set the time and repeat settings, and then turn on the alarm." : {
       "localizations" : {
         "ja" : {
@@ -430,12 +480,32 @@
         }
       }
     },
+    "Set Use Alare's Alarm" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームを設定"
+          }
+        }
+      }
+    },
     "Set Wake-up Action" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "起床アクションを設定"
+          }
+        }
+      }
+    },
+    "Set Wake-up Action to ${action}" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクションを${action}に設定"
           }
         }
       }
@@ -510,6 +580,16 @@
         }
       }
     },
+    "State" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "状態"
+          }
+        }
+      }
+    },
     "Stop in Alare" : {
       "localizations" : {
         "ja" : {
@@ -570,12 +650,42 @@
         }
       }
     },
+    "Toggle" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切り替える"
+          }
+        }
+      }
+    },
     "Try This Action" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "このアクションを試す"
+          }
+        }
+      }
+    },
+    "Turn" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変更"
+          }
+        }
+      }
+    },
+    "Turn Alare's Alarm On or Off." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームをオンまたはオフに変更します。"
           }
         }
       }
