@@ -204,12 +204,12 @@
         }
       }
     },
-    "Drum Roll to Wake Up!" : {
+    "Drum Roll the Screen to Wake Up!" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "連打してアラームを解除"
+            "value" : "画面を連打してアラームを解除"
           }
         }
       }
