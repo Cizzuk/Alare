@@ -19,7 +19,9 @@ struct FocusFilter : SetFocusFilterIntent {
         return DisplayRepresentation(title: "Wake-up Action", subtitle: subtitle)
     }
     
+    @MainActor
     func perform() async throws -> some IntentResult {
+        NotificationCenter.default.post(name: .focusFilterDidChange, object: nil)
         return .result()
     }
 }
