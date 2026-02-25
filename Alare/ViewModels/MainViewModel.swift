@@ -18,7 +18,7 @@ class MainViewModel: ObservableObject {
         didSet {
             // Push changes
             Task {
-                if draft != support.settings {
+                if support.settings != draft {
                     await support.push(draft)
                     syncDraft()
                 }
@@ -78,7 +78,7 @@ class MainViewModel: ObservableObject {
     }
     
     func syncDraft() {
-        if support.settings != draft {
+        if draft != support.settings {
             draft = support.settings
         }
         
