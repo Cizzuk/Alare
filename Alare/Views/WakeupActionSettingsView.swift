@@ -131,6 +131,9 @@ struct WakeupActionSettingsView: View {
             }
             .navigationTitle(action.displayName)
             .toolbarTitleDisplayMode(.inline)
+            .onReceive(NotificationCenter.default.publisher(for: .shouldStartWakeupAction)) { _ in
+                isTrying = false
+            }
             .fullScreenCover(isPresented: $isTrying) {
                 WakeupActionExecutionView(action: action) {
                     UINotificationFeedbackGenerator().notificationOccurred(.success)

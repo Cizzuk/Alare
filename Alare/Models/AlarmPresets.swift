@@ -32,8 +32,8 @@ final class AlarmPresets {
         return AlarmConfiguration(
             schedule: item.schedule,
             attributes: attributes,
-            stopIntent: OpenAppIntent(uuid: uuidString),
-            secondaryIntent: SnoozeIntent(uuid: uuidString),
+            stopIntent: AlarmStartWakeupActionIntent(uuid: uuidString),
+            secondaryIntent: AlarmSnoozeIntent(uuid: uuidString),
             sound: alertSound
         )
     }
@@ -49,8 +49,8 @@ extension AlarmButton {
     }
 }
 
-struct OpenAppIntent: LiveActivityIntent {
-    static var title: LocalizedStringResource = "Open Alare"
+struct AlarmStartWakeupActionIntent: LiveActivityIntent {
+    static var title: LocalizedStringResource = "Start Wake-up Action"
     static var openAppWhenRun = true
     static var isDiscoverable = false
     
@@ -62,11 +62,12 @@ struct OpenAppIntent: LiveActivityIntent {
     func perform() throws -> some IntentResult {
         let uuid = UUID(uuidString: uuid)
         Task { await AlarmSupport.shared.alarmAction(uuid: uuid) }
+        NotificationCenter.default.post(name: .shouldStartWakeupAction, object: nil)
         return .result()
     }
 }
 
-struct SnoozeIntent: LiveActivityIntent {
+struct AlarmSnoozeIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Snooze"
     static var openAppWhenRun = false
     static var isDiscoverable = false

@@ -89,7 +89,7 @@ class MainViewModel: ObservableObject {
     
     func startWakeupAction() {
         if waManager.settings.relaxationMode {
-            completeWakeupAction()
+            doingWakeupAction = .tapButton
         } else {
             doingWakeupAction = waManager.settings.selected
         }

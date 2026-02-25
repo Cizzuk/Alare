@@ -337,16 +337,6 @@
         }
       }
     },
-    "Open Alare" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alareを開く"
-          }
-        }
-      }
-    },
     "Open Settings..." : {
       "localizations" : {
         "ja" : {
@@ -507,22 +497,22 @@
         }
       }
     },
+    "Start Wake-up Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクションをはじめる"
+          }
+        }
+      }
+    },
     "Stop in Alare" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alare内で止める"
-          }
-        }
-      }
-    },
-    "Stop the Alarm" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アラームを止める"
           }
         }
       }

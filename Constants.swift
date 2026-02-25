@@ -15,3 +15,8 @@ let NightGradient = LinearGradient(
     startPoint: .top,
     endPoint: .bottom
 )
+
+// NotificationCenter Names
+extension Notification.Name {
+    static let shouldStartWakeupAction = Notification.Name("shouldStartWakeupAction")
+}

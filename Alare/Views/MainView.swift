@@ -76,7 +76,7 @@ struct MainView: View {
                             HStack(alignment: .center, spacing: 10) {
                                 Image("bolt.alare")
                                     .font(.title)
-                                Text("Stop the Alarm")
+                                Text("Start Wake-up Action")
                                     .bold()
                                     .padding(.vertical, 10)
                             }
@@ -206,6 +206,9 @@ struct MainView: View {
             }
         }
         // MARK: - Events
+        .onReceive(NotificationCenter.default.publisher(for: .shouldStartWakeupAction)) { _ in
+            vm.startWakeupAction()
+        }
         .onAppear { vm.onAppear() }
         .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }
