@@ -114,8 +114,8 @@ struct DrumRollWakeupActionExecutionView: View {
             fatalError("init(coder:) has not been implemented")
         }
 
-        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesEnded(touches, with: event)
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
             let count = max(touches.count, 1)
             onTap?(count)
         }
