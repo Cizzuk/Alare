@@ -29,29 +29,19 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    @Published var timeSelection: Date = makeDateFromTime(
+    @Published var timeSelection: Date = AlarmSupport.makeDateFromTime(
         hour: AlarmSupport.shared.settings.hour,
         minute: AlarmSupport.shared.settings.minute
     ) {
         didSet {
             // Convert Date to hour and minute
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.hour, .minute], from: timeSelection)
-            let hour = components.hour ?? draft.hour
-            let minute = components.minute ?? draft.minute
+            let (hour, minute) = AlarmSupport.makeTimeFromDate(timeSelection)
             // Update draft
             if draft.hour != hour || draft.minute != minute {
                 draft.hour = hour
                 draft.minute = minute
             }
         }
-    }
-    
-    // Create Date from hour and minute
-    private static func makeDateFromTime(hour: Int, minute: Int) -> Date {
-        let calendar = Calendar.current
-        let base = calendar.startOfDay(for: Date())
-        return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: base) ?? base
     }
     
     // MARK: - Public Methods
@@ -87,7 +77,7 @@ class MainViewModel: ObservableObject {
         }
         
         // Sync timeSelection
-        let date = Self.makeDateFromTime(hour: draft.hour, minute: draft.minute)
+        let date = AlarmSupport.makeDateFromTime(hour: draft.hour, minute: draft.minute)
         timeSelection = date
     }
     
