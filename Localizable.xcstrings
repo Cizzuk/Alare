@@ -420,6 +420,16 @@
         }
       }
     },
+    "Open the Alare and start the Wake-up Action. The action will not start if the alarm is not snoozing." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareを開いて起床アクションを開始します。アラームがスヌーズしていない場合はアクションは開始されません。"
+          }
+        }
+      }
+    },
     "Operation" : {
       "localizations" : {
         "ja" : {
