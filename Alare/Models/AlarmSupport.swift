@@ -63,6 +63,14 @@ final class AlarmSupport: ObservableObject {
             register.cancelMainAlarm()
             return
         }
+        
+        // If there is nextSnooze but it's past time, reschedule snooze
+        if let nextSnooze = register.registereds.nextSnooze,
+           case .fixed(let date) = nextSnooze.schedule,
+           date < Date() {
+            await snooze()
+            print("Snooze rescheduled due to past time")
+        }
     }
     
     // Push new settings and update main alarm
