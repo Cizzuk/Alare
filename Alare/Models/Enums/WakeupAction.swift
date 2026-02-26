@@ -6,7 +6,7 @@
 //
 
 import AppIntents
-import Foundation
+import AVFoundation
 import SwiftUI
 
 enum WakeupAction: String, CaseIterable, Codable, Identifiable, AppEnum {
@@ -63,14 +63,23 @@ extension WakeupAction {
     }
 
     func isAvailable() -> Bool {
-//        let settings = WakeupActionManager.shared.settings
+        let settings = WakeupActionManager.shared.settings
         switch self {
         case .waveDevice:
             return false
         case .scanCode:
-            return false
-            // TODO: Add checker for camera permission
-//            return settings.scanCode_code != nil
+            if settings.scanCode_code == nil {
+                return false
+            }
+            
+            switch AVCaptureDevice.authorizationStatus(for: .video) {
+            case .authorized, .notDetermined:
+                break
+            default:
+                return false
+            }
+            
+            return true
         case .drumRoll, .tapButton:
             return true
         }
