@@ -10,27 +10,9 @@ import SwiftUI
 struct WeekdaysView: View {
     @Binding var repeats: Set<Locale.Weekday>
     
-    private let weekdays: Array<Locale.Weekday> = {
-        let all: Array<Locale.Weekday> = [
-            .sunday,
-            .monday,
-            .tuesday,
-            .wednesday,
-            .thursday,
-            .friday,
-            .saturday,
-        ]
-        return rotateArrayWithFirstWeekday(all)
-    }()
-    
-    private let symbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.weekdaySymbols)
-
-    private let shortSymbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.veryShortWeekdaySymbols)
-    
-    private static func rotateArrayWithFirstWeekday<T>(_ array: [T]) -> [T] {
-        let rotateCount = Calendar.current.firstWeekday - 1
-        return Array(array[rotateCount...] + array[..<rotateCount])
-    }
+    private let weekdays: Array<Locale.Weekday> = WeekdaysSupport.weekdays
+    private let symbol: [String] = WeekdaysSupport.symbol
+    private let shortSymbol: [String] = WeekdaysSupport.shortSymbol
     
     private func toggle(_ weekday: Locale.Weekday) {
         if repeats.contains(weekday) {

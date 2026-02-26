@@ -82,43 +82,17 @@ struct AlarmStateWidget: Widget {
     struct WeekdaysView: View {
         var repeats: Set<Locale.Weekday>
         
-        private let weekdays: Array<Locale.Weekday> = {
-            let all: Array<Locale.Weekday> = [
-                .sunday,
-                .monday,
-                .tuesday,
-                .wednesday,
-                .thursday,
-                .friday,
-                .saturday,
-            ]
-            return rotateArrayWithFirstWeekday(all)
-        }()
-        
-        private let symbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.weekdaySymbols)
-        
-        private let shortSymbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.veryShortWeekdaySymbols)
-        
-        private static func rotateArrayWithFirstWeekday<T>(_ array: [T]) -> [T] {
-            let rotateCount = Calendar.current.firstWeekday - 1
-            return Array(array[rotateCount...] + array[..<rotateCount])
-        }
-        
-        private func isEveryday() -> Bool {
-            return repeats.count == 7
-        }
-        
-        private func isWeekdayOnly() -> Bool {
-            return repeats.count == 5 && !repeats.contains(.sunday) && !repeats.contains(.saturday)
-        }
+        private let weekdays: Array<Locale.Weekday> = WeekdaysSupport.weekdays
+        private let symbol: [String] = WeekdaysSupport.symbol
+        private let shortSymbol: [String] = WeekdaysSupport.shortSymbol
         
         var body: some View {
             ZStack {
                 if repeats.isEmpty {
                     Text("No Repeat")
-                } else if isEveryday() {
+                } else if WeekdaysSupport.isEveryday(repeats) {
                     Label("Everyday", systemImage: "repeat")
-                } else if isWeekdayOnly() {
+                } else if WeekdaysSupport.isWeekdayOnly(repeats) {
                     Label("Weekdays", systemImage: "repeat")
                 } else {
                     HStack(spacing: 5) {
@@ -135,9 +109,6 @@ struct AlarmStateWidget: Widget {
                             }
                         }
                     }
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: 400, alignment: .center)
                 }
             }
             .font(.subheadline)
