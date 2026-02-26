@@ -61,6 +61,14 @@ struct AlarmStateLockWidget: Widget {
                     .accessibilityHidden(true)
             }()
             
+            let openURL: URL? = {
+                if registeredAlarms.nextSnooze != nil {
+                    return URL(string: "net.cizzuk.alare://wakeupaction")
+                } else {
+                    return nil
+                }
+            }()
+            
             ZStack(alignment: .center) {
                 switch widgetFamily {
                 case .accessoryRectangular:
@@ -123,7 +131,7 @@ struct AlarmStateLockWidget: Widget {
                 }
             }
             .containerBackground(.clear, for: .widget)
-            .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
+            .widgetURL(openURL)
         }
     }
 }
