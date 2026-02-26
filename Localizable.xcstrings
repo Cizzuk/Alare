@@ -257,6 +257,16 @@
         }
       }
     },
+    "Code: %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コード: %@"
+          }
+        }
+      }
+    },
     "Contact" : {
       "localizations" : {
         "ja" : {
@@ -423,6 +433,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "カスタムサウンドをインポート"
+          }
+        }
+      }
+    },
+    "Incorrect code. Please try other code." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードが正しくありません。 他のコードをお試しください。"
           }
         }
       }

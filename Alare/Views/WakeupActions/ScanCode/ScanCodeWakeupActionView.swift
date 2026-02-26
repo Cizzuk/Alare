@@ -72,6 +72,7 @@ struct ScanCodeWakeupActionSettingsView: View {
 
 struct ScanCodeWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
+    @State var incorrectCodeEntered = false
     private let expectedCode = WakeupActionManager.shared.settings.scanCode_code
 
     var body: some View {
@@ -81,9 +82,23 @@ struct ScanCodeWakeupActionExecutionView: View {
                 .bold()
                 .padding()
             
+            if incorrectCodeEntered {
+                Text("Incorrect code. Please try other code.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } else {
+                Text("Code: \(expectedCode ?? "Not Set")")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+            }
+            
             BarcodeScannerView { code in
                 if code == expectedCode {
                     vm.complete()
+                } else {
+                    incorrectCodeEntered = true
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: 30))
