@@ -62,6 +62,7 @@ struct AlarmStateWidget: Widget {
                         .font(.system(.title, design: .rounded))
                         .monospacedDigit()
                         .bold()
+                    WeekdaysView(repeats: settings.repeats)
                 } else {
                     Label("Alare", image: "alare")
                         .font(.system(size: 50))
@@ -75,6 +76,73 @@ struct AlarmStateWidget: Widget {
             .containerBackground(for: .widget) {
                 Color.black.overlay(NightGradient)
             }
+        }
+    }
+    
+    struct WeekdaysView: View {
+        var repeats: Set<Locale.Weekday>
+        
+        private let weekdays: Array<Locale.Weekday> = {
+            let all: Array<Locale.Weekday> = [
+                .sunday,
+                .monday,
+                .tuesday,
+                .wednesday,
+                .thursday,
+                .friday,
+                .saturday,
+            ]
+            return rotateArrayWithFirstWeekday(all)
+        }()
+        
+        private let symbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.weekdaySymbols)
+        
+        private let shortSymbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.veryShortWeekdaySymbols)
+        
+        private static func rotateArrayWithFirstWeekday<T>(_ array: [T]) -> [T] {
+            let rotateCount = Calendar.current.firstWeekday - 1
+            return Array(array[rotateCount...] + array[..<rotateCount])
+        }
+        
+        private func isEveryday() -> Bool {
+            return repeats.count == 7
+        }
+        
+        private func isWeekdayOnly() -> Bool {
+            return repeats.count == 5 && !repeats.contains(.sunday) && !repeats.contains(.saturday)
+        }
+        
+        var body: some View {
+            ZStack {
+                if repeats.isEmpty {
+                    Text("No Repeat")
+                } else if isEveryday() {
+                    Label("Everyday", systemImage: "repeat")
+                } else if isWeekdayOnly() {
+                    Label("Weekdays", systemImage: "repeat")
+                } else {
+                    HStack(spacing: 5) {
+                        Label("Repeat", systemImage: "repeat")
+                            .labelStyle(.iconOnly)
+                        ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
+                            if repeats.contains(weekday) {
+                                if repeats.count > 1 {
+                                    Text(shortSymbol[index])
+                                        .accessibilityLabel(symbol[index])
+                                } else {
+                                    Text(symbol[index])
+                                }
+                            }
+                        }
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: 400, alignment: .center)
+                }
+            }
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity, alignment: .center)
         }
     }
 }
