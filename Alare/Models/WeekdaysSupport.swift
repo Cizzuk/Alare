@@ -23,7 +23,9 @@ class WeekdaysSupport {
     
     static let symbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.weekdaySymbols)
     
-    static let shortSymbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.veryShortWeekdaySymbols)
+    static let shortSymbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.shortWeekdaySymbols)
+    
+    static let veryShortSymbol: [String] = rotateArrayWithFirstWeekday(Calendar.current.veryShortWeekdaySymbols)
     
     static func rotateArrayWithFirstWeekday<T>(_ array: [T]) -> [T] {
         let rotateCount = Calendar.current.firstWeekday - 1

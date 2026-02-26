@@ -85,6 +85,7 @@ struct AlarmStateWidget: Widget {
         private let weekdays: Array<Locale.Weekday> = WeekdaysSupport.weekdays
         private let symbol: [String] = WeekdaysSupport.symbol
         private let shortSymbol: [String] = WeekdaysSupport.shortSymbol
+        private let veryShortSymbol: [String] = WeekdaysSupport.veryShortSymbol
         
         var body: some View {
             Group {
@@ -100,7 +101,10 @@ struct AlarmStateWidget: Widget {
                             .labelStyle(.iconOnly)
                         ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
                             if repeats.contains(weekday) {
-                                if repeats.count > 1 {
+                                if repeats.count > 2 {
+                                    Text(veryShortSymbol[index])
+                                        .accessibilityLabel(symbol[index])
+                                } else if repeats.count > 1 {
                                     Text(shortSymbol[index])
                                         .accessibilityLabel(symbol[index])
                                 } else {

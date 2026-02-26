@@ -12,7 +12,7 @@ struct WeekdaysView: View {
     
     private let weekdays: Array<Locale.Weekday> = WeekdaysSupport.weekdays
     private let symbol: [String] = WeekdaysSupport.symbol
-    private let shortSymbol: [String] = WeekdaysSupport.shortSymbol
+    private let veryShortSymbol: [String] = WeekdaysSupport.veryShortSymbol
     
     private func toggle(_ weekday: Locale.Weekday) {
         if repeats.contains(weekday) {
@@ -35,7 +35,7 @@ struct WeekdaysView: View {
                                 .fill(isOn ? .dropblue : .clear)
                                 .stroke(isOn ? .dropblue : .secondary, lineWidth: 1.5)
                             
-                            Text(shortSymbol[index])
+                            Text(veryShortSymbol[index])
                                 .accessibilityLabel(symbol[index])
                                 .fontWeight(.semibold)
                                 .foregroundStyle(isOn ? .white : .secondary)
