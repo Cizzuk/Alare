@@ -51,6 +51,14 @@ struct AlarmStateHomeWidget: Widget {
         private let registeredAlarms = RegisteredAlarms.load()
 
         var body: some View {
+            let openURL: URL? = {
+                if registeredAlarms.nextSnooze != nil {
+                    return URL(string: "net.cizzuk.alare://wakeupaction")
+                } else {
+                    return nil
+                }
+            }()
+            
             VStack(alignment: .center, spacing: 8) {
                 if registeredAlarms.nextSnooze != nil {
                     Label("Start Wake-up Action", image: "bolt.alare")
@@ -80,7 +88,7 @@ struct AlarmStateHomeWidget: Widget {
             .containerBackground(for: .widget) {
                 Color.black.overlay(NightGradient)
             }
-            .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
+            .widgetURL(openURL)
         }
     }
     
