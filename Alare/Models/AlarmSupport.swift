@@ -57,12 +57,23 @@ final class AlarmSupport: ObservableObject {
             return
         }
         
-        // If there is nextSnooze but it's past time, reschedule snooze
+        // If there is nextSnooze
         if let nextSnooze = register.registereds.nextSnooze,
-           case .fixed(let date) = nextSnooze.schedule,
-           date < Date() {
-            await snooze()
-            print("Snooze rescheduled due to past time")
+           case .fixed(let date) = nextSnooze.schedule {
+            // If it's past time, reschedule snooze
+            if date < Date() {
+                await snooze()
+                print("Snooze rescheduled due to past time")
+            }
+            
+            // Live Activity check
+            if !SnoozeActivityManager.isActive() {
+                SnoozeActivityManager.start(endDate: date)
+                print("Snooze Live Activity restarted")
+            }
+        } else if !SnoozeActivityManager.isActive() {
+            // If there is no nextSnooze but Live Activity is active, end it
+            SnoozeActivityManager.endAll()
         }
     }
     
@@ -144,7 +155,6 @@ final class AlarmSupport: ObservableObject {
         )
         
         await register.pushSnooze(item: alarmItem)
-        
         SnoozeActivityManager.start(endDate: date)
     }
     

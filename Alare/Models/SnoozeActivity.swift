@@ -13,7 +13,11 @@ struct SnoozeActivityAttributes: ActivityAttributes {
 }
 
 class SnoozeActivityManager {
-    static func start(endDate: Date) {
+    static func isActive() -> Bool {
+        return !Activity<SnoozeActivityAttributes>.activities.isEmpty
+    }
+    
+    static func start(endDate: Date? = nil) {
         guard ActivityAuthorizationInfo().areActivitiesEnabled else {
             print("Activities are not enabled. Cannot start snooze activity.")
             return
