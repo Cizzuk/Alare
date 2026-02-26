@@ -11,7 +11,7 @@ import SwiftUI
 @main
 struct WidgetExtensionBundle: WidgetBundle {
     var body: some Widget {
-        AlarmStateWidget()
+        AlarmStateHomeWidget()
         StartWakeupActionControl()
     }
 }

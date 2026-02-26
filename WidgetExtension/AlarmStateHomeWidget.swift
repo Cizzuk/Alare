@@ -1,5 +1,5 @@
 //
-//  HomeWidget.swift
+//  AlarmStateHomeWidget.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/26.
@@ -8,8 +8,8 @@
 import SwiftUI
 import WidgetKit
 
-struct AlarmStateWidget: Widget {
-    static let kind = "net.cizzuk.alare.WidgetExtension.AlarmStateWidget"
+struct AlarmStateHomeWidget: Widget {
+    static let kind = "net.cizzuk.alare.WidgetExtension.AlarmStateHomeWidget"
     static let title: LocalizedStringResource = "Alare"
     
     var body: some WidgetConfiguration {
@@ -19,7 +19,14 @@ struct AlarmStateWidget: Widget {
         }
         .configurationDisplayName(Self.title)
         .description("Display Alare's alarm status.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([
+            .systemSmall,
+            .systemMedium,
+            .systemLarge,
+            .accessoryCircular,
+            .accessoryRectangular,
+            .accessoryInline
+        ])
     }
 
     struct Entry: TimelineEntry {

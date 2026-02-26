@@ -1,5 +1,5 @@
 //
-//  ControlCenterWidget.swift
+//  StartWakeupActionControl.swift
 //  Alare
 //
 //  Created by Cizzuk on 2026/02/25.
