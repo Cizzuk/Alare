@@ -11,6 +11,7 @@
 		BE3D01632F4F2C8800BB83E2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3D01622F4F2C8800BB83E2 /* SwiftUI.framework */; };
 		BE3D01722F4F2C8900BB83E2 /* WidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BE3D015E2F4F2C8800BB83E2 /* WidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BE3D017C2F4F2E0700BB83E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72C5252F4C486800308751 /* Constants.swift */; };
+		BE5943242F4FE6BB007648DA /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
 		BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
 		BE62B7AF2F4B32FF004B493D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */; };
 		BE72C5262F4C486F00308751 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72C5252F4C486800308751 /* Constants.swift */; };
@@ -245,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE5943242F4FE6BB007648DA /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
