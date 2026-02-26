@@ -16,4 +16,12 @@ final class WakeupActionManager: ObservableObject {
     }
     
     private init() {}
+    
+    func validate() {
+        if !settings.selected.isAvailable() {
+            if WakeupAction.default.isAvailable() {
+                settings.selected = .default
+            }
+        }
+    }
 }

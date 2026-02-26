@@ -85,10 +85,16 @@ class MainViewModel: ObservableObject {
     // MARK: - Alarm Management
     
     func syncAll() {
+        // Sync now
         Task {
             await support.validate()
             syncDraft()
-            syncFocusFilter()
+        }
+        
+        // Sync in background
+        DispatchQueue.global(qos: .utility).async {
+            self.waManager.validate()
+            self.syncFocusFilter()
         }
     }
     
