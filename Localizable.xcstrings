@@ -161,6 +161,26 @@
         }
       }
     },
+    "Camera access is denied. Please grant permission in Settings." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カメラにアクセスする権限がありません。設定から許可してください。"
+          }
+        }
+      }
+    },
+    "Camera access is restricted." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カメラは制限されています。"
+          }
+        }
+      }
+    },
     "Cancel" : {
       "localizations" : {
         "ja" : {
@@ -323,6 +343,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "毎日"
+          }
+        }
+      }
+    },
+    "First you need to scan the code to use it for this action." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "はじめに、このアクションで使用するためのコードをスキャンする必要があります。"
           }
         }
       }
@@ -550,6 +580,16 @@
         }
       }
     },
+    "Scan a Code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードをスキャン"
+          }
+        }
+      }
+    },
     "Scan Code" : {
       "localizations" : {
         "ja" : {
@@ -566,6 +606,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ベッドの外に置いたコードをスキャン。"
+          }
+        }
+      }
+    },
+    "Scan the Code to Wake Up!" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードをスキャンしてアラームを解除"
           }
         }
       }
