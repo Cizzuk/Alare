@@ -14,5 +14,6 @@ struct WidgetExtensionBundle: WidgetBundle {
         AlarmStateHomeWidget()
         AlarmStateLockWidget()
         StartWakeupActionControl()
+        SnoozeActivityWidget()
     }
 }

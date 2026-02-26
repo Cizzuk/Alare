@@ -144,12 +144,15 @@ final class AlarmSupport: ObservableObject {
         )
         
         await register.pushSnooze(item: alarmItem)
+        
+        SnoozeActivityManager.start(endDate: date)
     }
     
     // Stop the alarms completely
     func kill() async {
         register.killAlarm()
         await validate()
+        SnoozeActivityManager.endAll()
     }
     
     // MARK: - Public Helpers

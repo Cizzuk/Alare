@@ -65,6 +65,7 @@
 			membershipExceptions = (
 				AppIntents/StartWakeupActionIntent.swift,
 				Models/Enums/AlarmSound.swift,
+				Models/SnoozeActivity.swift,
 				Models/UserData/AlarmSettings.swift,
 				Models/UserData/RegisteredAlarms.swift,
 				Models/WeekdaysSupport.swift,
