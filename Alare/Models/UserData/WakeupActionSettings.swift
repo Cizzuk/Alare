@@ -14,7 +14,7 @@ struct WakeupActionSettings: Codable {
     var scanCode_code: String? // Required
     
     // Drum Roll Settings
-    var drumRoll_tapsRequired: Int = 50
+    var drumRoll_tapsRequired: Int = 100
 }
 
 // MARK: - UserDefaults Persistence
