@@ -14,7 +14,7 @@ struct AlarmStateHomeWidget: Widget {
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: Self.kind, provider: Provider()) { entry in
-            AlarmStateWidgetView(entry: entry)
+            AlarmStateHomeWidgetView(entry: entry)
                 .environment(\.colorScheme, .dark)
         }
         .configurationDisplayName(Self.title)
@@ -22,10 +22,7 @@ struct AlarmStateHomeWidget: Widget {
         .supportedFamilies([
             .systemSmall,
             .systemMedium,
-            .systemLarge,
-            .accessoryCircular,
-            .accessoryRectangular,
-            .accessoryInline
+            .systemLarge
         ])
     }
 
@@ -48,7 +45,7 @@ struct AlarmStateHomeWidget: Widget {
         }
     }
     
-    struct AlarmStateWidgetView: View {
+    struct AlarmStateHomeWidgetView: View {
         let entry: Entry
         private let settings = AlarmSettings.load()
         private let registeredAlarms = RegisteredAlarms.load()
