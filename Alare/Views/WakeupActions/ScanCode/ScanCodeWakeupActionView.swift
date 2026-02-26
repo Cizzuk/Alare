@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - Settings
+
 struct ScanCodeWakeupActionSettingsView: View {
     @ObservedObject private var manager = WakeupActionManager.shared
 
@@ -29,6 +31,8 @@ struct ScanCodeWakeupActionSettingsView: View {
         }
     }
 }
+
+// MARK: - Execution
 
 struct ScanCodeWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel

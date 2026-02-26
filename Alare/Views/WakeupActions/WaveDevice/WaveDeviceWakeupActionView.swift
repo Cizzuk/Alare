@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - Execution
+
 struct WaveDeviceWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
     
