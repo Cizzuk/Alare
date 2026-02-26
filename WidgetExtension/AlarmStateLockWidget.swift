@@ -50,31 +50,27 @@ struct AlarmStateLockWidget: Widget {
         private let registeredAlarms = RegisteredAlarms.load()
 
         var body: some View {
-            VStack(alignment: .center, spacing: 8) {
+            Group {
                 if registeredAlarms.nextSnooze != nil {
-                    Label("Start Wake-up Action", image: "bolt.alare")
-                        .font(.system(size: 50))
-                        .labelStyle(.iconOnly)
-                    Label("Snoozing", systemImage: "zzz")
-                        .font(.headline)
+                    Image("bolt.alare")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .accessibilityLabel("Start Wake-up Action")
                 } else if settings.isEnabled {
-                    Label("Alare", image: "alare")
-                        .font(.system(size: 50))
-                        .labelStyle(.iconOnly)
-                    Text(String(format: "%02d:%02d", settings.hour, settings.minute))
-                        .font(.system(.title, design: .rounded))
-                        .monospacedDigit()
-                        .bold()
+                    Image("alare")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .accessibilityLabel("Alarm is On")
                 } else {
-                    Label("Alare", image: "alare")
-                        .font(.system(size: 50))
-                        .labelStyle(.iconOnly)
-                    Text("Alarm is Off")
-                        .font(.headline)
+                    Image("alare")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .accessibilityLabel("Alarm is Off")
                         .foregroundStyle(.secondary)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .containerBackground(.clear, for: .widget)
         }
     }
 }

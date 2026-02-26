@@ -12,6 +12,7 @@ import SwiftUI
 struct WidgetExtensionBundle: WidgetBundle {
     var body: some Widget {
         AlarmStateHomeWidget()
+        AlarmStateLockWidget()
         StartWakeupActionControl()
     }
 }
