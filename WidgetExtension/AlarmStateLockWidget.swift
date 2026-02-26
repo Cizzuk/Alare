@@ -95,7 +95,7 @@ struct AlarmStateLockWidget: Widget {
                                 .frame(width: .infinity, height: .infinity)
                             if settings.isEnabled {
                                 Text(time)
-                                    .font(.caption)
+                                    .font(.system(.caption, design: .rounded))
                                     .bold()
                             } else {
                                 Text("Off")
