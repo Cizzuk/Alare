@@ -32,8 +32,9 @@ final class HapticManager {
         guard supportsHaptics else { return }
         
         do {
-            let audioSession = AVAudioSession.sharedInstance()
-            engine = try CHHapticEngine(audioSession: audioSession)
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback, options: [.mixWithOthers])
+            engine = try CHHapticEngine(audioSession: session)
         } catch let error {
             print("CHHapticEngine Creation Error: \(error)")
         }
