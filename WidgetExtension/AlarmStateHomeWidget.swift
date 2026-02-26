@@ -80,6 +80,7 @@ struct AlarmStateHomeWidget: Widget {
             .containerBackground(for: .widget) {
                 Color.black.overlay(NightGradient)
             }
+            .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
         }
     }
     

@@ -63,6 +63,25 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func handleOpenURL(url: URL) {
+        // Get App URL Schemes
+        let appURLSchemes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]]
+        let urlSchemes = appURLSchemes?.compactMap { $0["CFBundleURLSchemes"] as? [String] }.flatMap { $0 } ?? []
+        
+        // Check URL Scheme
+        guard let scheme = url.scheme,
+              urlSchemes.contains(scheme)
+        else { return }
+        
+        // Parse URL
+        switch url.host {
+        case "wakeupaction":
+            startWakeupAction()
+        default:
+            break
+        }
+    }
+    
     // MARK: - Alarm Management
     
     func syncAll() {

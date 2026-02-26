@@ -49,6 +49,7 @@ struct SnoozeActivityWidget: Widget {
             }
             .padding()
             .activitySystemActionForegroundColor(.dropblue)
+            .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
@@ -66,6 +67,7 @@ struct SnoozeActivityWidget: Widget {
                 smallImage
             }
             .keylineTint(.dropblue)
+            .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
         }
     }
 }

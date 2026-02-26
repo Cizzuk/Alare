@@ -123,6 +123,7 @@ struct AlarmStateLockWidget: Widget {
                 }
             }
             .containerBackground(.clear, for: .widget)
+            .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
         }
     }
 }

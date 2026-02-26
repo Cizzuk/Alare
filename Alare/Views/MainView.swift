@@ -203,6 +203,9 @@ struct MainView: View {
         .onReceive(NotificationCenter.default.publisher(for: .focusFilterDidChange)) { _ in
             vm.syncFocusFilter()
         }
+        .onOpenURL { url in
+            vm.handleOpenURL(url: url)
+        }
         .onAppear { vm.onAppear() }
         .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }
