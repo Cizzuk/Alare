@@ -8,6 +8,8 @@
 import SwiftUI
 import UIKit
 
+// MARK: - Settings
+
 struct DrumRollWakeupActionSettingsView: View {
     @ObservedObject private var manager = WakeupActionManager.shared
     
@@ -38,6 +40,8 @@ struct DrumRollWakeupActionSettingsView: View {
         }
     }
 }
+
+// MARK: - Execution
 
 struct DrumRollWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
