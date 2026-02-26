@@ -87,7 +87,7 @@ struct AlarmStateWidget: Widget {
         private let shortSymbol: [String] = WeekdaysSupport.shortSymbol
         
         var body: some View {
-            ZStack {
+            Group {
                 if repeats.isEmpty {
                     Text("No Repeat")
                 } else if WeekdaysSupport.isEveryday(repeats) {
