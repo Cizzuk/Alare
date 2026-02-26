@@ -5,12 +5,16 @@
 //  Created by Cizzuk on 2026/02/24.
 //
 
+import AVFoundation
 import SwiftUI
+import VisionKit
 
 // MARK: - Settings
 
 struct ScanCodeWakeupActionSettingsView: View {
     @ObservedObject private var manager = WakeupActionManager.shared
+    @State private var isShowingScanner = false
+    private let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
 
     var body: some View {
         Section {
@@ -19,14 +23,46 @@ struct ScanCodeWakeupActionSettingsView: View {
                 Spacer()
                 if let code = manager.settings.scanCode_code {
                     Text(code)
+                        .lineLimit(1)
                         .foregroundStyle(.secondary)
                 } else {
                     Text("Not Set")
                         .foregroundStyle(.secondary)
                 }
             }
-            Button(action: {}) {
-                Text("Scan to Set a New Code")
+            
+            Button("Scan to Set a New Code") {
+                isShowingScanner = true
+            }
+            .disabled(cameraAuthStatus != .authorized || cameraAuthStatus == .notDetermined)
+            .sheet(isPresented: $isShowingScanner) {
+                NavigationStack {
+                    BarcodeScannerView { code in
+                        manager.settings.scanCode_code = code
+                        isShowingScanner = false
+                    }
+                    .ignoresSafeArea()
+                    .navigationTitle("Scan a Code")
+                    .toolbarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button(action: { isShowingScanner = false }) {
+                                Label("Cancel", systemImage: "xmark")
+                            }
+                        }
+                    }
+                }
+            }
+        } footer: {
+            switch cameraAuthStatus {
+            case .denied:
+                Text("Camera access is denied. Please grant permission in Settings.")
+            case .restricted:
+                Text("Camera access is restricted.")
+            default:
+                if manager.settings.scanCode_code == nil {
+                    Text("First you need to scan the code to use it for this action.")
+                }
             }
         }
     }
@@ -36,8 +72,72 @@ struct ScanCodeWakeupActionSettingsView: View {
 
 struct ScanCodeWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
-    
+    private let expectedCode = WakeupActionManager.shared.settings.scanCode_code
+
     var body: some View {
-        EmptyView()
+        VStack() {
+            Text("Scan the Code to Wake Up!")
+                .font(.largeTitle)
+                .bold()
+                .padding()
+            
+            BarcodeScannerView { code in
+                if code == expectedCode {
+                    vm.complete()
+                }
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 30))
+            .padding(.horizontal)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(NightGradient.ignoresSafeArea())
+    }
+}
+
+// MARK: - Barcode Scanner
+
+private struct BarcodeScannerView: UIViewControllerRepresentable {
+    let onCodeScanned: (String) -> Void
+
+    func makeUIViewController(context: Context) -> DataScannerViewController {
+        let vc = DataScannerViewController(
+            recognizedDataTypes: [.barcode()],
+            isHighlightingEnabled: true
+        )
+        
+        vc.delegate = context.coordinator
+        return vc
+    }
+
+    func updateUIViewController(_ vc: DataScannerViewController, context: Context) {
+        if !vc.isScanning { try? vc.startScanning() }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onCodeScanned: onCodeScanned)
+    }
+
+    class Coordinator: NSObject, DataScannerViewControllerDelegate {
+        let onCodeScanned: (String) -> Void
+        
+        init(onCodeScanned: @escaping (String) -> Void) {
+            self.onCodeScanned = onCodeScanned
+        }
+        
+        func dataScanner(
+            _ dataScanner: DataScannerViewController,
+            didAdd addedItems: [RecognizedItem],
+            allItems: [RecognizedItem]
+        ) {
+            for item in addedItems {
+                if case .barcode(let barcode) = item,
+                   let value = barcode.payloadStringValue {
+                    DispatchQueue.main.async {
+                        self.onCodeScanned(value)
+                    }
+                    return
+                }
+            }
+        }
     }
 }
