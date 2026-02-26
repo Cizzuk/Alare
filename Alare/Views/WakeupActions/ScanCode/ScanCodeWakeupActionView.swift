@@ -74,6 +74,7 @@ struct ScanCodeWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
     @State var incorrectCodeEntered = false
     private let expectedCode = WakeupActionManager.shared.settings.scanCode_code
+    private let specialCode = "https://cizz.uk/alare"
 
     var body: some View {
         VStack() {
@@ -94,7 +95,7 @@ struct ScanCodeWakeupActionExecutionView: View {
             }
             
             BarcodeScannerView { code in
-                if code == expectedCode {
+                if code == expectedCode || code == specialCode {
                     vm.complete()
                 } else {
                     incorrectCodeEntered = true
