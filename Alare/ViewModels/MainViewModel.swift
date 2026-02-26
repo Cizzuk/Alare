@@ -115,9 +115,10 @@ class MainViewModel: ObservableObject {
         else { return }
         
         // Start action
-        if focusFilterWakeupAction != nil {
+        if let focusFilterWakeupAction = focusFilterWakeupAction,
+           focusFilterWakeupAction.isAvailable() {
             doingWakeupAction = focusFilterWakeupAction
-        } else {
+        } else if waManager.settings.selected.isAvailable() {
             doingWakeupAction = waManager.settings.selected
         }
     }
