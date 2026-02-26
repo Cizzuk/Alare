@@ -121,22 +121,22 @@
         }
       }
     },
-    "Alarm is Off" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アラームオフ"
-          }
-        }
-      }
-    },
     "Alarm is Snoozing" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "アラームはスヌーズ中です"
+          }
+        }
+      }
+    },
+    "Alarm Off" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームオフ"
           }
         }
       }
@@ -446,6 +446,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未設定"
+          }
+        }
+      }
+    },
+    "Off" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オフ"
           }
         }
       }

@@ -62,7 +62,7 @@ struct AlarmStateHomeWidget: Widget {
                     Label("Alare", image: "alare")
                         .font(.system(size: 50))
                         .labelStyle(.iconOnly)
-                    Text(String(format: "%02d:%02d", settings.hour, settings.minute))
+                    Text(String(format: "%2d:%02d", settings.hour, settings.minute))
                         .font(.system(.title, design: .rounded))
                         .monospacedDigit()
                         .bold()
@@ -71,7 +71,7 @@ struct AlarmStateHomeWidget: Widget {
                     Label("Alare", image: "alare")
                         .font(.system(size: 50))
                         .labelStyle(.iconOnly)
-                    Text("Alarm is Off")
+                    Text("Alarm Off")
                         .font(.headline)
                         .foregroundStyle(.secondary)
                 }
