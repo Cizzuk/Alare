@@ -37,6 +37,12 @@ struct WaveDeviceWakeupActionSettingsView: View {
                 }
                 .pickerStyle(.wheel)
             }
+        } footer: {
+            Text("It's easier to earn points by making large, slow movements with your device rather than quick, small shakes.")
+        }
+        
+        Section {} footer: {
+            Text("When performing this action, please hold your device securely and be aware of your surroundings.")
         }
     }
 }
@@ -65,15 +71,29 @@ struct WaveDeviceWakeupActionExecutionView: View {
                 .font(.largeTitle)
                 .bold()
                 .padding()
-            Image(systemName: "flag")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-                .foregroundStyle(.accent)
+            
+            Gauge(value: Double(progress), in: 0...Double(pointsRequired)) {
+                Image(systemName: "flag")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(.dropblue)
+                    .padding(3)
+            }
+            .gaugeStyle(.accessoryCircularCapacity)
+            .tint(.dropblue)
+            .scaleEffect(3)
+            .padding(50)
+            .accessibilityHidden(true)
+            
             Text("\(remainingPoints) remaining")
                 .font(.title.monospacedDigit())
                 .foregroundStyle(.secondary)
+            
+            Text("When performing this action, please hold your device securely and be aware of your surroundings.")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
         }
+        .animation(.easeInOut, value: progress)
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(NightGradient.ignoresSafeArea())

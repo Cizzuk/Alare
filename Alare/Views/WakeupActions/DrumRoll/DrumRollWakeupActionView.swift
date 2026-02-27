@@ -60,11 +60,14 @@ struct DrumRollWakeupActionExecutionView: View {
                 .font(.largeTitle)
                 .bold()
                 .padding()
+            
             Image(systemName: "hand.tap")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)
                 .foregroundStyle(.accent)
+                .accessibilityHidden(true)
+            
             Text("\(remainingTaps()) remaining")
                 .font(.title.monospacedDigit())
                 .foregroundStyle(.secondary)

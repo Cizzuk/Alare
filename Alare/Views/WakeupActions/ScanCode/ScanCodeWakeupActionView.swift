@@ -14,7 +14,11 @@ import VisionKit
 struct ScanCodeWakeupActionSettingsView: View {
     @ObservedObject private var manager = WakeupActionManager.shared
     @State private var isShowingScanner = false
+    
     private let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
+    private var isCameraAccessDenied: Bool {
+        cameraAuthStatus == .denied || cameraAuthStatus == .restricted
+    }
 
     var body: some View {
         Section {
@@ -34,7 +38,7 @@ struct ScanCodeWakeupActionSettingsView: View {
             Button("Scan to Set a New Code") {
                 isShowingScanner = true
             }
-            .disabled(cameraAuthStatus != .authorized || cameraAuthStatus == .notDetermined)
+            .disabled(isCameraAccessDenied)
             .sheet(isPresented: $isShowingScanner) {
                 NavigationStack {
                     BarcodeScannerView { code in
@@ -62,6 +66,8 @@ struct ScanCodeWakeupActionSettingsView: View {
             default:
                 if manager.settings.scanCode_code == nil {
                     Text("First you need to scan the code to use it for this action.")
+                } else {
+                    Text("It's recommended to place the code away from the bed.")
                 }
             }
         }

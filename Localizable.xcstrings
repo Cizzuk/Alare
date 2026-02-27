@@ -457,6 +457,26 @@
         }
       }
     },
+    "It's easier to earn points by making large, slow movements with your device rather than quick, small shakes." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスを小刻みにシェイクするよりも、大きくゆっくり動かすほうがポイントを獲得しやすくなります。"
+          }
+        }
+      }
+    },
+    "It's recommended to place the code away from the bed." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードは寝室から離れた場所に置くことをおすすめします。"
+          }
+        }
+      }
+    },
     "Its operation may be unstable, and settings may not be carried over to future versions." : {
       "localizations" : {
         "ja" : {
@@ -1029,6 +1049,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このアプリについて"
+          }
+        }
+      }
+    },
+    "When performing this action, please hold your device securely and be aware of your surroundings." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このアクションを行う際は、デバイスをしっかり持って、周囲の状況に注意しながら行なってください。"
           }
         }
       }
