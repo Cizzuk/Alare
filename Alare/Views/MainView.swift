@@ -163,7 +163,6 @@ struct MainView: View {
                         Label("Contact", systemImage: "envelope")
                     })
                 } header: { Label("This app is currently in Beta", systemImage: "exclamationmark.circle") }
-                #endif
                 
                 #if DEBUG
                 Button(action: {
@@ -172,7 +171,7 @@ struct MainView: View {
                     Text("Test Alarm")
                 }
                 #endif
-                
+                #endif
             } // List
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
