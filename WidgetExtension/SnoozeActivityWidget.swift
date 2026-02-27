@@ -12,7 +12,7 @@ import WidgetKit
 struct SnoozeActivityWidget: Widget {
     static let kind = "net.cizzuk.alare.WidgetExtension.SnoozeActivityWidget"
     
-    struct iconImage: View {
+    struct IconImage: View {
         var size: CGFloat? = nil
 
         var body: some View {
@@ -25,7 +25,7 @@ struct SnoozeActivityWidget: Widget {
         }
     }
     
-    struct descriptionText: View {
+    struct DescriptionText: View {
         var showSubtitle: Bool = true
         
         var body: some View {
@@ -50,13 +50,13 @@ struct SnoozeActivityWidget: Widget {
             switch activityFamily {
             case .small:
                 HStack(spacing: 10) {
-                    iconImage(size: 30)
-                    descriptionText(showSubtitle: false)
+                    IconImage(size: 30)
+                    DescriptionText(showSubtitle: false)
                 }
             case .medium:
                 HStack(spacing: 10) {
-                    iconImage(size: 50)
-                    descriptionText()
+                    IconImage(size: 50)
+                    DescriptionText()
                 }
                 .padding()
             @unknown default:
@@ -74,18 +74,18 @@ struct SnoozeActivityWidget: Widget {
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    iconImage(size: 60)
+                    IconImage(size: 60)
                 }
                 DynamicIslandExpandedRegion(.center) {
-                    descriptionText()
+                    DescriptionText()
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 5)
                 }
             } compactLeading: {
-                iconImage()
+                IconImage()
             } compactTrailing: {
             } minimal: {
-                iconImage()
+                IconImage()
             }
             .keylineTint(.dropblue)
             .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
