@@ -93,7 +93,6 @@ struct WaveDeviceWakeupActionExecutionView: View {
                 .font(.footnote)
                 .foregroundStyle(.secondary)
         }
-        .animation(.easeInOut, value: progress)
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(NightGradient.ignoresSafeArea())
