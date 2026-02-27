@@ -63,6 +63,7 @@ extension WakeupAction {
         }
     }
 
+    @MainActor
     func isAvailable() -> Bool {
         let settings = WakeupActionManager.shared.settings
         switch self {

@@ -12,6 +12,7 @@ import WidgetKit
 
 // Manages user settings and communication with AlarmRegister
 
+@MainActor
 final class AlarmSupport: ObservableObject {
     static let shared = AlarmSupport()
     
@@ -168,14 +169,14 @@ final class AlarmSupport: ObservableObject {
     // MARK: - Public Helpers
     
     // Create Date from hour and minute
-    static func makeDateFromTime(hour: Int, minute: Int) -> Date {
+    nonisolated static func makeDateFromTime(hour: Int, minute: Int) -> Date {
         let calendar = Calendar.current
         let base = calendar.startOfDay(for: Date())
         return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: base) ?? base
     }
     
     // Create hour and minute from Date
-    static func makeTimeFromDate(_ date: Date) -> (hour: Int, minute: Int) {
+    nonisolated static func makeTimeFromDate(_ date: Date) -> (hour: Int, minute: Int) {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.hour, .minute], from: date)
         return (components.hour ?? 0, components.minute ?? 0)

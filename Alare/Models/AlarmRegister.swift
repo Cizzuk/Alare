@@ -12,6 +12,7 @@ import WidgetKit
 
 // Communication with AlarmManager and manage registered alarms
 
+@MainActor
 final class AlarmRegister: ObservableObject {
     typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
     static let shared = AlarmRegister()

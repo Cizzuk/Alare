@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class WakeupActionManager: ObservableObject {
     static let shared = WakeupActionManager()
     
