@@ -46,7 +46,7 @@ struct MainView: View {
                             .frame(maxWidth: .infinity)
                         if AlarmManager.shared.authorizationState == .denied {
                             VStack(alignment: .leading, spacing: 5) {
-                                Text("Alarm permission is not granted. Please enable it in Settings to use the Alare.")
+                                Text("Alarm permission is not granted. Please enable it in Settings to use Alare.")
                                 if let url = URL(string: UIApplication.openSettingsURLString) {
                                     Button(action: { UIApplication.shared.open(url) }) {
                                         Text("Open Settings...")
@@ -151,7 +151,7 @@ struct MainView: View {
                     Text("Set the time and repeat settings, and then turn on the alarm.")
                     Text("When the alarm rings, Snooze and Stop buttons will appear on the screen.")
                     Text("However, regardless of which you select, it will be forced into snooze mode.")
-                    Text("If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake-up Action.")
+                    Text("If you select Stop, Alare will open. You cannot stop the snooze unless you perform the Wake-up Action.")
                 } header: { Label("What is this", systemImage: "questionmark.circle") }
                 Section {
                     Text("Its operation may be unstable, and settings may not be carried over to future versions.")
@@ -162,7 +162,7 @@ struct MainView: View {
                     Link(destination:URL(string: "https://cizzuk.net/contact/")!, label: {
                         Label("Contact", systemImage: "envelope")
                     })
-                } header: { Label("This app is currentry in Beta", systemImage: "exclamationmark.circle") }
+                } header: { Label("This app is currently in Beta", systemImage: "exclamationmark.circle") }
                 #endif
                 
                 #if DEBUG

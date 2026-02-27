@@ -11,7 +11,7 @@ import WidgetKit
 struct ChangeAlarmTimeIntent: AppIntent, CustomIntentMigratedAppIntent {
     static let intentClassName = "ChangeAlarmTime"
     static var title: LocalizedStringResource = "Change Alare's Alarm Time"
-    static var description: LocalizedStringResource = "Changes the time of the Alare's alarm."
+    static var description: LocalizedStringResource = "Changes the time of Alare's alarm."
     
     @Parameter(title: "Time", kind: .time)
     var time: Date

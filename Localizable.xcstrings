@@ -161,7 +161,7 @@
         }
       }
     },
-    "Alarm permission is not granted. Please enable it in Settings to use the Alare." : {
+    "Alarm permission is not granted. Please enable it in Settings to use Alare." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -241,7 +241,7 @@
         }
       }
     },
-    "Changes the time of the Alare's alarm." : {
+    "Changes the time of Alare's alarm." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -437,7 +437,7 @@
         }
       }
     },
-    "If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake-up Action." : {
+    "If you select Stop, Alare will open. You cannot stop the snooze unless you perform the Wake-up Action." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -457,7 +457,7 @@
         }
       }
     },
-    "Incorrect code. Please try other code." : {
+    "Incorrect code. Please try another code." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -580,7 +580,7 @@
         }
       }
     },
-    "Open the Alare and start the Wake-up Action. The action will not start if the alarm is not snoozing." : {
+    "Open Alare and start the Wake-up Action. The action will not start if the alarm is not snoozing." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -910,7 +910,7 @@
         }
       }
     },
-    "This app is currentry in Beta" : {
+    "This app is currently in Beta" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {

@@ -90,7 +90,7 @@ struct ScanCodeWakeupActionExecutionView: View {
                 .padding()
             
             if incorrectCodeEntered {
-                Text("Incorrect code. Please try other code.")
+                Text("Incorrect code. Please try another code.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             } else {
