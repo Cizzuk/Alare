@@ -65,7 +65,7 @@ struct DrumRollWakeupActionExecutionView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)
-                .foregroundStyle(.accent)
+                .foregroundStyle(.dropblue)
                 .accessibilityHidden(true)
             
             Text("\(remainingTaps()) Taps Left")
