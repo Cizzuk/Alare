@@ -62,13 +62,41 @@ extension WakeupAction {
             return "Just tap the button once."
         }
     }
+    
+    @MainActor
+    func isHidden() -> Bool {
+        switch self {
+        case .waveDevice:
+            if UIDevice.current.userInterfaceIdiom != .phone {
+                return true
+            }
+            
+            if !CMMotionManager().isDeviceMotionAvailable {
+                return true
+            }
+            
+            return false
+            
+        case .scanCode:
+            return AVCaptureDevice.authorizationStatus(for: .video) == .restricted
+            
+        case .drumRoll, .tapButton:
+            return false
+        }
+    }
 
     @MainActor
     func isAvailable() -> Bool {
+        if self.isHidden() {
+            return false
+        }
+        
         let settings = WakeupActionManager.shared.settings
+        
         switch self {
         case .waveDevice:
             return CMMotionManager().isDeviceMotionAvailable
+            
         case .scanCode:
             if settings.scanCode_code == nil {
                 return false
@@ -82,9 +110,15 @@ extension WakeupAction {
             }
             
             return true
+            
         case .drumRoll, .tapButton:
             return true
         }
+    }
+    
+    @MainActor
+    static func availableCases() -> [WakeupAction] {
+        Self.allCases.filter { !$0.isHidden() }
     }
 
     @ViewBuilder

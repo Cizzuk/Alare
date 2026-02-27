@@ -31,7 +31,7 @@ struct WakeupActionSettingsView: View {
                 }
                 
                 Section("Actions") {
-                    ForEach(WakeupAction.allCases, id: \.self) { action in
+                    ForEach(WakeupAction.availableCases(), id: \.self) { action in
                         NavigationLink(destination: ActionSettingsView(action: action)) {
                             HStack(spacing: 15) {
                                 Image(systemName: action.systemImage)
