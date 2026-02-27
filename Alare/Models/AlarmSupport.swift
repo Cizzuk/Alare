@@ -69,7 +69,7 @@ final class AlarmSupport: ObservableObject {
             
             // Live Activity check
             if !SnoozeActivityManager.isActive() {
-                SnoozeActivityManager.start(endDate: date)
+                SnoozeActivityManager.start()
                 print("Snooze Live Activity restarted")
             }
         } else if !SnoozeActivityManager.isActive() {
@@ -156,7 +156,7 @@ final class AlarmSupport: ObservableObject {
         )
         
         await register.pushSnooze(item: alarmItem)
-        SnoozeActivityManager.start(endDate: date)
+        SnoozeActivityManager.start()
     }
     
     // Stop the alarms completely
