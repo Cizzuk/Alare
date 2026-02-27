@@ -85,7 +85,7 @@ struct WaveDeviceWakeupActionExecutionView: View {
             .padding(50)
             .accessibilityHidden(true)
             
-            Text("\(remainingPoints) remaining")
+            Text("\(remainingPoints) Points Left")
                 .font(.title.monospacedDigit())
                 .foregroundStyle(.secondary)
             

@@ -68,7 +68,7 @@ struct DrumRollWakeupActionExecutionView: View {
                 .foregroundStyle(.accent)
                 .accessibilityHidden(true)
             
-            Text("\(remainingTaps()) remaining")
+            Text("\(remainingTaps()) Taps Left")
                 .font(.title.monospacedDigit())
                 .foregroundStyle(.secondary)
         }
@@ -83,7 +83,7 @@ struct DrumRollWakeupActionExecutionView: View {
         .accessibilityElement(children: .combine)
         .accessibilityDirectTouch()
         .accessibilityLabel("Drum Roll the Screen to Wake Up!")
-        .accessibilityHint("\(tapsRequired - taps) remaining")
+        .accessibilityHint("\(remainingTaps()) Taps Left")
     }
     
     private func addTap(count: Int = 1) {

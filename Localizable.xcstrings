@@ -38,12 +38,12 @@
         }
       }
     },
-    "%lld remaining" : {
+    "%lld Points Left" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "あと%lld回"
+            "value" : "あと%lldポイント"
           }
         }
       }
@@ -54,6 +54,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lldタップ"
+          }
+        }
+      }
+    },
+    "%lld Taps Left" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あと%lldタップ"
           }
         }
       }
