@@ -9,6 +9,7 @@ import AppIntents
 import Combine
 import SwiftUI
 
+@MainActor
 class MainViewModel: ObservableObject {
     @ObservationIgnored private var register = AlarmRegister.shared
     @ObservationIgnored private var support = AlarmSupport.shared
@@ -88,13 +89,9 @@ class MainViewModel: ObservableObject {
         // Sync now
         Task {
             await support.validate()
+            waManager.validate()
             syncDraft()
-        }
-        
-        // Sync in background
-        DispatchQueue.global(qos: .utility).async {
-            self.waManager.validate()
-            self.syncFocusFilter()
+            syncFocusFilter()
         }
     }
     
