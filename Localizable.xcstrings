@@ -28,6 +28,9 @@
         }
       }
     },
+    "%lld Points" : {
+
+    },
     "%lld remaining" : {
       "localizations" : {
         "ja" : {
@@ -590,6 +593,9 @@
         }
       }
     },
+    "Required Points" : {
+
+    },
     "Required Taps" : {
       "localizations" : {
         "ja" : {
@@ -982,6 +988,9 @@
           }
         }
       }
+    },
+    "Wave the Device to Wake Up!" : {
+
     },
     "Weekdays" : {
       "localizations" : {

@@ -7,6 +7,7 @@
 
 import AppIntents
 import AVFoundation
+import CoreMotion
 import SwiftUI
 
 enum WakeupAction: String, CaseIterable, Codable, Identifiable, AppEnum {
@@ -66,7 +67,7 @@ extension WakeupAction {
         let settings = WakeupActionManager.shared.settings
         switch self {
         case .waveDevice:
-            return false
+            return CMMotionManager().isDeviceMotionAvailable
         case .scanCode:
             if settings.scanCode_code == nil {
                 return false
@@ -89,7 +90,7 @@ extension WakeupAction {
     func settingsView() -> some View {
         switch self {
         case .waveDevice:
-            EmptyView()
+            WaveDeviceWakeupActionSettingsView()
         case .scanCode:
             ScanCodeWakeupActionSettingsView()
         case .drumRoll:

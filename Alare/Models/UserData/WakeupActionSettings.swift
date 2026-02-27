@@ -10,6 +10,9 @@ import Foundation
 struct WakeupActionSettings: Codable {
     var selected: WakeupAction = .default
     
+    // Wave Device Settings
+    var waveDevice_pointsRequired: Int = 100
+    
     // Scan Code Settings
     var scanCode_code: String? // Required
     
