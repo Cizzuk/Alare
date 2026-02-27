@@ -29,7 +29,14 @@
       }
     },
     "%lld Points" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lldポイント"
+          }
+        }
+      }
     },
     "%lld remaining" : {
       "localizations" : {
@@ -594,7 +601,14 @@
       }
     },
     "Required Points" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "必要なポイント数"
+          }
+        }
+      }
     },
     "Required Taps" : {
       "localizations" : {
@@ -990,7 +1004,14 @@
       }
     },
     "Wave the Device to Wake Up!" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスを振ってアラームを解除"
+          }
+        }
+      }
     },
     "Weekdays" : {
       "localizations" : {
