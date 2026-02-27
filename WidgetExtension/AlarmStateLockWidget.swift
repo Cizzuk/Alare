@@ -95,12 +95,12 @@ struct AlarmStateLockWidget: Widget {
                     VStack {
                         if registeredAlarms.nextSnooze != nil {
                             image
-                                .frame(width: .infinity, height: .infinity)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .accessibilityLabel("Start Wake-up Action")
                                 .accessibilityHidden(false)
                         } else {
                             image
-                                .frame(width: .infinity, height: .infinity)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                             if settings.isEnabled {
                                 Text(time)
                                     .font(.system(.caption, design: .rounded))
