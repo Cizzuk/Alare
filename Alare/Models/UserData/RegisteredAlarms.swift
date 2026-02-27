@@ -6,6 +6,7 @@
 //
 
 import AlarmKit
+import MergeCodablePackage
 
 struct AlarmItem: Codable {
     var uuid: UUID
@@ -24,21 +25,17 @@ struct RegisteredAlarms: Codable {
 
 // MARK: - UserDefaults Persistence
 
-extension RegisteredAlarms {
+extension RegisteredAlarms: MergeCodable {
     static let userDefaultsKey = "RegisteredAlarms"
     
     static func load() -> Self {
-        if let rawData = userDefaults.data(forKey: RegisteredAlarms.userDefaultsKey) {
-            if let data = try? JSONDecoder().decode(RegisteredAlarms.self, from: rawData) {
-                return data
-            }
-        }
-        return RegisteredAlarms()
+        guard let data = userDefaults.data(forKey: userDefaultsKey) else { return Self() }
+        return decode(from: data)
     }
     
     func save() {
-        if let data = try? JSONEncoder().encode(self) {
-            userDefaults.set(data, forKey: RegisteredAlarms.userDefaultsKey)
+        if let data = encode() {
+            userDefaults.set(data, forKey: Self.userDefaultsKey)
         }
     }
 }

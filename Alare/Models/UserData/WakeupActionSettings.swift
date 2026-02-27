@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MergeCodablePackage
 
 struct WakeupActionSettings: Codable {
     var selected: WakeupAction = .default
@@ -22,21 +23,17 @@ struct WakeupActionSettings: Codable {
 
 // MARK: - UserDefaults Persistence
 
-extension WakeupActionSettings {
+extension WakeupActionSettings: MergeCodable {
     static let userDefaultsKey = "WakeupActionSettings"
     
     static func load() -> Self {
-        if let rawData = userDefaults.data(forKey: WakeupActionSettings.userDefaultsKey) {
-            if let data = try? JSONDecoder().decode(WakeupActionSettings.self, from: rawData) {
-                return data
-            }
-        }
-        return WakeupActionSettings()
+        guard let data = userDefaults.data(forKey: userDefaultsKey) else { return Self() }
+        return decode(from: data)
     }
     
     func save() {
-        if let data = try? JSONEncoder().encode(self) {
-            userDefaults.set(data, forKey: WakeupActionSettings.userDefaultsKey)
+        if let data = encode() {
+            userDefaults.set(data, forKey: Self.userDefaultsKey)
         }
     }
 }

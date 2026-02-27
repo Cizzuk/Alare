@@ -6,6 +6,7 @@
 //
 
 import AlarmKit
+import MergeCodablePackage
 
 struct AlarmSettings: AlarmMetadata, Codable {
     var isEnabled: Bool = false
@@ -35,21 +36,18 @@ struct AlarmSettings: AlarmMetadata, Codable {
 
 // MARK: - UserDefaults Persistence
 
-extension AlarmSettings {
+@MainActor
+extension AlarmSettings: MergeCodable {
     static let userDefaultsKey = "AlarmSettings"
     
     static func load() -> Self {
-        if let rawData = userDefaults.data(forKey: AlarmSettings.userDefaultsKey) {
-            if let data = try? JSONDecoder().decode(AlarmSettings.self, from: rawData) {
-                return data
-            }
-        }
-        return AlarmSettings()
+        guard let data = userDefaults.data(forKey: userDefaultsKey) else { return Self() }
+        return decode(from: data)
     }
     
     func save() {
-        if let data = try? JSONEncoder().encode(self) {
-            userDefaults.set(data, forKey: AlarmSettings.userDefaultsKey)
+        if let data = encode() {
+            userDefaults.set(data, forKey: Self.userDefaultsKey)
         }
     }
 }

@@ -15,6 +15,8 @@
 		BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
 		BE62B7AF2F4B32FF004B493D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */; };
 		BE72C5262F4C486F00308751 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72C5252F4C486800308751 /* Constants.swift */; };
+		BE99AC4E2F51C29C0038BE03 /* MergeCodablePackage in Frameworks */ = {isa = PBXBuildFile; productRef = BE99AC4D2F51C29C0038BE03 /* MergeCodablePackage */; };
+		BE99AC502F51C2A10038BE03 /* MergeCodablePackage in Frameworks */ = {isa = PBXBuildFile; productRef = BE99AC4F2F51C2A10038BE03 /* MergeCodablePackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,7 @@
 			files = (
 				BE3D01632F4F2C8800BB83E2 /* SwiftUI.framework in Frameworks */,
 				BE3D01612F4F2C8800BB83E2 /* WidgetKit.framework in Frameworks */,
+				BE99AC502F51C2A10038BE03 /* MergeCodablePackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE99AC4E2F51C29C0038BE03 /* MergeCodablePackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +178,7 @@
 			);
 			name = WidgetExtensionExtension;
 			packageProductDependencies = (
+				BE99AC4F2F51C2A10038BE03 /* MergeCodablePackage */,
 			);
 			productName = WidgetExtensionExtension;
 			productReference = BE3D015E2F4F2C8800BB83E2 /* WidgetExtensionExtension.appex */;
@@ -198,6 +203,7 @@
 			);
 			name = Alare;
 			packageProductDependencies = (
+				BE99AC4D2F51C29C0038BE03 /* MergeCodablePackage */,
 			);
 			productName = Alare;
 			productReference = BEEB497B2F458C4B00B06D0B /* Alare.app */;
@@ -231,6 +237,9 @@
 			);
 			mainGroup = BEEB49722F458C4B00B06D0B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BE99AC4C2F51C29C0038BE03 /* XCRemoteSwiftPackageReference "swift-merge-codable" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BEEB497C2F458C4B00B06D0B /* Products */;
 			projectDirPath = "";
@@ -613,6 +622,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BE99AC4C2F51C29C0038BE03 /* XCRemoteSwiftPackageReference "swift-merge-codable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Cizzuk/swift-merge-codable";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BE99AC4D2F51C29C0038BE03 /* MergeCodablePackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE99AC4C2F51C29C0038BE03 /* XCRemoteSwiftPackageReference "swift-merge-codable" */;
+			productName = MergeCodablePackage;
+		};
+		BE99AC4F2F51C2A10038BE03 /* MergeCodablePackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE99AC4C2F51C29C0038BE03 /* XCRemoteSwiftPackageReference "swift-merge-codable" */;
+			productName = MergeCodablePackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BEEB49732F458C4B00B06D0B /* Project object */;
 }
