@@ -31,7 +31,7 @@ struct WakeupActionSettingsView: View {
                 }
                 
                 Section("Actions") {
-                    ForEach(WakeupAction.allCases, id: \.self) { action in
+                    ForEach(WakeupAction.availableCases(), id: \.self) { action in
                         NavigationLink(destination: ActionSettingsView(action: action)) {
                             HStack(spacing: 15) {
                                 Image(systemName: action.systemImage)
@@ -58,15 +58,6 @@ struct WakeupActionSettingsView: View {
                             }
                         }
                     }
-                }
-                
-                Section {
-                    Toggle(isOn: $manager.settings.relaxationMode) {
-                        Label("Relaxation Mode", systemImage: "heart")
-                            .foregroundStyle(.primary)
-                    }
-                } footer: {
-                    Text("While Relaxation Mode is on, you can skip the Wake-up Action.")
                 }
             } // List
             .navigationTitle("Wake-up Action")
@@ -131,6 +122,9 @@ struct WakeupActionSettingsView: View {
             }
             .navigationTitle(action.displayName)
             .toolbarTitleDisplayMode(.inline)
+            .onReceive(NotificationCenter.default.publisher(for: .shouldStartWakeupAction)) { _ in
+                isTrying = false
+            }
             .fullScreenCover(isPresented: $isTrying) {
                 WakeupActionExecutionView(action: action) {
                     UINotificationFeedbackGenerator().notificationOccurred(.success)

@@ -7,12 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE3D01612F4F2C8800BB83E2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3D01602F4F2C8800BB83E2 /* WidgetKit.framework */; };
+		BE3D01632F4F2C8800BB83E2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3D01622F4F2C8800BB83E2 /* SwiftUI.framework */; };
+		BE3D01722F4F2C8900BB83E2 /* WidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BE3D015E2F4F2C8800BB83E2 /* WidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BE3D017C2F4F2E0700BB83E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72C5252F4C486800308751 /* Constants.swift */; };
+		BE5943242F4FE6BB007648DA /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
 		BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
 		BE62B7AF2F4B32FF004B493D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */; };
 		BE72C5262F4C486F00308751 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72C5252F4C486800308751 /* Constants.swift */; };
+		BE99AC4E2F51C29C0038BE03 /* MergeCodablePackage in Frameworks */ = {isa = PBXBuildFile; productRef = BE99AC4D2F51C29C0038BE03 /* MergeCodablePackage */; };
+		BE99AC502F51C2A10038BE03 /* MergeCodablePackage in Frameworks */ = {isa = PBXBuildFile; productRef = BE99AC4F2F51C2A10038BE03 /* MergeCodablePackage */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BE3D01702F4F2C8900BB83E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEEB49732F458C4B00B06D0B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE3D015D2F4F2C8800BB83E2;
+			remoteInfo = WidgetExtensionExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BE3D01772F4F2C8900BB83E2 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BE3D01722F4F2C8900BB83E2 /* WidgetExtensionExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		BE3D015E2F4F2C8800BB83E2 /* WidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE3D01602F4F2C8800BB83E2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		BE3D01622F4F2C8800BB83E2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		BE3D01FD2F4F3D5F00BB83E2 /* WidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		BE62B7B02F4B3301004B493D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BE72C5252F4C486800308751 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -20,6 +55,25 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BE3D01762F4F2C8900BB83E2 /* Exceptions for "WidgetExtension" folder in "WidgetExtensionExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtensionExtension */;
+		};
+		BE3D01792F4F2CC100BB83E2 /* Exceptions for "Alare" folder in "WidgetExtensionExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AppIntents/StartWakeupActionIntent.swift,
+				Models/Enums/AlarmSound.swift,
+				Models/SnoozeActivity.swift,
+				Models/UserData/AlarmSettings.swift,
+				Models/UserData/RegisteredAlarms.swift,
+				Models/WeekdaysSupport.swift,
+			);
+			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtensionExtension */;
+		};
 		BEDDF3E12F458D1A00CBF78C /* Exceptions for "Alare" folder in "Alare" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -31,10 +85,19 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		BE3D01642F4F2C8800BB83E2 /* WidgetExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BE3D01762F4F2C8900BB83E2 /* Exceptions for "WidgetExtension" folder in "WidgetExtensionExtension" target */,
+			);
+			path = WidgetExtension;
+			sourceTree = "<group>";
+		};
 		BEEB497D2F458C4B00B06D0B /* Alare */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				BEDDF3E12F458D1A00CBF78C /* Exceptions for "Alare" folder in "Alare" target */,
+				BE3D01792F4F2CC100BB83E2 /* Exceptions for "Alare" folder in "WidgetExtensionExtension" target */,
 			);
 			path = Alare;
 			sourceTree = "<group>";
@@ -42,23 +105,46 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BE3D015B2F4F2C8800BB83E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE3D01632F4F2C8800BB83E2 /* SwiftUI.framework in Frameworks */,
+				BE3D01612F4F2C8800BB83E2 /* WidgetKit.framework in Frameworks */,
+				BE99AC502F51C2A10038BE03 /* MergeCodablePackage in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BEEB49782F458C4B00B06D0B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE99AC4E2F51C29C0038BE03 /* MergeCodablePackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE3D015F2F4F2C8800BB83E2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE3D01602F4F2C8800BB83E2 /* WidgetKit.framework */,
+				BE3D01622F4F2C8800BB83E2 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BEEB49722F458C4B00B06D0B = {
 			isa = PBXGroup;
 			children = (
+				BE3D01FD2F4F3D5F00BB83E2 /* WidgetExtensionExtension.entitlements */,
 				BE72C5252F4C486800308751 /* Constants.swift */,
 				BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */,
 				BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */,
 				BEEB497D2F458C4B00B06D0B /* Alare */,
+				BE3D01642F4F2C8800BB83E2 /* WidgetExtension */,
+				BE3D015F2F4F2C8800BB83E2 /* Frameworks */,
 				BEEB497C2F458C4B00B06D0B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				BEEB497B2F458C4B00B06D0B /* Alare.app */,
+				BE3D015E2F4F2C8800BB83E2 /* WidgetExtensionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,6 +161,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BE3D015D2F4F2C8800BB83E2 /* WidgetExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE3D01732F4F2C8900BB83E2 /* Build configuration list for PBXNativeTarget "WidgetExtensionExtension" */;
+			buildPhases = (
+				BE3D015A2F4F2C8800BB83E2 /* Sources */,
+				BE3D015B2F4F2C8800BB83E2 /* Frameworks */,
+				BE3D015C2F4F2C8800BB83E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BE3D01642F4F2C8800BB83E2 /* WidgetExtension */,
+			);
+			name = WidgetExtensionExtension;
+			packageProductDependencies = (
+				BE99AC4F2F51C2A10038BE03 /* MergeCodablePackage */,
+			);
+			productName = WidgetExtensionExtension;
+			productReference = BE3D015E2F4F2C8800BB83E2 /* WidgetExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		BEEB497A2F458C4B00B06D0B /* Alare */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BEEB49882F458C4C00B06D0B /* Build configuration list for PBXNativeTarget "Alare" */;
@@ -81,16 +191,19 @@
 				BEEB49772F458C4B00B06D0B /* Sources */,
 				BEEB49782F458C4B00B06D0B /* Frameworks */,
 				BEEB49792F458C4B00B06D0B /* Resources */,
+				BE3D01772F4F2C8900BB83E2 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BE3D01712F4F2C8900BB83E2 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				BEEB497D2F458C4B00B06D0B /* Alare */,
 			);
 			name = Alare;
 			packageProductDependencies = (
+				BE99AC4D2F51C29C0038BE03 /* MergeCodablePackage */,
 			);
 			productName = Alare;
 			productReference = BEEB497B2F458C4B00B06D0B /* Alare.app */;
@@ -106,6 +219,9 @@
 				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
+					BE3D015D2F4F2C8800BB83E2 = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					BEEB497A2F458C4B00B06D0B = {
 						CreatedOnToolsVersion = 26.3;
 					};
@@ -121,17 +237,29 @@
 			);
 			mainGroup = BEEB49722F458C4B00B06D0B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BE99AC4C2F51C29C0038BE03 /* XCRemoteSwiftPackageReference "swift-merge-codable" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BEEB497C2F458C4B00B06D0B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				BEEB497A2F458C4B00B06D0B /* Alare */,
+				BE3D015D2F4F2C8800BB83E2 /* WidgetExtensionExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BE3D015C2F4F2C8800BB83E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE5943242F4FE6BB007648DA /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BEEB49792F458C4B00B06D0B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,6 +272,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BE3D015A2F4F2C8800BB83E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE3D017C2F4F2E0700BB83E2 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BEEB49772F458C4B00B06D0B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,6 +289,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE3D01712F4F2C8900BB83E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtensionExtension */;
+			targetProxy = BE3D01702F4F2C8900BB83E2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */ = {
@@ -166,6 +310,76 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BE3D01742F4F2C8900BB83E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 12;
+				DEVELOPMENT_TEAM = Z8R89S24YT;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BE3D01752F4F2C8900BB83E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 12;
+				DEVELOPMENT_TEAM = Z8R89S24YT;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		BEEB49862F458C4C00B06D0B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -297,13 +511,15 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Alare/Alare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Alare/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSCameraUsageDescription = "To scan the code and stop the alarm.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
@@ -314,7 +530,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -339,13 +555,15 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Alare/Alare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Alare/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSCameraUsageDescription = "To scan the code and stop the alarm.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
@@ -356,7 +574,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -376,6 +594,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BE3D01732F4F2C8900BB83E2 /* Build configuration list for PBXNativeTarget "WidgetExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE3D01742F4F2C8900BB83E2 /* Debug */,
+				BE3D01752F4F2C8900BB83E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BEEB49762F458C4B00B06D0B /* Build configuration list for PBXProject "Alare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -395,6 +622,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BE99AC4C2F51C29C0038BE03 /* XCRemoteSwiftPackageReference "swift-merge-codable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Cizzuk/swift-merge-codable";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BE99AC4D2F51C29C0038BE03 /* MergeCodablePackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE99AC4C2F51C29C0038BE03 /* XCRemoteSwiftPackageReference "swift-merge-codable" */;
+			productName = MergeCodablePackage;
+		};
+		BE99AC4F2F51C2A10038BE03 /* MergeCodablePackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE99AC4C2F51C29C0038BE03 /* XCRemoteSwiftPackageReference "swift-merge-codable" */;
+			productName = MergeCodablePackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BEEB49732F458C4B00B06D0B /* Project object */;
 }

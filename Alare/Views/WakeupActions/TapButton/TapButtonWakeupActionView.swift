@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - Execution
+
 struct TapButtonWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
 
@@ -15,6 +17,7 @@ struct TapButtonWakeupActionExecutionView: View {
             Label("Good Morning", systemImage: "sun.horizon.fill")
                 .font(.largeTitle)
                 .bold()
+            
             Button(action: { vm.complete() }) {
                 Text("I'm Awake!")
                     .frame(maxWidth: .infinity)

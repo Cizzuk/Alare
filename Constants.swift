@@ -5,7 +5,6 @@
 //  Created by Cizzuk on 2026/02/23.
 //
 
-import Foundation
 import SwiftUI
 
 let userDefaults = UserDefaults(suiteName: "group.net.cizzuk.alare")!
@@ -15,3 +14,10 @@ let NightGradient = LinearGradient(
     startPoint: .top,
     endPoint: .bottom
 )
+
+// NotificationCenter Names
+extension Notification.Name {
+    static let shouldStartWakeupAction = Notification.Name("shouldStartWakeupAction")
+    static let alarmSettingsDidChangeOutsideMainApp = Notification.Name("alarmSettingsDidChangeOutsideMainApp")
+    static let focusFilterDidChange = Notification.Name("focusFilterDidChange")
+}

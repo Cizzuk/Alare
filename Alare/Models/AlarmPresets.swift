@@ -32,8 +32,8 @@ final class AlarmPresets {
         return AlarmConfiguration(
             schedule: item.schedule,
             attributes: attributes,
-            stopIntent: OpenAppIntent(uuid: uuidString),
-            secondaryIntent: SnoozeIntent(uuid: uuidString),
+            stopIntent: AlarmStartWakeupActionIntent(uuid: uuidString),
+            secondaryIntent: AlarmSnoozeIntent(uuid: uuidString),
             sound: alertSound
         )
     }
@@ -49,9 +49,9 @@ extension AlarmButton {
     }
 }
 
-struct OpenAppIntent: LiveActivityIntent {
-    static var title: LocalizedStringResource = "Open Alare"
-    static var openAppWhenRun = true
+struct AlarmStartWakeupActionIntent: LiveActivityIntent {
+    static var title: LocalizedStringResource = "Start Wake-up Action"
+    static var openAppWhenRun = false
     static var isDiscoverable = false
     
     @Parameter(title: "UUID")
@@ -59,16 +59,15 @@ struct OpenAppIntent: LiveActivityIntent {
     init(uuid: String) { self.uuid = uuid }
     init() { self.uuid = "" }
     
-    func perform() throws -> some IntentResult {
-        Task { await AlarmSupport.shared.snooze() }
-        if let uuid = UUID(uuidString: uuid) {
-            AlarmRegister.shared.stopAlarm(uuid: uuid)
-        }
-        return .result()
+    @MainActor
+    func perform() async throws -> some IntentResult {
+        let uuid = UUID(uuidString: uuid)
+        await AlarmSupport.shared.alarmAction(uuid: uuid)
+        return .result(opensIntent: StartWakeupActionIntent())
     }
 }
 
-struct SnoozeIntent: LiveActivityIntent {
+struct AlarmSnoozeIntent: LiveActivityIntent {
     static var title: LocalizedStringResource = "Snooze"
     static var openAppWhenRun = false
     static var isDiscoverable = false
@@ -78,11 +77,10 @@ struct SnoozeIntent: LiveActivityIntent {
     init(uuid: String) { self.uuid = uuid }
     init() { self.uuid = "" }
     
-    func perform() throws -> some IntentResult {
-        Task { await AlarmSupport.shared.snooze() }
-        if let uuid = UUID(uuidString: uuid) {
-            AlarmRegister.shared.stopAlarm(uuid: uuid)
-        }
+    @MainActor
+    func perform() async throws -> some IntentResult {
+        let uuid = UUID(uuidString: uuid)
+        await AlarmSupport.shared.alarmAction(uuid: uuid)
         return .result()
     }
 }

@@ -7,3 +7,4 @@
 */
 
 NSAlarmKitUsageDescription = "設定したアラームを鳴らします。";
+NSCameraUsageDescription = "コードをスキャンしてアラームを停止するために使用します。";

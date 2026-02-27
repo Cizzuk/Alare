@@ -6,16 +6,34 @@
 //
 
 import Foundation
+import MergeCodablePackage
 
 struct WakeupActionSettings: Codable {
-    static let userDefaultsKey = "WakeupActionSettings"
-    
     var selected: WakeupAction = .default
-    var relaxationMode: Bool = false
+    
+    // Wave Device Settings
+    var waveDevice_pointsRequired: Int = 100
     
     // Scan Code Settings
     var scanCode_code: String? // Required
     
     // Drum Roll Settings
-    var drumRoll_tapsRequired: Int = 50
+    var drumRoll_tapsRequired: Int = 100
+}
+
+// MARK: - UserDefaults Persistence
+
+extension WakeupActionSettings: MergeCodable {
+    static let userDefaultsKey = "WakeupActionSettings"
+    
+    static func load() -> Self {
+        guard let data = userDefaults.data(forKey: userDefaultsKey) else { return Self() }
+        return decode(from: data)
+    }
+    
+    func save() {
+        if let data = encode() {
+            userDefaults.set(data, forKey: Self.userDefaultsKey)
+        }
+    }
 }

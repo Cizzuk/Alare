@@ -6,10 +6,9 @@
 //
 
 import AlarmKit
+import MergeCodablePackage
 
 struct AlarmSettings: AlarmMetadata, Codable {
-    static let userDefaultsKey = "AlarmSettings"
-
     var isEnabled: Bool = false
     
     var hour: Int = 9 {
@@ -32,5 +31,23 @@ struct AlarmSettings: AlarmMetadata, Codable {
         if value < min { return min }
         if value > max { return max }
         return value
+    }
+}
+
+// MARK: - UserDefaults Persistence
+
+@MainActor
+extension AlarmSettings: MergeCodable {
+    static let userDefaultsKey = "AlarmSettings"
+    
+    static func load() -> Self {
+        guard let data = userDefaults.data(forKey: userDefaultsKey) else { return Self() }
+        return decode(from: data)
+    }
+    
+    func save() {
+        if let data = encode() {
+            userDefaults.set(data, forKey: Self.userDefaultsKey)
+        }
     }
 }

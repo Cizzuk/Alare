@@ -7,6 +7,7 @@
 
 import Combine
 
+@MainActor
 final class WakeupActionExecutionViewModel: ObservableObject {
     let action: WakeupAction
     private let onComplete: () -> Void

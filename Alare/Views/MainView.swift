@@ -46,7 +46,7 @@ struct MainView: View {
                             .frame(maxWidth: .infinity)
                         if AlarmManager.shared.authorizationState == .denied {
                             VStack(alignment: .leading, spacing: 5) {
-                                Text("Alarm permission is not granted. Please enable it in Settings to use the Alare.")
+                                Text("Alarm permission is not granted. Please enable it in Settings to use Alare.")
                                 if let url = URL(string: UIApplication.openSettingsURLString) {
                                     Button(action: { UIApplication.shared.open(url) }) {
                                         Text("Open Settings...")
@@ -62,21 +62,14 @@ struct MainView: View {
                 // Wake-up Action Button
                 if register.registereds.nextSnooze != nil {
                     Section {} header: {
-                        HStack {
-                            Label("Alarm is Snoozing", systemImage: "zzz")
-                                .foregroundStyle(.primary)
-                            if waManager.settings.relaxationMode {
-                                Spacer()
-                                Text("Relaxation Mode")
-                                    .font(.footnote)
-                            }
-                        }
+                        Label("Alarm is Snoozing", systemImage: "zzz")
+                            .foregroundStyle(.primary)
                     } footer: {
                         Button(action: { vm.startWakeupAction() }) {
                             HStack(alignment: .center, spacing: 10) {
                                 Image("bolt.alare")
                                     .font(.title)
-                                Text("Stop the Alarm")
+                                Text("Start Wake-up Action")
                                     .bold()
                                     .padding(.vertical, 10)
                             }
@@ -99,13 +92,8 @@ struct MainView: View {
                         Label("Wake-up Action", systemImage: "bolt.fill")
                             .foregroundColor(.primary)
                         Spacer()
-                        if waManager.settings.relaxationMode {
-                            Text("Relaxation")
-                                .foregroundColor(.secondary)
-                        } else {
-                            Text(waManager.settings.selected.displayName)
-                                .foregroundColor(.secondary)
-                        }
+                        Text(waManager.settings.selected.displayName)
+                            .foregroundColor(.secondary)
                     }
                 }
                 
@@ -153,30 +141,13 @@ struct MainView: View {
                     }
                 }
                 
-                // TODO: - Remove this section before release the stable version.
-                #if !targetEnvironment(simulator)
-                Section {
-                    // 時刻と繰り返しの設定をして、アラームをオンにします。
-                    // アラームが鳴ると、画面に「スヌーズ」と「停止」ボタンが表示されます。
-                    // しかし、どちらを選択しても、強制的にスヌーズがかかります。
-                    // 停止を選択するとAlareが開きます。起床アクションを行わないと、スヌーズを解除できません。
-                    Text("Set the time and repeat settings, and then turn on the alarm.")
-                    Text("When the alarm rings, Snooze and Stop buttons will appear on the screen.")
-                    Text("However, regardless of which you select, it will be forced into snooze mode.")
-                    Text("If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake-up Action.")
-                } header: { Label("What is this", systemImage: "questionmark.circle") }
-                Section {
-                    Text("Its operation may be unstable, and settings may not be carried over to future versions.")
-                    Text("I would appreciate it if you could send us feedback if you encounter any issues.")
-                    Link(destination:URL(string: "https://github.com/Cizzuk/Alare")!, label: {
-                        Label("Source", systemImage: "ladybug")
-                    })
-                    Link(destination:URL(string: "https://cizzuk.net/contact/")!, label: {
-                        Label("Contact", systemImage: "envelope")
-                    })
-                } header: { Label("This app is currentry in Beta", systemImage: "exclamationmark.circle") }
+                #if DEBUG && !targetEnvironment(simulator)
+                Button(action: {
+                    Task { await register.testAlarm() }
+                }) {
+                    Text("Test Alarm")
+                }
                 #endif
-                
             } // List
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
@@ -188,7 +159,7 @@ struct MainView: View {
             allowedContentTypes: [.audio],
             allowsMultipleSelection: false
         ) { result in
-            vm.importCustomSound(result)
+            vm.importCustomSoundHandler(result)
         }
         .fullScreenCover(item: $vm.doingWakeupAction) { action in
             WakeupActionExecutionView(action: action) {
@@ -198,6 +169,18 @@ struct MainView: View {
             }
         }
         // MARK: - Events
+        .onReceive(NotificationCenter.default.publisher(for: .shouldStartWakeupAction)) { _ in
+            vm.startWakeupAction()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .alarmSettingsDidChangeOutsideMainApp)) { _ in
+            vm.syncDraft()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .focusFilterDidChange)) { _ in
+            vm.syncFocusFilter()
+        }
+        .onOpenURL { url in
+            vm.handleOpenURL(url: url)
+        }
         .onAppear { vm.onAppear() }
         .onChange(of: scenePhase) { vm.onChange(scenePhase: scenePhase) }
     }

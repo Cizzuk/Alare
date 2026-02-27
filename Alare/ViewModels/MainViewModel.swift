@@ -5,20 +5,24 @@
 //  Created by Cizzuk on 2026/02/19.
 //
 
+import AppIntents
 import Combine
 import SwiftUI
 
+@MainActor
 class MainViewModel: ObservableObject {
+    @ObservationIgnored private var register = AlarmRegister.shared
     @ObservationIgnored private var support = AlarmSupport.shared
     @ObservationIgnored private var waManager = WakeupActionManager.shared
     
     @Published var doingWakeupAction: WakeupAction? = nil
+    var focusFilterWakeupAction: WakeupAction? = nil
     
     @Published var draft: AlarmSettings = AlarmSupport.shared.settings {
         didSet {
             // Push changes
             Task {
-                if draft != support.settings {
+                if support.settings != draft {
                     await support.push(draft)
                     syncDraft()
                 }
@@ -26,16 +30,13 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    @Published var timeSelection: Date = makeDateFromTime(
+    @Published var timeSelection: Date = AlarmSupport.makeDateFromTime(
         hour: AlarmSupport.shared.settings.hour,
         minute: AlarmSupport.shared.settings.minute
     ) {
         didSet {
             // Convert Date to hour and minute
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.hour, .minute], from: timeSelection)
-            let hour = components.hour ?? draft.hour
-            let minute = components.minute ?? draft.minute
+            let (hour, minute) = AlarmSupport.makeTimeFromDate(timeSelection)
             // Update draft
             if draft.hour != hour || draft.minute != minute {
                 draft.hour = hour
@@ -44,30 +45,16 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    // Create Date from hour and minute
-    private static func makeDateFromTime(hour: Int, minute: Int) -> Date {
-        let calendar = Calendar.current
-        let base = calendar.startOfDay(for: Date())
-        return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: base) ?? base
-    }
-    
-    // MARK: - Public Methods
+    // MARK: - Lifecycle
     
     func onAppear() {
-        Task {
-            await support.validate()
-            syncDraft()
-        }
+        syncAll()
     }
     
-    var isReturnFromBackground = false
     func onChange(scenePhase: ScenePhase) {
         switch scenePhase {
         case .active:
-            Task {
-                await support.validate()
-                syncDraft()
-            }
+            syncAll()
         case .inactive:
             break
         case .background:
@@ -77,20 +64,60 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func handleOpenURL(url: URL) {
+        // Get App URL Schemes
+        let appURLSchemes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]]
+        let urlSchemes = appURLSchemes?.compactMap { $0["CFBundleURLSchemes"] as? [String] }.flatMap { $0 } ?? []
+        
+        // Check URL Scheme
+        guard let scheme = url.scheme,
+              urlSchemes.contains(scheme)
+        else { return }
+        
+        // Parse URL
+        switch url.host {
+        case "wakeupaction":
+            startWakeupAction()
+        default:
+            break
+        }
+    }
+    
+    // MARK: - Alarm Management
+    
+    func syncAll() {
+        // Sync now
+        Task {
+            await support.validate()
+            waManager.validate()
+            syncDraft()
+            syncFocusFilter()
+        }
+    }
+    
     func syncDraft() {
-        if support.settings != draft {
+        if draft != support.settings {
             draft = support.settings
         }
         
         // Sync timeSelection
-        let date = Self.makeDateFromTime(hour: draft.hour, minute: draft.minute)
+        let date = AlarmSupport.makeDateFromTime(hour: draft.hour, minute: draft.minute)
         timeSelection = date
     }
     
     func startWakeupAction() {
-        if waManager.settings.relaxationMode {
-            completeWakeupAction()
-        } else {
+        // Check if alarm is snoozed and action is not already doing
+        guard register.registereds.nextSnooze != nil,
+              doingWakeupAction == nil
+        else { return }
+        
+        waManager.validate()
+        
+        // Start action
+        if let focusFilterWakeupAction = focusFilterWakeupAction,
+           focusFilterWakeupAction.isAvailable() {
+            doingWakeupAction = focusFilterWakeupAction
+        } else if waManager.settings.selected.isAvailable() {
             doingWakeupAction = waManager.settings.selected
         }
     }
@@ -98,11 +125,7 @@ class MainViewModel: ObservableObject {
     func completeWakeupAction() {
         killAlarm()
         doingWakeupAction = nil
-        if waManager.settings.relaxationMode {
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-        } else {
-            HapticManager.shared.playHaptics(.success)
-        }
+        HapticManager.shared.playHaptics(.success)
     }
     
     func killAlarm() {
@@ -112,11 +135,13 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    func importCustomSound(_ result: Result<[URL], Error>) {
+    // MARK: - Custom Sound
+    
+    func importCustomSoundHandler(_ result: Result<[URL], Error>) {
         switch result {
         case .success(let urls):
             if let url = urls.first,
-               AlarmSound.importCustomSound(from: url) {
+               importCustomSoundFile(from: url) {
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
             } else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
@@ -124,6 +149,52 @@ class MainViewModel: ObservableObject {
         case .failure(let error):
             print("Custom sound file import error: ", error)
             UINotificationFeedbackGenerator().notificationOccurred(.error)
+        }
+    }
+    
+    func importCustomSoundFile(from url: URL) -> Bool {
+        guard url.startAccessingSecurityScopedResource() else { return false }
+        defer { url.stopAccessingSecurityScopedResource() }
+
+        let fileManager = FileManager.default
+        let customSoundDir = AlarmSound.customSoundDir
+        let destinationURL = customSoundDir.appendingPathComponent(url.lastPathComponent)
+
+        do {
+            try fileManager.createDirectory(at: customSoundDir, withIntermediateDirectories: true)
+
+            // Clear custom sound directory
+            let existingFiles = try fileManager.contentsOfDirectory(
+                at: customSoundDir,
+                includingPropertiesForKeys: nil
+            )
+            for fileURL in existingFiles {
+                try fileManager.removeItem(at: fileURL)
+            }
+
+            // Copy new custom sound
+            try fileManager.copyItem(at: url, to: destinationURL)
+            
+            // Sync alarm
+            Task { await AlarmSupport.shared.sync() }
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    // MARK: - Focus Filter
+    
+    func syncFocusFilter() {
+        Task {
+            focusFilterWakeupAction = nil
+            do {
+                let filter: FocusFilterIntent = try await FocusFilterIntent.current
+                focusFilterWakeupAction = filter.action
+            } catch {
+                focusFilterWakeupAction = nil
+                print("Failed to fetch focus filter: ", error)
+            }
         }
     }
 }

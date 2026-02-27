@@ -8,26 +8,20 @@
 import ActivityKit
 import AlarmKit
 import Combine
+import WidgetKit
 
 // Manages user settings and communication with AlarmRegister
 
+@MainActor
 final class AlarmSupport: ObservableObject {
     static let shared = AlarmSupport()
     
     @ObservationIgnored private var register = AlarmRegister.shared
     
-    @Published private(set) var settings: AlarmSettings = {
-        if let rawData = userDefaults.data(forKey: AlarmSettings.userDefaultsKey) {
-            if let data = try? JSONDecoder().decode(AlarmSettings.self, from: rawData) {
-                return data
-            }
-        }
-        return AlarmSettings()
-    }() {
+    @Published private(set) var settings = AlarmSettings.load() {
         didSet {
-            if let data = try? JSONEncoder().encode(settings) {
-                userDefaults.set(data, forKey: AlarmSettings.userDefaultsKey)
-            }
+            settings.save()
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
     
@@ -62,6 +56,25 @@ final class AlarmSupport: ObservableObject {
         if !settings.isEnabled {
             register.cancelMainAlarm()
             return
+        }
+        
+        // If there is nextSnooze
+        if let nextSnooze = register.registereds.nextSnooze,
+           case .fixed(let date) = nextSnooze.schedule {
+            // If it's past time, reschedule snooze
+            if date < Date() {
+                await snooze()
+                print("Snooze rescheduled due to past time")
+            }
+            
+            // Live Activity check
+            if !SnoozeActivityManager.isActive() {
+                SnoozeActivityManager.start()
+                print("Snooze Live Activity restarted")
+            }
+        } else if !SnoozeActivityManager.isActive() {
+            // If there is no nextSnooze but Live Activity is active, end it
+            SnoozeActivityManager.endAll()
         }
     }
     
@@ -111,6 +124,22 @@ final class AlarmSupport: ObservableObject {
         await register.pushMainAlarm(item: item)
     }
     
+    func alarmAction(uuid: UUID?) async {
+        if let uuid = uuid {
+            register.stopAlarm(uuid: uuid)
+        }
+        
+        await snooze()
+        
+        // If the alarm is not set to repeat, disable it
+        if settings.repeats.isEmpty {
+            settings.isEnabled = false
+            register.cancelMainAlarm()
+        }
+        
+        await validate()
+    }
+    
     func snooze() async {
         let uuid = UUID()
         
@@ -127,18 +156,29 @@ final class AlarmSupport: ObservableObject {
         )
         
         await register.pushSnooze(item: alarmItem)
+        SnoozeActivityManager.start()
     }
     
     // Stop the alarms completely
     func kill() async {
         register.killAlarm()
-        
-        // If the alarm is not set to repeat, disable it
-        if settings.repeats.isEmpty {
-            settings.isEnabled = false
-            register.cancelMainAlarm()
-        }
-        
         await validate()
+        SnoozeActivityManager.endAll()
+    }
+    
+    // MARK: - Public Helpers
+    
+    // Create Date from hour and minute
+    nonisolated static func makeDateFromTime(hour: Int, minute: Int) -> Date {
+        let calendar = Calendar.current
+        let base = calendar.startOfDay(for: Date())
+        return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: base) ?? base
+    }
+    
+    // Create hour and minute from Date
+    nonisolated static func makeTimeFromDate(_ date: Date) -> (hour: Int, minute: Int) {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour, .minute], from: date)
+        return (components.hour ?? 0, components.minute ?? 0)
     }
 }

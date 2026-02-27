@@ -15,7 +15,9 @@ enum AlarmSound: String, CaseIterable, Codable {
     case custom
     
     static let `default` = hailing
-    
+}
+
+extension AlarmSound {
     var displayName: LocalizedStringResource {
         switch self {
         case .hailing:
@@ -54,46 +56,16 @@ enum AlarmSound: String, CaseIterable, Codable {
         }
     }
     
-    private static var customSoundDir: URL {
+    static var customSoundDir: URL {
         FileManager.default
             .urls(for: .libraryDirectory, in: .userDomainMask)
             .first!
             .appendingPathComponent("Sounds/CustomSound")
     }
 
-    private static func customSoundFileURL() -> URL? {
+    static func customSoundFileURL() -> URL? {
         try? FileManager.default
             .contentsOfDirectory(at: customSoundDir, includingPropertiesForKeys: nil)
             .first
-    }
-    
-    static func importCustomSound(from url: URL) -> Bool {
-        guard url.startAccessingSecurityScopedResource() else { return false }
-        defer { url.stopAccessingSecurityScopedResource() }
-
-        let fileManager = FileManager.default
-        let destinationURL = customSoundDir.appendingPathComponent(url.lastPathComponent)
-
-        do {
-            try fileManager.createDirectory(at: customSoundDir, withIntermediateDirectories: true)
-
-            // Clear custom sound directory
-            let existingFiles = try fileManager.contentsOfDirectory(
-                at: customSoundDir,
-                includingPropertiesForKeys: nil
-            )
-            for fileURL in existingFiles {
-                try fileManager.removeItem(at: fileURL)
-            }
-
-            // Copy new custom sound
-            try fileManager.copyItem(at: url, to: destinationURL)
-            
-            // Sync alarm
-            Task { await AlarmSupport.shared.sync() }
-            return true
-        } catch {
-            return false
-        }
     }
 }

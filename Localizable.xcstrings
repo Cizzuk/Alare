@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+      "shouldTranslate" : false
+    },
     "%@ (%@)" : {
       "localizations" : {
         "en" : {
@@ -25,12 +28,22 @@
         }
       }
     },
-    "%lld remaining" : {
+    "%lld Points" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "あと%lld回"
+            "value" : "%lldポイント"
+          }
+        }
+      }
+    },
+    "%lld Points Left" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あと%lldポイント"
           }
         }
       }
@@ -45,12 +58,52 @@
         }
       }
     },
+    "%lld Taps Left" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あと%lldタップ"
+          }
+        }
+      }
+    },
+    "${toggle} Alare's Alarm" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームを${toggle}"
+          }
+        }
+      }
+    },
+    "${toggle} Alare's Alarm ${state}" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームを${state}に${toggle}"
+          }
+        }
+      }
+    },
     "About" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "情報"
+          }
+        }
+      }
+    },
+    "Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクション"
           }
         }
       }
@@ -98,7 +151,17 @@
         }
       }
     },
-    "Alarm permission is not granted. Please enable it in Settings to use the Alare." : {
+    "Alarm Off" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームオフ"
+          }
+        }
+      }
+    },
+    "Alarm permission is not granted. Please enable it in Settings to use Alare." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -118,6 +181,26 @@
         }
       }
     },
+    "Camera access is denied. Please grant permission in Settings." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カメラにアクセスする権限がありません。設定から許可してください。"
+          }
+        }
+      }
+    },
+    "Camera access is restricted." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カメラは制限されています。"
+          }
+        }
+      }
+    },
     "Cancel" : {
       "localizations" : {
         "ja" : {
@@ -128,12 +211,42 @@
         }
       }
     },
+    "Change Alare's Alarm Time" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームの時刻を変更する"
+          }
+        }
+      }
+    },
+    "Change Alare's Alarm Time to ${time}" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alare のアラームの時刻を${time}に変更"
+          }
+        }
+      }
+    },
     "Change App Icon" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "アイコンを変更"
+          }
+        }
+      }
+    },
+    "Changes the time of Alare's alarm." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームの時刻を変更します。"
           }
         }
       }
@@ -164,12 +277,12 @@
         }
       }
     },
-    "Contact" : {
+    "Code: %@" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "連絡先"
+            "value" : "コード: %@"
           }
         }
       }
@@ -194,12 +307,22 @@
         }
       }
     },
+    "Display Alare's alarm status." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームの現在の状態を表示します。"
+          }
+        }
+      }
+    },
     "Drum Roll" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "画面を連打"
+            "value" : "連打"
           }
         }
       }
@@ -224,6 +347,36 @@
         }
       }
     },
+    "Even without a Wake-up Action, running this shortcut will forcefully stop the current alarm and snooze." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクションを行わなくても、このショートカットを実行するとスヌーズを強制的に解除できます。"
+          }
+        }
+      }
+    },
+    "Everyday" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "毎日"
+          }
+        }
+      }
+    },
+    "First you need to scan the code to use it for this action." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "はじめに、このアクションで使用するためのコードをスキャンする必要があります。"
+          }
+        }
+      }
+    },
     "Good Morning" : {
       "localizations" : {
         "ja" : {
@@ -244,42 +397,12 @@
         }
       }
     },
-    "However, regardless of which you select, it will be forced into snooze mode." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "しかし、どちらを選択しても、強制的にスヌーズがかかります。"
-          }
-        }
-      }
-    },
-    "I would appreciate it if you could send us feedback if you encounter any issues." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "問題が発生した場合は、フィードバックを送ってくださると嬉しいです。"
-          }
-        }
-      }
-    },
     "I'm Awake!" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "起床を確認"
-          }
-        }
-      }
-    },
-    "If you select the stop, the Alare will open. You cannot stop the snooze unless you perform the Wake-up Action." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "停止を選択するとAlareが開きます。起床アクションを行わないと、スヌーズを解除できません。"
           }
         }
       }
@@ -294,12 +417,32 @@
         }
       }
     },
-    "Its operation may be unstable, and settings may not be carried over to future versions." : {
+    "Incorrect code. Please try another code." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ベータ版は不安定で、設定は将来のバージョンに引き継がれない可能性があります。"
+            "value" : "コードが正しくありません。 他のコードをお試しください。"
+          }
+        }
+      }
+    },
+    "It's easier to earn points by making large, slow movements with your device rather than quick, small shakes." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスを小刻みにシェイクするよりも、大きくゆっくり動かすほうがポイントを獲得しやすくなります。"
+          }
+        }
+      }
+    },
+    "It's recommended to place the code away from the bed." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードは寝室から離れた場所に置くことをおすすめします。"
           }
         }
       }
@@ -327,12 +470,32 @@
     "MIT License\n\nCopyright (c) 2026 Cizzuk\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE." : {
       "shouldTranslate" : false
     },
+    "No Repeat" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "繰り返しなし"
+          }
+        }
+      }
+    },
     "Not Set" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "未設定"
+          }
+        }
+      }
+    },
+    "Off" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オフ"
           }
         }
       }
@@ -347,12 +510,42 @@
         }
       }
     },
+    "Open Alare and start the Wake-up Action. The action will not start if the alarm is not snoozing." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareを開いて起床アクションを開始します。アラームがスヌーズしていない場合はアクションは開始されません。"
+          }
+        }
+      }
+    },
+    "Open Alare and Start Wake-up Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareを開いて起床アクションをはじめる"
+          }
+        }
+      }
+    },
     "Open Settings..." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "設定を開く…"
+          }
+        }
+      }
+    },
+    "Operation" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "操作"
           }
         }
       }
@@ -377,26 +570,6 @@
         }
       }
     },
-    "Relaxation" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "緩和モード"
-          }
-        }
-      }
-    },
-    "Relaxation Mode" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "緩和モード"
-          }
-        }
-      }
-    },
     "Repeat" : {
       "localizations" : {
         "ja" : {
@@ -407,12 +580,32 @@
         }
       }
     },
+    "Required Points" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "必要なポイント数"
+          }
+        }
+      }
+    },
     "Required Taps" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "必要なタップ数"
+          }
+        }
+      }
+    },
+    "Scan a Code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードをスキャン"
           }
         }
       }
@@ -437,6 +630,26 @@
         }
       }
     },
+    "Scan the Code to Wake Up!" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードをスキャンしてアラームを解除"
+          }
+        }
+      }
+    },
+    "Scan to Set a New Code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいコードをスキャンして設定"
+          }
+        }
+      }
+    },
     "Selected" : {
       "localizations" : {
         "ja" : {
@@ -447,12 +660,52 @@
         }
       }
     },
-    "Set the time and repeat settings, and then turn on the alarm." : {
+    "Set a Wake-up Action to stop the alarm." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "時刻と繰り返しの設定をして、アラームをオンにします"
+            "value" : "アラームを止めるために使用する起床アクションを設定します。"
+          }
+        }
+      }
+    },
+    "Set Use Alare's Alarm" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームを設定"
+          }
+        }
+      }
+    },
+    "Set Wake-up Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクションを設定"
+          }
+        }
+      }
+    },
+    "Set Wake-up Action to ${action}" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクションを${action}に設定"
+          }
+        }
+      }
+    },
+    "Sets a Wake-up Action to be used during this Focus." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この集中モード中に使用する起床アクションを設定します。"
           }
         }
       }
@@ -487,6 +740,16 @@
         }
       }
     },
+    "Snoozing" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スヌーズ中"
+          }
+        }
+      }
+    },
     "Sound" : {
       "localizations" : {
         "ja" : {
@@ -507,22 +770,42 @@
         }
       }
     },
+    "Start Wake-up Action" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクションをはじめる"
+          }
+        }
+      }
+    },
+    "State" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "状態"
+          }
+        }
+      }
+    },
+    "Stop Current Alarm and Snooze Forcefully" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在のアラームとスヌーズを強制的に停止"
+          }
+        }
+      }
+    },
     "Stop in Alare" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alare内で止める"
-          }
-        }
-      }
-    },
-    "Stop the Alarm" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アラームを止める"
           }
         }
       }
@@ -547,12 +830,22 @@
         }
       }
     },
-    "This app is currentry in Beta" : {
+    "Test Alarm" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このアプリはベータ版です"
+            "value" : "アラームテスト"
+          }
+        }
+      }
+    },
+    "The selected Wake-up Action is not available." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択された起床アクションは利用できません。"
           }
         }
       }
@@ -567,12 +860,42 @@
         }
       }
     },
+    "Toggle" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切り替える"
+          }
+        }
+      }
+    },
     "Try This Action" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "このアクションを試す"
+          }
+        }
+      }
+    },
+    "Turn" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変更"
+          }
+        }
+      }
+    },
+    "Turn Alare's alarm On or Off." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのアラームをオンまたはオフに変更します。"
           }
         }
       }
@@ -640,32 +963,32 @@
         }
       }
     },
-    "What is this" : {
+    "Wave the Device to Wake Up!" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このアプリについて"
+            "value" : "デバイスを振ってアラームを解除"
           }
         }
       }
     },
-    "When the alarm rings, Snooze and Stop buttons will appear on the screen." : {
+    "Weekdays" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アラームが鳴ると、画面に「スヌーズ」と「停止」ボタンが表示されます。"
+            "value" : "平日"
           }
         }
       }
     },
-    "While Relaxation Mode is on, you can skip the Wake-up Action." : {
+    "When performing this action, please hold your device securely and be aware of your surroundings." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "緩和モードをオンにしている間は、起床アクションをスキップすることができます。"
+            "value" : "このアクションを行う際は、デバイスをしっかり持って、周囲の状況に注意しながら行なってください。"
           }
         }
       }

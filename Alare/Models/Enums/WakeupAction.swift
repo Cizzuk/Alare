@@ -5,10 +5,12 @@
 //  Created by Cizzuk on 2026/02/19.
 //
 
-import Foundation
+import AppIntents
+import AVFoundation
+import CoreMotion
 import SwiftUI
 
-enum WakeupAction: String, CaseIterable, Codable, Identifiable {
+enum WakeupAction: String, CaseIterable, Codable, Identifiable, AppEnum {
     case waveDevice
     case scanCode
     case drumRoll
@@ -17,20 +19,22 @@ enum WakeupAction: String, CaseIterable, Codable, Identifiable {
     static let `default` = tapButton
     
     var id: String { rawValue }
+    
+    static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        TypeDisplayRepresentation(name: "Wake-up Action")
+    }
+    
+    static var caseDisplayRepresentations: [WakeupAction : DisplayRepresentation] = [
+        .waveDevice: DisplayRepresentation(title: "Wave Device"),
+        .scanCode: DisplayRepresentation(title: "Scan Code"),
+        .drumRoll: DisplayRepresentation(title: "Drum Roll"),
+        .tapButton: DisplayRepresentation(title: "Tap Button")
+    ]
 }
 
 extension WakeupAction {
     var displayName: LocalizedStringResource {
-        switch self {
-        case .waveDevice:
-            return "Wave Device"
-        case .scanCode:
-            return "Scan Code"
-        case .drumRoll:
-            return "Drum Roll"
-        case .tapButton:
-            return "Tap Button"
-        }
+        return Self.caseDisplayRepresentations[self]?.title ?? ""
     }
     
     var systemImage: String {
@@ -58,26 +62,70 @@ extension WakeupAction {
             return "Just tap the button once."
         }
     }
-
-    func isAvailable() -> Bool {
-//        let settings = WakeupActionManager.shared.settings
+    
+    @MainActor
+    func isHidden() -> Bool {
         switch self {
         case .waveDevice:
+            if UIDevice.current.userInterfaceIdiom != .phone {
+                return true
+            }
+            
+            if !CMMotionManager().isDeviceMotionAvailable {
+                return true
+            }
+            
             return false
+            
         case .scanCode:
+            return AVCaptureDevice.authorizationStatus(for: .video) == .restricted
+            
+        case .drumRoll, .tapButton:
             return false
-            // TODO: Add checker for camera permission
-//            return settings.scanCode_code != nil
+        }
+    }
+
+    @MainActor
+    func isAvailable() -> Bool {
+        if self.isHidden() {
+            return false
+        }
+        
+        let settings = WakeupActionManager.shared.settings
+        
+        switch self {
+        case .waveDevice:
+            return CMMotionManager().isDeviceMotionAvailable
+            
+        case .scanCode:
+            if settings.scanCode_code == nil {
+                return false
+            }
+            
+            switch AVCaptureDevice.authorizationStatus(for: .video) {
+            case .authorized, .notDetermined:
+                break
+            default:
+                return false
+            }
+            
+            return true
+            
         case .drumRoll, .tapButton:
             return true
         }
+    }
+    
+    @MainActor
+    static func availableCases() -> [WakeupAction] {
+        Self.allCases.filter { !$0.isHidden() }
     }
 
     @ViewBuilder
     func settingsView() -> some View {
         switch self {
         case .waveDevice:
-            EmptyView()
+            WaveDeviceWakeupActionSettingsView()
         case .scanCode:
             ScanCodeWakeupActionSettingsView()
         case .drumRoll:

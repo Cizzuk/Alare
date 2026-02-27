@@ -32,8 +32,9 @@ final class HapticManager {
         guard supportsHaptics else { return }
         
         do {
-            let audioSession = AVAudioSession.sharedInstance()
-            engine = try CHHapticEngine(audioSession: audioSession)
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback, options: [.mixWithOthers])
+            engine = try CHHapticEngine(audioSession: session)
         } catch let error {
             print("CHHapticEngine Creation Error: \(error)")
         }
@@ -50,7 +51,6 @@ final class HapticManager {
     
     func playHaptics(_ sound: HapticSounds) {
         guard supportsHaptics, let engine = engine else { return }
-        
         
         DispatchQueue.global(qos: .userInitiated).async {
             guard let path = Bundle.main.path(forResource: sound.filename, ofType: "ahap") else {

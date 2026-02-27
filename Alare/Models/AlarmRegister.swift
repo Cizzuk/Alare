@@ -8,27 +8,22 @@
 import ActivityKit
 import AlarmKit
 import Combine
+import WidgetKit
 
 // Communication with AlarmManager and manage registered alarms
 
+@MainActor
 final class AlarmRegister: ObservableObject {
     typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
     static let shared = AlarmRegister()
     
     @ObservationIgnored private let alarmManager = AlarmManager.shared
     
-    @Published private(set) var registereds: RegisteredAlarms = {
-        if let rawData = userDefaults.data(forKey: RegisteredAlarms.userDefaultsKey) {
-            if let data = try? JSONDecoder().decode(RegisteredAlarms.self, from: rawData) {
-                return data
-            }
-        }
-        return RegisteredAlarms()
-    }() {
+    @Published private(set) var registereds = RegisteredAlarms.load() {
         didSet {
-            if let data = try? JSONEncoder().encode(registereds) {
-                userDefaults.set(data, forKey: RegisteredAlarms.userDefaultsKey)
-            }
+            registereds.save()
+            WidgetCenter.shared.reloadAllTimelines()
+            ControlCenter.shared.reloadAllControls()
         }
     }
     
@@ -147,5 +142,22 @@ final class AlarmRegister: ObservableObject {
             print("Failed to clear alarms from system: \(error)")
         }
     }
+    
+    func testAlarm() async {
+        let uuid = UUID()
+        let date = Date().addingTimeInterval(5)
+        let schedule = Alarm.Schedule.fixed(date)
         
+        let alarmItem = AlarmItem(
+            uuid: uuid,
+            schedule: schedule,
+            title: "Test Alarm",
+            sound: AlarmSupport.shared.settings.sound,
+            isSnooze: false
+        )
+        
+        let configuration = AlarmPresets.makeConfiguration(item: alarmItem)
+        
+        try? await scheduleAlarmToSystem(uuid: alarmItem.uuid, configuration: configuration)
+    }
 }
