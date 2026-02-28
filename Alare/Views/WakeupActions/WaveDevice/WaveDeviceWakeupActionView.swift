@@ -37,6 +37,11 @@ struct WaveDeviceWakeupActionSettingsView: View {
                 }
                 .pickerStyle(.wheel)
             }
+            
+            Picker("Sensitivity", selection: $manager.settings.waveDevice_sensitivity) {
+                Text("Medium").tag(0.5)
+                Text("High").tag(0.3)
+            }
         } footer: {
             Text("It's easier to earn points by making large, slow movements with your device rather than quick, small shakes.")
         }
@@ -59,7 +64,7 @@ struct WaveDeviceWakeupActionExecutionView: View {
     
     private let updateInterval: TimeInterval = 0.1
     private let gyroCancelRate: Double = 15.0
-    private let threshold: Double = 0.5
+    private let threshold: Double = WakeupActionManager.shared.settings.waveDevice_sensitivity
     
     private var remainingPoints: Int {
         max(pointsRequired - progress, 0)

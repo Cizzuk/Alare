@@ -13,6 +13,7 @@ struct WakeupActionSettings: Codable {
     
     // Wave Device Settings
     var waveDevice_pointsRequired: Int = 100
+    var waveDevice_sensitivity: Double = 0.5
     
     // Scan Code Settings
     var scanCode_code: String? // Required

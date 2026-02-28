@@ -64,7 +64,25 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func handleContinueUserActivity(activity: NSUserActivity) {
+        print("Continue user activity: ", activity.activityType)
+        
+        // Handle Universal Link
+        if let url = activity.webpageURL {
+            print("URL opened: ", url)
+            handleUniversalLink(url: url)
+        }
+    }
+    
     func handleOpenURL(url: URL) {
+        print("URL opened: ", url)
+        
+        // Handle Universal Link
+        if url.scheme == "https" || url.scheme == "http" {
+            handleUniversalLink(url: url)
+            return
+        }
+        
         // Get App URL Schemes
         let appURLSchemes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]]
         let urlSchemes = appURLSchemes?.compactMap { $0["CFBundleURLSchemes"] as? [String] }.flatMap { $0 } ?? []
@@ -80,6 +98,12 @@ class MainViewModel: ObservableObject {
             startWakeupAction()
         default:
             break
+        }
+    }
+    
+    private func handleUniversalLink(url: URL) {
+        if url == URL(string: completeWakeupActionURL) {
+            completeWakeupAction()
         }
     }
     
@@ -123,9 +147,11 @@ class MainViewModel: ObservableObject {
     }
     
     func completeWakeupAction() {
-        killAlarm()
-        doingWakeupAction = nil
-        HapticManager.shared.playHaptics(.success)
+        if register.registereds.nextSnooze != nil {
+            killAlarm()
+            doingWakeupAction = nil
+            HapticManager.shared.playHaptics(.success)
+        }
     }
     
     func killAlarm() {

@@ -121,6 +121,16 @@
     "Alare" : {
       "shouldTranslate" : false
     },
+    "Alare Code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのコード"
+          }
+        }
+      }
+    },
     "Alare's alarm will continue to snooze until you perform a Wake-up Action. To prevent oversleeping, select an action in advance that you believe will wake you up." : {
       "localizations" : {
         "ja" : {
@@ -287,6 +297,16 @@
         }
       }
     },
+    "Create New Code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいコードを作成"
+          }
+        }
+      }
+    },
     "Custom" : {
       "localizations" : {
         "ja" : {
@@ -397,6 +417,16 @@
         }
       }
     },
+    "High" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高い"
+          }
+        }
+      }
+    },
     "I'm Awake!" : {
       "localizations" : {
         "ja" : {
@@ -463,6 +493,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ライセンス"
+          }
+        }
+      }
+    },
+    "Medium" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中程度"
           }
         }
       }
@@ -656,6 +696,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "選択中"
+          }
+        }
+      }
+    },
+    "Sensitivity" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "感度"
           }
         }
       }

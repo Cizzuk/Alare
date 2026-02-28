@@ -178,6 +178,9 @@ struct MainView: View {
         .onReceive(NotificationCenter.default.publisher(for: .focusFilterDidChange)) { _ in
             vm.syncFocusFilter()
         }
+        .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { activity in
+            vm.handleContinueUserActivity(activity: activity)
+        }
         .onOpenURL { url in
             vm.handleOpenURL(url: url)
         }
