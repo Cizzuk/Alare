@@ -92,7 +92,7 @@ struct ScanCodeWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
     @State var incorrectCodeEntered = false
     private let expectedCode = WakeupActionManager.shared.settings.scanCode_code
-    private let specialCode = "https://cizz.uk/alare/qr"
+    private let specialCode = "https://cizz.uk/alare/sc"
 
     var body: some View {
         VStack() {
