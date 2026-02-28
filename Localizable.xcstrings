@@ -121,6 +121,16 @@
     "Alare" : {
       "shouldTranslate" : false
     },
+    "Alare Code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alareのコード"
+          }
+        }
+      }
+    },
     "Alare's alarm will continue to snooze until you perform a Wake-up Action. To prevent oversleeping, select an action in advance that you believe will wake you up." : {
       "localizations" : {
         "ja" : {
@@ -283,6 +293,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "コード: %@"
+          }
+        }
+      }
+    },
+    "Create New Code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいコードを作成"
           }
         }
       }

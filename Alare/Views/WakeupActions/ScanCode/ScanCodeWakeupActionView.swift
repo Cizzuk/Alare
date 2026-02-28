@@ -14,6 +14,7 @@ import VisionKit
 struct ScanCodeWakeupActionSettingsView: View {
     @ObservedObject private var manager = WakeupActionManager.shared
     @State private var isShowingScanner = false
+    @State private var isShowingShareSheet = false
     
     private let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
     private var isCameraAccessDenied: Bool {
@@ -71,6 +72,17 @@ struct ScanCodeWakeupActionSettingsView: View {
                 }
             }
         }
+        
+        if let image = UIImage(named: "scancode-image") {
+            Section {
+                ShareLink(
+                    item: Image(uiImage: image),
+                    preview: SharePreview("Alare Code", image: Image(uiImage: image))
+                ) {
+                    Label("Create New Code", systemImage: "qrcode")
+                }
+            }
+        }
     }
 }
 
@@ -80,7 +92,7 @@ struct ScanCodeWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
     @State var incorrectCodeEntered = false
     private let expectedCode = WakeupActionManager.shared.settings.scanCode_code
-    private let specialCode = "https://cizz.uk/alare"
+    private let specialCode = "https://cizz.uk/alare/qr"
 
     var body: some View {
         VStack() {
