@@ -102,13 +102,8 @@ class MainViewModel: ObservableObject {
     }
     
     private func handleUniversalLink(url: URL) {
-        switch url.host {
-        case "cizz.uk":
-            if url.pathComponents == ["/", "sc"] {
-                completeWakeupAction()
-            }
-        default:
-            break
+        if url == URL(string: completeWakeupActionURL) {
+            completeWakeupAction()
         }
     }
     
