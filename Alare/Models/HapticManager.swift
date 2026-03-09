@@ -24,13 +24,7 @@ final class HapticManager {
     
     var engine: CHHapticEngine?
     
-    lazy var supportsHaptics: Bool = {
-        return CHHapticEngine.capabilitiesForHardware().supportsHaptics
-    }()
-    
     private init() {
-        guard supportsHaptics else { return }
-        
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playback, options: [.mixWithOthers])
@@ -50,7 +44,7 @@ final class HapticManager {
     }
     
     func playHaptics(_ sound: HapticSounds) {
-        guard supportsHaptics, let engine = engine else { return }
+        guard let engine = engine else { return }
         
         DispatchQueue.global(qos: .userInitiated).async {
             guard let path = Bundle.main.path(forResource: sound.filename, ofType: "ahap") else {
