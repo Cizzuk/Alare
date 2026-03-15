@@ -75,6 +75,7 @@ struct SnoozeActivityWidget: Widget {
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     IconImage(size: 60)
+                        .frame(maxHeight: .infinity)
                 }
                 DynamicIslandExpandedRegion(.center) {
                     DescriptionText()
