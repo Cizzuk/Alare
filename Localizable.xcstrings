@@ -176,7 +176,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アラームが許可されていません。 Alareを使用するには、設定で有効にしてください。"
+            "value" : "アラームが許可されていません。Alareを使用するには、設定で有効にしてください。"
           }
         }
       }
@@ -236,7 +236,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alare のアラームの時刻を${time}に変更"
+            "value" : "Alareのアラームの時刻を${time}に変更"
           }
         }
       }
@@ -452,7 +452,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "コードが正しくありません。 他のコードをお試しください。"
+            "value" : "コードが正しくありません。他のコードをお試しください。"
           }
         }
       }
@@ -720,7 +720,7 @@
         }
       }
     },
-    "Set Use Alare's Alarm" : {
+    "Set Alare's Alarm" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
