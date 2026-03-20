@@ -58,7 +58,7 @@ class MainViewModel: ObservableObject {
         case .inactive:
             break
         case .background:
-            break
+            syncAll()
         @unknown default:
             break
         }

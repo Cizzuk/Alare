@@ -10,7 +10,7 @@ import WidgetKit
 
 struct SetUseAlarmIntent: AppIntent, CustomIntentMigratedAppIntent {
     static let intentClassName = "SetUseAlarm"
-    static var title: LocalizedStringResource = "Set Use Alare's Alarm"
+    static var title: LocalizedStringResource = "Set Alare's Alarm"
     static var description: LocalizedStringResource = "Turn Alare's alarm On or Off."
     
     enum TurnOrToggle: String, AppEnum {

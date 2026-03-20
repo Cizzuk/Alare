@@ -17,8 +17,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BE3D015D2F4F2C8800BB83E2"
-               BuildableName = "WidgetExtensionExtension.appex"
-               BlueprintName = "WidgetExtensionExtension"
+               BuildableName = "WidgetExtension.appex"
+               BlueprintName = "WidgetExtension"
                ReferencedContainer = "container:Alare.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

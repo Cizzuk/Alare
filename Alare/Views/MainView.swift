@@ -18,7 +18,7 @@ struct MainView: View {
     
     @State private var showCustomSoundImporter = false
     @State private var showSnoozeIntervalPicker = false
-    private let snoozeIntervalList = Array(1...15)
+    private let snoozeIntervalList = Array(1...30)
 
     var body: some View {
         NavigationStack {
