@@ -59,18 +59,26 @@ struct ScanCodeWakeupActionSettingsView: View {
                 }
             }
         } footer: {
-            switch cameraAuthStatus {
-            case .denied:
-                Text("Camera access is denied. Please grant permission in Settings.")
-            case .restricted:
-                Text("Camera access is restricted.")
-            default:
-                if manager.settings.scanCode_code == nil {
-                    Text("First you need to scan the code to use it for this action.")
-                } else {
-                    Text("It's recommended to place the code away from the bed.")
+            VStack(alignment: .leading, spacing: 5) {
+                switch cameraAuthStatus {
+                case .denied:
+                    Text("Camera access is denied. Please grant permission in Settings.")
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        Button(action: { UIApplication.shared.open(url) }) {
+                            Text("Open Settings...")
+                        }
+                    }
+                case .restricted:
+                    Text("Camera access is restricted.")
+                default:
+                    if manager.settings.scanCode_code == nil {
+                        Text("First you need to scan the code to use it for this action.")
+                    } else {
+                        Text("It's recommended to place the code away from the bed.")
+                    }
                 }
             }
+            .font(.footnote)
         }
         
         if let image = UIImage(named: "scancode-image") {
