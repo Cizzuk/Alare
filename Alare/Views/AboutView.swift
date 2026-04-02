@@ -15,16 +15,16 @@ struct AboutView: View {
                     let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
                     let currentBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
                     Label("Version", systemImage: "info.circle")
-                        .foregroundColor(.primary)
+                        .foregroundStyle(.primary)
                     Spacer()
                     Text("\(currentVersion ?? "Unknown") (\(currentBuild ?? "Unknown"))")
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                         .textSelection(.enabled)
                 }
                 .accessibilityElement(children: .combine)
                 HStack {
                     Label("Developer", systemImage: "hammer")
-                        .foregroundColor(.primary)
+                        .foregroundStyle(.primary)
                     Spacer()
                     Link(destination:URL(string: "https://cizzuk.net/")!, label: {
                         Text("Cizzuk")

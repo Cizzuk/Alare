@@ -90,10 +90,10 @@ struct MainView: View {
                 NavigationLink(destination: WakeupActionSettingsView()) {
                     HStack {
                         Label("Wake-up Action", systemImage: "bolt.fill")
-                            .foregroundColor(.primary)
+                            .foregroundStyle(.primary)
                         Spacer()
                         Text(waManager.settings.selected.displayName)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 
@@ -147,12 +147,12 @@ struct MainView: View {
                 Section {
                     NavigationLink(destination: AboutView()) {
                         Label("About", systemImage: "info.circle")
-                            .foregroundColor(.primary)
+                            .foregroundStyle(.primary)
                     }
                     if UIApplication.shared.supportsAlternateIcons {
                         NavigationLink(destination: ChangeIconView()) {
                             Label("Change App Icon", systemImage: "app.dashed")
-                                .foregroundColor(.primary)
+                                .foregroundStyle(.primary)
                         }
                     }
                 }

@@ -26,7 +26,7 @@ struct WakeupActionSettingsView: View {
                             .bold()
                             .accessibilityAddTraits(.isHeader)
                         Text("Alare's alarm will continue to snooze until you perform a Wake-up Action. To prevent oversleeping, select an action in advance that you believe will wake you up.")
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 
@@ -91,7 +91,7 @@ struct WakeupActionSettingsView: View {
                             .bold()
                             .accessibilityAddTraits(.isHeader)
                         Text(action.actionDescription)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                     
                     Toggle("Use This Action", isOn: $isSelected)
