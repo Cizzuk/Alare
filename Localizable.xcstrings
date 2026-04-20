@@ -121,6 +121,9 @@
     "Alare" : {
       "shouldTranslate" : false
     },
+    "Annoyingly short" : {
+
+    },
     "Alare Code" : {
       "localizations" : {
         "ja" : {
@@ -416,6 +419,9 @@
           }
         }
       }
+    },
+    "Hard Mode" : {
+
     },
     "High" : {
       "localizations" : {
@@ -982,6 +988,9 @@
           }
         }
       }
+    },
+    "Wake Up" : {
+
     },
     "Wake-up Action" : {
       "localizations" : {

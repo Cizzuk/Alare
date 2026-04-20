@@ -15,6 +15,7 @@ import WidgetKit
 @MainActor
 final class AlarmSupport: ObservableObject {
     static let shared = AlarmSupport()
+    private static let hardModeSnoozeInterval: TimeInterval = 5
     
     @ObservationIgnored private var register = AlarmRegister.shared
     
@@ -143,7 +144,13 @@ final class AlarmSupport: ObservableObject {
     func snooze() async {
         let uuid = UUID()
         
-        let interval = TimeInterval(settings.snoozeInterval * 60)
+        let interval: TimeInterval
+        if settings.isHardMode {
+            interval = Self.hardModeSnoozeInterval
+        } else {
+            interval = TimeInterval(settings.snoozeInterval * 60)
+        }
+
         let date = Date().addingTimeInterval(interval)
         let schedule = Alarm.Schedule.fixed(date)
         

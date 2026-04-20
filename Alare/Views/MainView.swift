@@ -98,24 +98,33 @@ struct MainView: View {
                 }
                 
                 Section("Options") {
-                    HStack {
-                        Text("Snooze Duration")
-                        Spacer()
-                        Button(action: { withAnimation { showSnoozeIntervalPicker.toggle() } }) {
-                            Text("\(vm.draft.snoozeInterval) min")
-                                .font(.default.monospacedDigit())
+                    if vm.draft.isHardMode {
+                        HStack {
+                            Text("Snooze Duration")
+                            Spacer()
+                            Text("Annoyingly short")
+                                .foregroundColor(.secondary)
                         }
-                    }
-                    
-                    if showSnoozeIntervalPicker {
-                        Picker("Snooze Duration", selection: $vm.draft.snoozeInterval) {
-                            ForEach(snoozeIntervalList, id: \.self) { interval in
-                                Text("\(interval) min").tag(interval)
+                    } else {
+                        HStack {
+                            Text("Snooze Duration")
+                            Spacer()
+                            Button(action: { withAnimation { showSnoozeIntervalPicker.toggle() } }) {
+                                Text("\(vm.draft.snoozeInterval) min")
+                                    .font(.default.monospacedDigit())
                             }
                         }
-                        .pickerStyle(.wheel)
+
+                        if showSnoozeIntervalPicker {
+                            Picker("Snooze Duration", selection: $vm.draft.snoozeInterval) {
+                                ForEach(snoozeIntervalList, id: \.self) { interval in
+                                    Text("\(interval) min").tag(interval)
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                        }
                     }
-                    
+
                     Picker("Sound", selection: $vm.draft.sound) {
                         ForEach(AlarmSound.allCases, id: \.self) { sound in
                             Text(sound.displayName).tag(sound)
@@ -126,6 +135,9 @@ struct MainView: View {
                             Text("Import Custom Sound")
                         }
                     }
+
+                    Toggle("Hard Mode", isOn: $vm.draft.isHardMode)
+                        .onChange(of: vm.draft.isHardMode) { showSnoozeIntervalPicker = false }
                 }
                 
                 Section {

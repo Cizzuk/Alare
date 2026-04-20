@@ -22,6 +22,8 @@ struct AlarmSettings: AlarmMetadata, Codable {
     var repeats: Set<Locale.Weekday> = [] // Empty = No repeat
     
     var sound: AlarmSound = AlarmSound.default
+
+    var isHardMode: Bool = false
     
     var snoozeInterval: Int = 9 {
         didSet { snoozeInterval = clipInt(snoozeInterval, min: 1, max: 15) }
