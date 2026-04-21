@@ -19,13 +19,11 @@ final class AlarmPresets {
         let titleLocalized = item.title
         let alertSound = item.isSnooze ? item.sound.alertSoundSnooze : item.sound.alertSound
         let isHardMode = AlarmSupport.shared.settings.isHardMode
-
-        let secondaryButton: AlarmButton = isHardMode ? .wakeUpButton : .snoozeButton
         
         let content = AlarmPresentation.Alert(
             title: LocalizedStringResource(titleLocalized),
-            secondaryButton: secondaryButton,
-            secondaryButtonBehavior: .custom
+            secondaryButton: isHardMode ? nil : .snoozeButton,
+            secondaryButtonBehavior: isHardMode ? .none : .custom
         )
         
         let attributes = AlarmAttributes<AlarmSettings>(
@@ -33,23 +31,13 @@ final class AlarmPresets {
             tintColor: .dropblue
         )
         
-        if isHardMode {
-            return AlarmConfiguration(
-                schedule: item.schedule,
-                attributes: attributes,
-                stopIntent: HardModeAlarmActionIntent(uuid: uuidString),
-                secondaryIntent: HardModeAlarmActionIntent(uuid: uuidString),
-                sound: alertSound
-            )
-        } else {
-            return AlarmConfiguration(
-                schedule: item.schedule,
-                attributes: attributes,
-                stopIntent: AlarmStartWakeupActionIntent(uuid: uuidString),
-                secondaryIntent: AlarmSnoozeIntent(uuid: uuidString),
-                sound: alertSound
-            )
-        }
+        return AlarmConfiguration(
+            schedule: item.schedule,
+            attributes: attributes,
+            stopIntent: AlarmStartWakeupActionIntent(uuid: uuidString),
+            secondaryIntent: AlarmSnoozeIntent(uuid: uuidString),
+            sound: alertSound
+        )
     }
 }
 
@@ -99,25 +87,6 @@ struct AlarmSnoozeIntent: LiveActivityIntent {
     func perform() async throws -> some IntentResult {
         let uuid = UUID(uuidString: uuid)
         await AlarmSupport.shared.alarmAction(uuid: uuid)
-        return .result()
-    }
-}
-
-struct HardModeAlarmActionIntent: LiveActivityIntent {
-    static var title: LocalizedStringResource = "Wake Up"
-    static var openAppWhenRun = true
-    static var isDiscoverable = false
-
-    @Parameter(title: "UUID")
-    var uuid: String
-    init(uuid: String) { self.uuid = uuid }
-    init() { self.uuid = "" }
-
-    @MainActor
-    func perform() async throws -> some IntentResult {
-        let uuid = UUID(uuidString: uuid)
-        await AlarmSupport.shared.alarmAction(uuid: uuid)
-        userDefaults.set(true, forKey: shouldStartWakeupActionOnLaunchKey)
         return .result()
     }
 }
