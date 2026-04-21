@@ -121,9 +121,6 @@
     "Alare" : {
       "shouldTranslate" : false
     },
-    "Annoyingly short" : {
-
-    },
     "Alare Code" : {
       "localizations" : {
         "ja" : {
@@ -330,6 +327,16 @@
         }
       }
     },
+    "Disabled" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用不可"
+          }
+        }
+      }
+    },
     "Display Alare's alarm status." : {
       "localizations" : {
         "ja" : {
@@ -421,7 +428,14 @@
       }
     },
     "Hard Mode" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ハードモード"
+          }
+        }
+      }
     },
     "High" : {
       "localizations" : {
@@ -989,9 +1003,6 @@
         }
       }
     },
-    "Wake Up" : {
-
-    },
     "Wake-up Action" : {
       "localizations" : {
         "ja" : {
@@ -1048,6 +1059,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このアクションを行う際は、デバイスをしっかり持って、周囲の状況に注意しながら行なってください。"
+          }
+        }
+      }
+    },
+    "While Hard Mode is on, the snooze button will be hidden, and the alarm will continue to ring until you complete the Wake-up Action." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ハードモードがオンの間は、スヌーズボタンが表示されなくなり、起床アクションを完了するまでアラームが鳴り続けるようになります。"
           }
         }
       }
