@@ -19,7 +19,7 @@ struct MainView: View {
     @State private var showCustomSoundImporter = false
     @State private var showSnoozeIntervalPicker = false
     private let snoozeIntervalList = Array(1...30)
-
+    
     var body: some View {
         NavigationStack {
             List {
@@ -97,34 +97,30 @@ struct MainView: View {
                     }
                 }
                 
-                Section("Options") {
-                    if vm.draft.isHardMode {
-                        HStack {
-                            Text("Snooze Duration")
-                            Spacer()
-                            Text("Annoyingly short")
-                                .foregroundColor(.secondary)
-                        }
-                    } else {
-                        HStack {
-                            Text("Snooze Duration")
-                            Spacer()
-                            Button(action: { withAnimation { showSnoozeIntervalPicker.toggle() } }) {
+                Section {
+                    HStack {
+                        Text("Snooze Duration")
+                        Spacer()
+                        Button(action: { withAnimation { showSnoozeIntervalPicker.toggle() } }) {
+                            if vm.draft.isHardMode {
+                                Text("Disabled")
+                            } else {
                                 Text("\(vm.draft.snoozeInterval) min")
                                     .font(.default.monospacedDigit())
                             }
                         }
-
-                        if showSnoozeIntervalPicker {
-                            Picker("Snooze Duration", selection: $vm.draft.snoozeInterval) {
-                                ForEach(snoozeIntervalList, id: \.self) { interval in
-                                    Text("\(interval) min").tag(interval)
-                                }
-                            }
-                            .pickerStyle(.wheel)
-                        }
+                        .disabled(vm.draft.isHardMode)
                     }
-
+                    
+                    if showSnoozeIntervalPicker {
+                        Picker("Snooze Duration", selection: $vm.draft.snoozeInterval) {
+                            ForEach(snoozeIntervalList, id: \.self) { interval in
+                                Text("\(interval) min").tag(interval)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                    }
+                    
                     Picker("Sound", selection: $vm.draft.sound) {
                         ForEach(AlarmSound.allCases, id: \.self) { sound in
                             Text(sound.displayName).tag(sound)
@@ -135,9 +131,17 @@ struct MainView: View {
                             Text("Import Custom Sound")
                         }
                     }
-
+                    
                     Toggle("Hard Mode", isOn: $vm.draft.isHardMode)
-                        .onChange(of: vm.draft.isHardMode) { showSnoozeIntervalPicker = false }
+                        .onChange(of: vm.draft.isHardMode) {
+                            withAnimation { showSnoozeIntervalPicker = false }
+                        }
+                } header: {
+                    Text("Options")
+                } footer: {
+                    if vm.draft.isHardMode {
+                        Text("While Hard Mode is on, the snooze button will be hidden, and the alarm will continue to ring until you complete the Wake-up Action.")
+                    }
                 }
                 
                 Section {
@@ -163,6 +167,7 @@ struct MainView: View {
             } // List
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
+            .animation(.default, value: vm.draft.isHardMode)
             .scrollContentBackground(.hidden)
             .background(NightGradient.ignoresSafeArea())
         } // NavigationStack
