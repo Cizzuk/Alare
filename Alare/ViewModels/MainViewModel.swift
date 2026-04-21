@@ -129,11 +129,11 @@ class MainViewModel: ObservableObject {
         timeSelection = date
     }
     
-    @discardableResult
-    func startWakeupAction() -> Bool {
+    func startWakeupAction() {
         // Check if alarm is snoozed and action is not already doing
-        guard register.registereds.nextSnooze != nil else { return false }
-        guard doingWakeupAction == nil else { return true }
+        guard register.registereds.nextSnooze != nil,
+              doingWakeupAction == nil
+        else { return }
         
         waManager.validate()
         
@@ -141,13 +141,9 @@ class MainViewModel: ObservableObject {
         if let focusFilterWakeupAction = focusFilterWakeupAction,
            focusFilterWakeupAction.isAvailable() {
             doingWakeupAction = focusFilterWakeupAction
-            return true
         } else if waManager.settings.selected.isAvailable() {
             doingWakeupAction = waManager.settings.selected
-            return true
         }
-
-        return false
     }
     
     func completeWakeupAction() {
