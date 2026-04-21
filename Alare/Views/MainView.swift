@@ -19,7 +19,7 @@ struct MainView: View {
     @State private var showCustomSoundImporter = false
     @State private var showSnoozeIntervalPicker = false
     private let snoozeIntervalList = Array(1...30)
-
+    
     var body: some View {
         NavigationStack {
             List {
@@ -97,14 +97,19 @@ struct MainView: View {
                     }
                 }
                 
-                Section("Options") {
+                Section {
                     HStack {
                         Text("Snooze Duration")
                         Spacer()
                         Button(action: { withAnimation { showSnoozeIntervalPicker.toggle() } }) {
-                            Text("\(vm.draft.snoozeInterval) min")
-                                .font(.default.monospacedDigit())
+                            if vm.draft.isHardMode {
+                                Text("Disabled")
+                            } else {
+                                Text("\(vm.draft.snoozeInterval) min")
+                                    .font(.default.monospacedDigit())
+                            }
                         }
+                        .disabled(vm.draft.isHardMode)
                     }
                     
                     if showSnoozeIntervalPicker {
@@ -125,6 +130,17 @@ struct MainView: View {
                         Button(action: { showCustomSoundImporter = true }) {
                             Text("Import Custom Sound")
                         }
+                    }
+                    
+                    Toggle("Hard Mode", isOn: $vm.draft.isHardMode)
+                        .onChange(of: vm.draft.isHardMode) {
+                            withAnimation { showSnoozeIntervalPicker = false }
+                        }
+                } header: {
+                    Text("Options")
+                } footer: {
+                    if vm.draft.isHardMode {
+                        Text("While Hard Mode is on, the snooze button will be hidden, and the alarm will continue to ring until you complete the Wake-up Action.")
                     }
                 }
                 
@@ -151,6 +167,7 @@ struct MainView: View {
             } // List
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: vm.draft.sound)
+            .animation(.default, value: vm.draft.isHardMode)
             .scrollContentBackground(.hidden)
             .background(NightGradient.ignoresSafeArea())
         } // NavigationStack

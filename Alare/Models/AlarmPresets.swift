@@ -13,15 +13,17 @@ import SwiftUI
 final class AlarmPresets {
     typealias AlarmConfiguration = AlarmManager.AlarmConfiguration<AlarmSettings>
     
+    @MainActor
     static func makeConfiguration(item: AlarmItem) -> AlarmConfiguration {
         let uuidString = item.uuid.uuidString
         let titleLocalized = item.title
         let alertSound = item.isSnooze ? item.sound.alertSoundSnooze : item.sound.alertSound
+        let isHardMode = AlarmSupport.shared.settings.isHardMode
         
         let content = AlarmPresentation.Alert(
             title: LocalizedStringResource(titleLocalized),
-            secondaryButton: .snoozeButton,
-            secondaryButtonBehavior: .custom
+            secondaryButton: isHardMode ? nil : .snoozeButton,
+            secondaryButtonBehavior: isHardMode ? .none : .custom
         )
         
         let attributes = AlarmAttributes<AlarmSettings>(
