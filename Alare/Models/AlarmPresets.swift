@@ -49,10 +49,6 @@ extension AlarmButton {
     static var stopWithAction: Self {
         AlarmButton(text: "Stop in Alare", textColor: .white, systemImageName: "stop.circle")
     }
-
-    static var wakeUpButton: Self {
-        AlarmButton(text: "Wake Up", textColor: .white, systemImageName: "alarm.waves.left.and.right")
-    }
 }
 
 struct AlarmStartWakeupActionIntent: LiveActivityIntent {
