@@ -9,8 +9,6 @@ import SwiftUI
 
 let userDefaults = UserDefaults(suiteName: "group.net.cizzuk.alare")!
 
-let shouldStartWakeupActionOnLaunchKey = "shouldStartWakeupActionOnLaunch"
-
 let completeWakeupActionURL = "https://cizz.uk/alare/sc"
 
 let NightGradient = LinearGradient(

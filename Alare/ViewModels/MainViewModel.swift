@@ -116,15 +116,6 @@ class MainViewModel: ObservableObject {
             waManager.validate()
             syncDraft()
             syncFocusFilter()
-            startWakeupActionIfRequested()
-        }
-    }
-
-    private func startWakeupActionIfRequested() {
-        guard userDefaults.bool(forKey: shouldStartWakeupActionOnLaunchKey) else { return }
-
-        if startWakeupAction() {
-            userDefaults.set(false, forKey: shouldStartWakeupActionOnLaunchKey)
         }
     }
     
