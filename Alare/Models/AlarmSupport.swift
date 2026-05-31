@@ -8,6 +8,7 @@
 import ActivityKit
 import AlarmKit
 import Combine
+import UIKit
 import WidgetKit
 
 // Manages user settings and communication with AlarmRegister
@@ -16,6 +17,7 @@ import WidgetKit
 final class AlarmSupport: ObservableObject {
     static let shared = AlarmSupport()
     private static let hardModeSnoozeInterval: TimeInterval = 5
+    private static let hardModeSnoozeIntervalVoiceOver: TimeInterval = 15
     
     @ObservationIgnored private var register = AlarmRegister.shared
     
@@ -145,7 +147,11 @@ final class AlarmSupport: ObservableObject {
         
         let interval: TimeInterval
         if settings.isHardMode {
-            interval = Self.hardModeSnoozeInterval
+            if UIAccessibility.isVoiceOverRunning {
+                interval = Self.hardModeSnoozeIntervalVoiceOver
+            } else {
+                interval = Self.hardModeSnoozeInterval
+            }
         } else {
             interval = TimeInterval(settings.snoozeInterval * 60)
         }
