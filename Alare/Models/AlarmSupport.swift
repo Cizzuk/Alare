@@ -8,6 +8,7 @@
 import ActivityKit
 import AlarmKit
 import Combine
+import UIKit
 import WidgetKit
 
 // Manages user settings and communication with AlarmRegister
@@ -16,6 +17,7 @@ import WidgetKit
 final class AlarmSupport: ObservableObject {
     static let shared = AlarmSupport()
     private static let hardModeSnoozeInterval: TimeInterval = 5
+    private static let hardModeSnoozeIntervalVoiceOver: TimeInterval = 15
     
     @ObservationIgnored private var register = AlarmRegister.shared
     
@@ -56,7 +58,6 @@ final class AlarmSupport: ObservableObject {
         // If the alarm is disabled, kill
         if !settings.isEnabled {
             register.cancelMainAlarm()
-            return
         }
         
         // If there is nextSnooze
@@ -73,7 +74,7 @@ final class AlarmSupport: ObservableObject {
                 SnoozeActivityManager.start()
                 print("Snooze Live Activity restarted")
             }
-        } else if !SnoozeActivityManager.isActive() {
+        } else if SnoozeActivityManager.isActive() {
             // If there is no nextSnooze but Live Activity is active, end it
             SnoozeActivityManager.endAll()
         }
@@ -146,7 +147,11 @@ final class AlarmSupport: ObservableObject {
         
         let interval: TimeInterval
         if settings.isHardMode {
-            interval = Self.hardModeSnoozeInterval
+            if UIAccessibility.isVoiceOverRunning {
+                interval = Self.hardModeSnoozeIntervalVoiceOver
+            } else {
+                interval = Self.hardModeSnoozeInterval
+            }
         } else {
             interval = TimeInterval(settings.snoozeInterval * 60)
         }
@@ -163,7 +168,9 @@ final class AlarmSupport: ObservableObject {
         )
         
         await register.pushSnooze(item: alarmItem)
-        SnoozeActivityManager.start()
+        if !SnoozeActivityManager.isActive() {
+            SnoozeActivityManager.start()
+        }
     }
     
     // Stop the alarms completely
