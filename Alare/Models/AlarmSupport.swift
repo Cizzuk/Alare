@@ -73,7 +73,7 @@ final class AlarmSupport: ObservableObject {
                 SnoozeActivityManager.start()
                 print("Snooze Live Activity restarted")
             }
-        } else if !SnoozeActivityManager.isActive() {
+        } else if SnoozeActivityManager.isActive() {
             // If there is no nextSnooze but Live Activity is active, end it
             SnoozeActivityManager.endAll()
         }
