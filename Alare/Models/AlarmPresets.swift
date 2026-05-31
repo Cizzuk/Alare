@@ -34,7 +34,7 @@ final class AlarmPresets {
         return AlarmConfiguration(
             schedule: item.schedule,
             attributes: attributes,
-            stopIntent: AlarmStartWakeupActionIntent(uuid: uuidString),
+            stopIntent: isHardMode ? AlarmSnoozeIntent(uuid: uuidString) : AlarmStartWakeupActionIntent(uuid: uuidString),
             secondaryIntent: AlarmSnoozeIntent(uuid: uuidString),
             sound: alertSound
         )
