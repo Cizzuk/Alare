@@ -31,6 +31,7 @@ final class AlarmPresets {
             tintColor: .dropblue
         )
         
+        /// Version 1.3 : To prevent issues where snooze is not set correctly, the Wake-up Action is no longer automatically started when stopping an alarm in Hard Mode
         return AlarmConfiguration(
             schedule: item.schedule,
             attributes: attributes,
