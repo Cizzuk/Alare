@@ -163,7 +163,9 @@ final class AlarmSupport: ObservableObject {
         )
         
         await register.pushSnooze(item: alarmItem)
-        SnoozeActivityManager.start()
+        if !SnoozeActivityManager.isActive() {
+            SnoozeActivityManager.start()
+        }
     }
     
     // Stop the alarms completely
