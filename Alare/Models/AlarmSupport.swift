@@ -56,7 +56,6 @@ final class AlarmSupport: ObservableObject {
         // If the alarm is disabled, kill
         if !settings.isEnabled {
             register.cancelMainAlarm()
-            return
         }
         
         // If there is nextSnooze
