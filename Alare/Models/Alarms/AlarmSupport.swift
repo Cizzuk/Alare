@@ -40,7 +40,7 @@ final class AlarmSupport: ObservableObject {
         if AlarmManager.shared.authorizationState == .denied {
             settings.isEnabled = false
             register.cancelMainAlarm()
-            register.killAlarm()
+            register.endSnooze()
             register.clearAllAlarmsFromSystem()
             return true
         }
@@ -173,9 +173,16 @@ final class AlarmSupport: ObservableObject {
         }
     }
     
-    // Stop the alarms completely
-    func kill() async {
-        register.killAlarm()
+    // End snooze completely
+    func endSnooze() async {
+        register.endSnooze()
+        await validate()
+        SnoozeActivityManager.endAll()
+    }
+    
+    // Clear all snooze and check alarms
+    func killAll() async {
+        register.endSnooze()
         await validate()
         SnoozeActivityManager.endAll()
     }

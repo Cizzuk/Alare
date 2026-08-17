@@ -80,6 +80,11 @@ final class AlarmRegister: ObservableObject {
         }
     }
     
+    func endSnooze() {
+        cancelSnooze()
+        registereds.snoozeCount = 0
+    }
+    
     // MARK: - Alarm Control
     
     func stopAlarm(uuid: UUID) {
@@ -89,11 +94,6 @@ final class AlarmRegister: ObservableObject {
     func removeAlarm(uuid: UUID) {
         try? alarmManager.stop(id: uuid)
         try? alarmManager.cancel(id: uuid)
-    }
-    
-    func killAlarm() {
-        cancelSnooze()
-        registereds.snoozeCount = 0
     }
     
     func validateSystemAlarms() async throws {
