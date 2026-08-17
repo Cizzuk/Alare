@@ -68,6 +68,7 @@
 				Models/Enums/AlarmSound.swift,
 				Models/UserData/AlarmSettings.swift,
 				Models/UserData/RegisteredAlarms.swift,
+				Models/UserData/WakeupCheckSettings.swift,
 				Models/WeekdaysSupport.swift,
 			);
 			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtension */;
