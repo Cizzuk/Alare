@@ -1,4 +1,7 @@
 {
+  "features" : [
+    "specular-location"
+  ],
   "fill" : "automatic",
   "groups" : [
     {
@@ -13,7 +16,19 @@
               }
             }
           ],
-          "image-name" : "icon.png",
+          "image-name-specializations" : [
+            {
+              "value" : "light.png"
+            },
+            {
+              "appearance" : "dark",
+              "value" : "dark.png"
+            },
+            {
+              "appearance" : "tinted",
+              "value" : "dark.png"
+            }
+          ],
           "name" : "clock"
         }
       ],
@@ -21,7 +36,7 @@
         "kind" : "neutral",
         "opacity" : 0.5
       },
-      "specular" : true,
+      "specular" : "inside",
       "translucency" : {
         "enabled" : false,
         "value" : 0.25
