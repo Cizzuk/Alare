@@ -33,6 +33,7 @@ struct MainView: View {
                             .accessibilityAddTraits(.isHeader)
                         Spacer()
                         Toggle("Turn on Alarm", isOn: $vm.draft.isEnabled)
+                            .tint(.accent)
                             .disabled(AlarmManager.shared.authorizationState == .denied)
                             .labelsHidden()
                     }
@@ -133,6 +134,7 @@ struct MainView: View {
                     }
                     
                     Toggle("Hard Mode", isOn: $vm.draft.isHardMode)
+                        .tint(.accent)
                         .onChange(of: vm.draft.isHardMode) {
                             withAnimation { showSnoozeIntervalPicker = false }
                         }
