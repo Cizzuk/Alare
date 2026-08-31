@@ -14,6 +14,7 @@ struct MainView: View {
     
     @StateObject private var register = AlarmRegister.shared
     @StateObject private var waManager = WakeupActionManager.shared
+    @StateObject private var wcManager = WakeupCheckManager.shared
     @StateObject private var vm = MainViewModel()
     
     @State private var showCustomSoundImporter = false
@@ -119,13 +120,25 @@ struct MainView: View {
                     WeekdaysView(repeats: $vm.draft.repeats)
                 }
                 
-                NavigationLink(destination: WakeupActionSettingsView()) {
-                    HStack {
-                        Label("Wake-up Action", systemImage: "bolt.fill")
-                            .foregroundStyle(.primary)
-                        Spacer()
-                        Text(waManager.settings.selected.displayName)
-                            .foregroundStyle(.secondary)
+                // MARK: Wake-up Action & Check
+                Section {
+                    NavigationLink(destination: WakeupActionSettingsView()) {
+                        HStack {
+                            Label("Wake-up Action", systemImage: "bolt.fill")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Text(waManager.settings.selected.displayName)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    NavigationLink(destination: EmptyView()) {
+                        HStack {
+                            Label("Wake-up Check", systemImage: "checkmark")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Text(wcManager.settings.isEnabled ? "On" : "Off")
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
                 
