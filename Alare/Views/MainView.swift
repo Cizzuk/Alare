@@ -213,11 +213,6 @@ struct MainView: View {
                     }) {
                         Text("Test Alarm")
                     }
-                    Button(action: {
-                        Task { await AlarmSupport.shared.scheduleWakeupCheckSnooze()  }
-                    }) {
-                        Text("Test Wake-up Check")
-                    }
                 }
                 #endif
             } // List
