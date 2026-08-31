@@ -205,6 +205,20 @@ final class AlarmSupport: ObservableObject {
         
         let startTime = Date().addingTimeInterval(TimeInterval(wcManager.settings.startAfter * 60))
         await register.pushWakeupCheckSnooze(item: alarmItem, startTime: startTime)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Wake-up Check is Available!"
+        content.body = "Tap to confirm you're awake."
+        content.sound = .defaultRingtone
+        content.interruptionLevel = .timeSensitive
+        
+        await UserNotificationSupport.addNotification(
+            content,
+            trigger: UNTimeIntervalNotificationTrigger(
+                timeInterval: TimeInterval(wcManager.settings.startAfter * 60),
+                repeats: false
+            )
+        )
     }
     
     func completeWakeupCheck() async {

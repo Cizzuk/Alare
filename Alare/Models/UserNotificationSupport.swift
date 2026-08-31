@@ -45,7 +45,7 @@ class UserNotificationSupport {
         return false
     }
     
-    static func sendNotification(
+    static func addNotification(
         _ content: UNMutableNotificationContent,
         trigger: UNNotificationTrigger? = nil
     ) async {
