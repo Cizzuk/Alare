@@ -229,10 +229,18 @@ final class AlarmSupport: ObservableObject {
         await validate()
         
         let notificationCenter = UNUserNotificationCenter.current()
+        
         let pendingRequests = await notificationCenter.pendingNotificationRequests()
         for request in pendingRequests {
             if request.content.userInfo["type"] as? String == "wakeup_check" {
                 notificationCenter.removePendingNotificationRequests(withIdentifiers: [request.identifier])
+            }
+        }
+        
+        let deliveredNotifications = await notificationCenter.deliveredNotifications()
+        for notification in deliveredNotifications {
+            if notification.request.content.userInfo["type"] as? String == "wakeup_check" {
+                notificationCenter.removeDeliveredNotifications(withIdentifiers: [notification.request.identifier])
             }
         }
     }
