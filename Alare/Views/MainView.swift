@@ -87,7 +87,8 @@ struct MainView: View {
                 
                 //  MARK: Wake-up Check Button
                 if let wakeupCheckStartTime = register.registereds.wakeupCheckStartTime {
-                    if wakeupCheckStartTime.timeIntervalSinceNow > 0 {
+                    // Available before 10 seconds
+                    if wakeupCheckStartTime.timeIntervalSinceNow > 10 {
                         Section {} footer: {
                             HStack(alignment: .center, spacing: 10) {
                                 Label("Wake-up Check notification will soon be sent.", systemImage: "checkmark")
@@ -97,13 +98,10 @@ struct MainView: View {
                             .padding(.bottom, 30)
                         }
                     } else {
-                        Section {} header: {
-                            Label("Wake-up Check is Available!", systemImage: "checkmark")
-                                .foregroundStyle(.primary)
-                        } footer: {
+                        Section {} footer: {
                             Button(action: { vm.completeWakeupCheck() }) {
                                 HStack(alignment: .center, spacing: 10) {
-                                    Image(systemName: "checkmark")
+                                    Image("checkmark.alare")
                                         .font(.title)
                                     Text("Complete Wake-up Check")
                                         .bold()
@@ -209,10 +207,17 @@ struct MainView: View {
                 }
                 
                 #if DEBUG && !targetEnvironment(simulator)
-                Button(action: {
-                    Task { await register.testAlarm() }
-                }) {
-                    Text("Test Alarm")
+                Section {
+                    Button(action: {
+                        Task { await register.testAlarm() }
+                    }) {
+                        Text("Test Alarm")
+                    }
+                    Button(action: {
+                        Task { await AlarmSupport.shared.scheduleWakeupCheckSnooze()  }
+                    }) {
+                        Text("Test Wake-up Check")
+                    }
                 }
                 #endif
             } // List

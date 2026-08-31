@@ -23,7 +23,7 @@ struct WakeupCheckSettingsView: View {
         List {
             Section {
                 VStack(alignment: .leading, spacing: 5) {
-                    Image("bolt.alare")
+                    Image("checkmark.alare")
                         .resizable()
                         .frame(width: 60, height: 60)
                         .accessibilityHidden(true)
