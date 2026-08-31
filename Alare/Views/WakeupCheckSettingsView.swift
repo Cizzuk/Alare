@@ -13,6 +13,9 @@ struct WakeupCheckSettingsView: View {
     @State private var showStartAfterPicker = false
     private let startAfterIntList = Array(1...30)
     
+    @State private var showAlarmAfterPicker = false
+    private let alarmAfterIntList = Array(1...30)
+    
     var body: some View {
         List {
             Section {
@@ -49,6 +52,24 @@ struct WakeupCheckSettingsView: View {
                     Picker("Start After", selection: $manager.settings.startAfter) {
                         ForEach(startAfterIntList, id: \.self) { startAfter in
                             Text("\(startAfter) min").tag(startAfter)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                }
+                
+                HStack {
+                    Text("Ring Alarm After")
+                    Spacer()
+                    Button(action: { withAnimation { showAlarmAfterPicker.toggle() } }) {
+                        Text("\(manager.settings.alarmAfter) min")
+                            .font(.default.monospacedDigit())
+                    }
+                }
+                
+                if showAlarmAfterPicker {
+                    Picker("Ring Alarm After", selection: $manager.settings.alarmAfter) {
+                        ForEach(alarmAfterIntList, id: \.self) { alarmAfter in
+                            Text("\(alarmAfter) min").tag(alarmAfter)
                         }
                     }
                     .pickerStyle(.wheel)

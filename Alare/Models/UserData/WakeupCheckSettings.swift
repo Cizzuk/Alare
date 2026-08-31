@@ -13,6 +13,9 @@ struct WakeupCheckSettings: AlarmMetadata, Codable {
     var startAfter: Int = 9 {
         didSet { startAfter = startAfter.clip(min: 1, max: 30) }
     }
+    var alarmAfter: Int = 5 {
+        didSet { startAfter = startAfter.clip(min: 1, max: 30) }
+    }
 }
 
 // MARK: - UserDefaults Persistence

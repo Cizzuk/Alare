@@ -690,6 +690,16 @@
         }
       }
     },
+    "Ring Alarm After" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次の間隔をあけてアラームを再生する"
+          }
+        }
+      }
+    },
     "Scan a Code" : {
       "localizations" : {
         "ja" : {
@@ -875,7 +885,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "次の間隔後に開始する"
+            "value" : "次の間隔をあけて開始する"
           }
         }
       }
