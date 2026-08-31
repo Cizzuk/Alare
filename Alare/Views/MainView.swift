@@ -131,7 +131,7 @@ struct MainView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: WakeupCheckSettingsView()) {
                         HStack {
                             Label("Wake-up Check", systemImage: "checkmark")
                                 .foregroundStyle(.primary)
