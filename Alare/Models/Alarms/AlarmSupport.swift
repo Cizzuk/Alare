@@ -220,7 +220,7 @@ final class AlarmSupport: ObservableObject {
         }
     }
     
-    func completeWakeupCheckSnooze() async {
+    func completeWakeupCheck() async {
         register.endWakeupCheckSnooze()
         await validate()
     }

@@ -157,6 +157,16 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func completeWakeupCheck() {
+        if register.registereds.wakeupCheckStartTime != nil {
+            Task {
+                await support.completeWakeupCheck()
+                syncDraft()
+            }
+            HapticManager.shared.playHaptics(.success)
+        }
+    }
+    
     // MARK: - Custom Sound
     
     func importCustomSoundHandler(_ result: Result<[URL], Error>) {

@@ -23,7 +23,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
-                // Header and Time
+                // MARK: Header and Time
                 Section {} header: {
                     HStack {
                         Text("Alare")
@@ -60,7 +60,7 @@ struct MainView: View {
                     .padding(.bottom, 15)
                 }
                 
-                // Wake-up Action Button
+                // MARK: Wake-up Action Button
                 if register.registereds.nextSnooze != nil {
                     Section {} header: {
                         Label("Alarm is Snoozing", systemImage: "zzz")
@@ -84,6 +84,37 @@ struct MainView: View {
                     }
                 }
                 
+                //  MARK: Wake-up Check Button
+                if let wakeupCheckStartTime = register.registereds.wakeupCheckStartTime {
+                    if wakeupCheckStartTime.timeIntervalSinceNow > 0 {
+                        Section {} footer: {
+                            HStack(alignment: .center, spacing: 10) {
+                                Label("Wake-up Check will soon be available.", systemImage: "checkmark")
+                                    .foregroundStyle(.primary)
+                                    .font(.headline)
+                            }
+                            .padding(.bottom, 30)
+                        }
+                    } else {
+                        Button(action: { vm.completeWakeupCheck() }) {
+                            HStack(alignment: .center, spacing: 10) {
+                                Image(systemName: "checkmark")
+                                    .font(.title)
+                                Text("Complete Wake-up Check")
+                                    .bold()
+                                    .padding(.vertical, 10)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, 10)
+                        }
+                        .buttonStyle(.glassProminent)
+                        .tint(.dropblue)
+                        .foregroundStyle(.white)
+                        .padding(.bottom, 30)
+                    }
+                }
+                
+                // MARK: Repeat
                 Section("Repeat") {
                     WeekdaysView(repeats: $vm.draft.repeats)
                 }
