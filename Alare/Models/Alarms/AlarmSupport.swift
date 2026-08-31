@@ -189,6 +189,8 @@ final class AlarmSupport: ObservableObject {
     // MARK: - Wake-up Check Snooze
     
     func scheduleWakeupCheckSnooze() async {
+        guard wcManager.settings.isEnabled else { return }
+
         let uuid = UUID()
         let interval = TimeInterval((wcManager.settings.startAfter + wcManager.settings.alarmAfter) * 60)
         let date = Date().addingTimeInterval(interval)
