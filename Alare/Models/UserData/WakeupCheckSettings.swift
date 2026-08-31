@@ -11,7 +11,7 @@ import MergeCodablePackage
 struct WakeupCheckSettings: AlarmMetadata, Codable {
     var isEnabled: Bool = false
     var startAfter: Int = 9 {
-        didSet { startAfter = startAfter.clip(min: 1, max: 15) }
+        didSet { startAfter = startAfter.clip(min: 1, max: 30) }
     }
 }
 
