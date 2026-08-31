@@ -79,6 +79,16 @@ final class AlarmSupport: ObservableObject {
             // If there is no nextSnooze but Live Activity is active, end it
             SnoozeActivityManager.endAll()
         }
+        
+        // If there is wakeupCheckSnooze
+        if let wakeupCheckSnooze = register.registereds.wakeupCheckSnooze,
+           case .fixed(let date) = wakeupCheckSnooze.schedule {
+            // If it's past time, reschedule wakeup check snooze
+            if date < Date() {
+                await scheduleWakeupCheckSnooze()
+                print("Wakeup Check Snooze rescheduled due to past time")
+            }
+        }
     }
     
     // Push new settings and update main alarm
@@ -209,7 +219,7 @@ final class AlarmSupport: ObservableObject {
         let content = UNMutableNotificationContent()
         content.title = "Wake-up Check is Available!"
         content.body = "Tap to confirm you're awake."
-        content.sound = .defaultRingtone
+        content.sound = .default
         content.interruptionLevel = .timeSensitive
         
         await UserNotificationSupport.addNotification(
