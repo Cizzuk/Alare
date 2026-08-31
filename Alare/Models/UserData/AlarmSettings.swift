@@ -26,7 +26,7 @@ struct AlarmSettings: AlarmMetadata, Codable {
     var isHardMode: Bool = false
     
     var snoozeInterval: Int = 9 {
-        didSet { snoozeInterval = snoozeInterval.clip(min: 1, max: 15) }
+        didSet { snoozeInterval = snoozeInterval.clip(min: 1, max: 30) }
     }
 }
 
