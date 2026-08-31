@@ -79,16 +79,6 @@ final class AlarmSupport: ObservableObject {
             // If there is no nextSnooze but Live Activity is active, end it
             SnoozeActivityManager.endAll()
         }
-        
-        // If there is wakeupCheckSnooze
-        if let wakeupCheckSnooze = register.registereds.wakeupCheckSnooze,
-           case .fixed(let date) = wakeupCheckSnooze.schedule {
-            // If it's past time, reschedule wakeup check snooze
-            if date < Date() {
-                await scheduleWakeupCheckSnooze()
-                print("Wakeup Check Snooze rescheduled due to past time")
-            }
-        }
     }
     
     // Push new settings and update main alarm
@@ -219,6 +209,7 @@ final class AlarmSupport: ObservableObject {
         let content = UNMutableNotificationContent()
         content.title = "Wake-up Check is Available!"
         content.body = "Tap to confirm you're awake."
+        content.userInfo = ["type": "wakeup_check"]
         content.sound = .default
         content.interruptionLevel = .timeSensitive
         
@@ -234,6 +225,14 @@ final class AlarmSupport: ObservableObject {
     func completeWakeupCheck() async {
         register.endWakeupCheckSnooze()
         await validate()
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        let pendingRequests = await notificationCenter.pendingNotificationRequests()
+        for request in pendingRequests {
+            if request.content.userInfo["type"] as? String == "wakeup_check" {
+                notificationCenter.removePendingNotificationRequests(withIdentifiers: [request.identifier])
+            }
+        }
     }
     
     // MARK: - Private Helpers
