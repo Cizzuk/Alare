@@ -570,6 +570,16 @@
         }
       }
     },
+    "Notifications are not allowed. Wake-up Check notifications will not be sent." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知は許可されていません。 起床チェックの通知は送信されません。"
+          }
+        }
+      }
+    },
     "Off" : {
       "localizations" : {
         "ja" : {
@@ -1079,16 +1089,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "起床チェック (ベータ)"
-          }
-        }
-      }
-    },
-    "Wake-up Check is Available!" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "起床チェックがあります！"
           }
         }
       }
