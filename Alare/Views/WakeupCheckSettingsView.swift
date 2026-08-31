@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WakeupCheckSettingsView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var manager = WakeupCheckManager.shared
     
     @State private var showStartAfterPicker = false
@@ -15,6 +16,8 @@ struct WakeupCheckSettingsView: View {
     
     @State private var showAlarmAfterPicker = false
     private let alarmAfterIntList = Array(1...30)
+    
+    @State private var showNotificationPermissionAlert = false
     
     var body: some View {
         List {
@@ -36,6 +39,31 @@ struct WakeupCheckSettingsView: View {
                 
                 Toggle("Wake-up Check", isOn: $manager.settings.isEnabled)
                     .tint(.accent)
+                    .onChange(of: manager.settings.isEnabled) {
+                        if manager.settings.isEnabled {
+                            Task { showNotificationPermissionAlert = await !UserNotificationSupport.requestAuthorization() }
+                        }
+                    }
+            } footer: {
+                if showNotificationPermissionAlert {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("Notifications are not allowed. Wake-up Check notifications will not be sent.")
+                        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
+                            Button(action: { UIApplication.shared.open(url) }) {
+                                Text("Open Settings...")
+                            }
+                        }
+                    }
+                    .font(.footnote)
+                }
+            }
+            .task {
+                showNotificationPermissionAlert = await !UserNotificationSupport.isAvailable()
+            }
+            .onChange(of: scenePhase) {
+                if scenePhase == .active {
+                    Task { showNotificationPermissionAlert = await !UserNotificationSupport.isAvailable() }
+                }
             }
             
             Section {
