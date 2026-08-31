@@ -212,6 +212,7 @@ struct MainView: View {
                 #endif
             } // List
             .animation(.default, value: register.registereds.nextSnooze != nil)
+            .animation(.default, value: register.registereds.wakeupCheckStartTime)
             .animation(.default, value: vm.draft.sound)
             .animation(.default, value: vm.draft.isHardMode)
             .scrollContentBackground(.hidden)
