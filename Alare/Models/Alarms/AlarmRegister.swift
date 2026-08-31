@@ -72,7 +72,7 @@ final class AlarmRegister: ObservableObject {
         print("Snooze scheduled: \(item.uuid) with schedule: \(item.schedule)")
     }
     
-    func cancelSnooze() {
+    private func cancelSnooze() {
         if let nextSnooze = registereds.nextSnooze {
             removeAlarm(uuid: nextSnooze.uuid)
             registereds.nextSnooze = nil
@@ -87,9 +87,11 @@ final class AlarmRegister: ObservableObject {
     
     // MARK: - Wakeup Check Snooze
     
-    func pushWakeupCheckSnooze(item: AlarmItem, startTime: Date) async {
+    func pushWakeupCheckSnooze(item: AlarmItem, startTime: Date? = nil) async {
         cancelWakeupCheckSnooze()
-        registereds.wakeupCheckStartTime = startTime
+        if let startTime {
+            registereds.wakeupCheckStartTime = startTime
+        }
         registereds.wakeupCheckSnooze = item
         await scheduleWakeupCheckSnooze()
     }
@@ -103,7 +105,7 @@ final class AlarmRegister: ObservableObject {
         print("Wakeup Check Snooze scheduled: \(item.uuid) with schedule: \(item.schedule)")
     }
     
-    func cancelWakeupCheckSnooze() {
+    private func cancelWakeupCheckSnooze() {
         if let wakeupCheckSnooze = registereds.wakeupCheckSnooze {
             removeAlarm(uuid: wakeupCheckSnooze.uuid)
             registereds.wakeupCheckSnooze = nil
