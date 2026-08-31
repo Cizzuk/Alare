@@ -131,6 +131,7 @@ final class AlarmSupport: ObservableObject {
     // Clear all snooze and check alarms
     func killAll() async {
         register.endSnooze()
+        register.endWakeupCheckSnooze()
         await validate()
         SnoozeActivityManager.endAll()
     }
