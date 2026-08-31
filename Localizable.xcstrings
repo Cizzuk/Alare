@@ -1078,7 +1078,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "起床アクション (ベータ)"
+            "value" : "起床チェック (ベータ)"
           }
         }
       }
