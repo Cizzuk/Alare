@@ -961,14 +961,7 @@
       }
     },
     "Test Alarm" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アラームテスト"
-          }
-        }
-      }
+      "shouldTranslate" : false
     },
     "The selected Wake-up Action is not available." : {
       "localizations" : {
