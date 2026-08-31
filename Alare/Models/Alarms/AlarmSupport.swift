@@ -128,7 +128,8 @@ final class AlarmSupport: ObservableObject {
             schedule: schedule,
             title: "Alarm",
             sound: alarmSettings.sound,
-            isSnooze: false
+            isSnooze: false,
+            isWakeupCheck: false
         )
         await register.pushMainAlarm(item: item)
     }
@@ -169,7 +170,8 @@ final class AlarmSupport: ObservableObject {
             schedule: schedule,
             title: "Snooze \(register.registereds.snoozeCount + 1)",
             sound: alarmSettings.sound,
-            isSnooze: true
+            isSnooze: true,
+            isWakeupCheck: false
         )
         
         await register.pushSnooze(item: alarmItem)
@@ -198,7 +200,8 @@ final class AlarmSupport: ObservableObject {
             schedule: schedule,
             title: "Wake-up Check",
             sound: alarmSettings.sound,
-            isSnooze: true
+            isSnooze: true,
+            isWakeupCheck: true
         )
         
         let startTime = Date().addingTimeInterval(TimeInterval(wakeupCheckSettings.startAfter * 60))

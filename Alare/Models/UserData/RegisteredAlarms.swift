@@ -14,6 +14,7 @@ struct AlarmItem: Codable {
     var title: String.LocalizationValue
     var sound: AlarmSound
     var isSnooze: Bool = false
+    var isWakeupCheck: Bool = false
 }
 
 struct RegisteredAlarms: Codable {
