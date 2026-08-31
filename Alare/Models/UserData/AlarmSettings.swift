@@ -12,7 +12,7 @@ struct AlarmSettings: AlarmMetadata, Codable {
     var isEnabled: Bool = false
     
     var hour: Int = 9 {
-        didSet { hour = minute.clip(min: 0, max: 23) }
+        didSet { hour = hour.clip(min: 0, max: 23) }
     }
     
     var minute: Int = 0 {
