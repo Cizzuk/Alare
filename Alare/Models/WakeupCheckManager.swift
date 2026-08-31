@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import UserNotifications
 
 @MainActor
 final class WakeupCheckManager: ObservableObject {
@@ -17,4 +17,10 @@ final class WakeupCheckManager: ObservableObject {
     }
     
     private init() {}
+    
+    func validate() async {
+        if await UserNotificationSupport.authorizationStatus() != .authorized {
+            settings.isEnabled = false
+        }
+    }
 }
