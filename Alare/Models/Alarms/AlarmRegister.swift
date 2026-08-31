@@ -195,7 +195,7 @@ final class AlarmRegister: ObservableObject {
             uuid: uuid,
             schedule: schedule,
             title: "Test Alarm",
-            sound: AlarmSupport.shared.settings.sound,
+            sound: AlarmSupport.shared.alarmSettings.sound,
             isSnooze: false
         )
         

@@ -18,11 +18,11 @@ class MainViewModel: ObservableObject {
     @Published var doingWakeupAction: WakeupAction? = nil
     var focusFilterWakeupAction: WakeupAction? = nil
     
-    @Published var draft: AlarmSettings = AlarmSupport.shared.settings {
+    @Published var draft: AlarmSettings = AlarmSupport.shared.alarmSettings {
         didSet {
             // Push changes
             Task {
-                if support.settings != draft {
+                if support.alarmSettings != draft {
                     await support.push(draft)
                     syncDraft()
                 }
@@ -31,8 +31,8 @@ class MainViewModel: ObservableObject {
     }
     
     @Published var timeSelection: Date = AlarmSupport.makeDateFromTime(
-        hour: AlarmSupport.shared.settings.hour,
-        minute: AlarmSupport.shared.settings.minute
+        hour: AlarmSupport.shared.alarmSettings.hour,
+        minute: AlarmSupport.shared.alarmSettings.minute
     ) {
         didSet {
             // Convert Date to hour and minute
@@ -120,8 +120,8 @@ class MainViewModel: ObservableObject {
     }
     
     func syncDraft() {
-        if draft != support.settings {
-            draft = support.settings
+        if draft != support.alarmSettings {
+            draft = support.alarmSettings
         }
         
         // Sync timeSelection

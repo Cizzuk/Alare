@@ -18,7 +18,7 @@ final class AlarmPresets {
         let uuidString = item.uuid.uuidString
         let titleLocalized = item.title
         let alertSound = item.isSnooze ? item.sound.alertSoundSnooze : item.sound.alertSound
-        let isHardMode = AlarmSupport.shared.settings.isHardMode
+        let isHardMode = AlarmSupport.shared.alarmSettings.isHardMode
         
         let content = AlarmPresentation.Alert(
             title: LocalizedStringResource(titleLocalized),
