@@ -19,8 +19,13 @@ struct AlarmItem: Codable {
 struct RegisteredAlarms: Codable {
     var mainAlarm: AlarmItem?
     
+    // For Wake-up Action
     var snoozeCount: Int = 0
     var nextSnooze: AlarmItem?
+    
+    // For Wake-up Check
+    var wakeupCheckStartTime: Date?
+    var wakeupCheckSnooze: AlarmItem?
 }
 
 // MARK: - UserDefaults Persistence
