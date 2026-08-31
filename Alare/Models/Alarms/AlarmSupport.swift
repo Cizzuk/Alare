@@ -196,7 +196,7 @@ final class AlarmSupport: ObservableObject {
         let alarmItem = AlarmItem(
             uuid: uuid,
             schedule: schedule,
-            title: "Wake-up Check is Available",
+            title: "Wake-up Check",
             sound: alarmSettings.sound,
             isSnooze: true
         )
