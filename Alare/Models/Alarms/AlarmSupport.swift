@@ -20,17 +20,11 @@ final class AlarmSupport: ObservableObject {
     private static let hardModeSnoozeIntervalVoiceOver: TimeInterval = 15
     
     @ObservationIgnored private var register = AlarmRegister.shared
+    @ObservationIgnored private var wcManager = WakeupCheckManager.shared
     
     @Published private(set) var alarmSettings = AlarmSettings.load() {
         didSet {
             alarmSettings.save()
-            WidgetCenter.shared.reloadAllTimelines()
-        }
-    }
-    
-    @Published private(set) var wakeupCheckSettings = WakeupCheckSettings.load() {
-        didSet {
-            wakeupCheckSettings.save()
             WidgetCenter.shared.reloadAllTimelines()
         }
     }
@@ -186,7 +180,7 @@ final class AlarmSupport: ObservableObject {
         await validate()
         SnoozeActivityManager.endAll()
         
-        if wakeupCheckSettings.isEnabled {
+        if wcManager.settings.isEnabled {
             await scheduleWakeupCheckSnooze()
         }
     }
@@ -195,7 +189,7 @@ final class AlarmSupport: ObservableObject {
     
     func scheduleWakeupCheckSnooze() async {
         let uuid = UUID()
-        let interval = createSnoozeInterval() + TimeInterval(wakeupCheckSettings.startAfter * 60)
+        let interval = createSnoozeInterval() + TimeInterval(wcManager.settings.startAfter * 60)
         let date = Date().addingTimeInterval(interval)
         let schedule = Alarm.Schedule.fixed(date)
         
@@ -208,7 +202,7 @@ final class AlarmSupport: ObservableObject {
             isWakeupCheck: true
         )
         
-        let startTime = Date().addingTimeInterval(TimeInterval(wakeupCheckSettings.startAfter * 60))
+        let startTime = Date().addingTimeInterval(TimeInterval(wcManager.settings.startAfter * 60))
         await register.pushWakeupCheckSnooze(item: alarmItem, startTime: startTime)
     }
     
