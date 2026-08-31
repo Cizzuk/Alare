@@ -760,6 +760,16 @@
         }
       }
     },
+    "Send Notification After" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次の間隔をあけて通知を送信する"
+          }
+        }
+      }
+    },
     "Sensitivity" : {
       "localizations" : {
         "ja" : {
@@ -876,16 +886,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ソースコード"
-          }
-        }
-      }
-    },
-    "Start After" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "次の間隔をあけて開始する"
           }
         }
       }

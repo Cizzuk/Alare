@@ -40,7 +40,7 @@ struct WakeupCheckSettingsView: View {
             
             Section {
                 HStack {
-                    Text("Start After")
+                    Text("Send Notification After")
                     Spacer()
                     Button(action: { withAnimation { showStartAfterPicker.toggle() } }) {
                         Text("\(manager.settings.startAfter) min")
@@ -49,7 +49,7 @@ struct WakeupCheckSettingsView: View {
                 }
                 
                 if showStartAfterPicker {
-                    Picker("Start After", selection: $manager.settings.startAfter) {
+                    Picker("Send Notification After", selection: $manager.settings.startAfter) {
                         ForEach(startAfterIntList, id: \.self) { startAfter in
                             Text("\(startAfter) min").tag(startAfter)
                         }
