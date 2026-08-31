@@ -26,7 +26,7 @@ struct WakeupCheckSettingsView: View {
                         .accessibilityHidden(true)
                         .padding(.bottom, 10)
                         .foregroundStyle(.accent)
-                    Text("Wake-up Check")
+                    Text("Wake-up Check (Beta)")
                         .font(.title2)
                         .bold()
                         .accessibilityAddTraits(.isHeader)

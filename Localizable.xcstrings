@@ -1073,6 +1073,16 @@
         }
       }
     },
+    "Wake-up Check (Beta)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクション (ベータ)"
+          }
+        }
+      }
+    },
     "Wake-up Check is Available!" : {
       "localizations" : {
         "ja" : {
