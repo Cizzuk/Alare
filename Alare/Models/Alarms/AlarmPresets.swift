@@ -87,3 +87,20 @@ struct AlarmSnoozeIntent: LiveActivityIntent {
         return .result()
     }
 }
+
+struct AlarmCompleteWakeupCheckIntent: LiveActivityIntent {
+    static var title: LocalizedStringResource = "Complete Wake-up Check"
+    static var openAppWhenRun = false
+    static var isDiscoverable = false
+    
+    @Parameter(title: "UUID")
+    var uuid: String
+    init(uuid: String) { self.uuid = uuid }
+    init() { self.uuid = "" }
+    
+    @MainActor
+    func perform() async throws -> some IntentResult {
+        await AlarmSupport.shared.completeWakeupCheck()
+        return .result()
+    }
+}

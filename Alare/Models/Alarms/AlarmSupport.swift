@@ -187,20 +187,9 @@ final class AlarmSupport: ObservableObject {
     
     // MARK: - Wake-up Check Snooze
     
-    func addNextWakeupCheckSnooze(uuid: UUID?) async {
-        if let uuid = uuid {
-            register.stopAlarm(uuid: uuid)
-        }
-    }
-    
-    func addNextWakeupCheckSnooze(first: Bool = false) async {
+    func scheduleWakeupCheckSnooze() async {
         let uuid = UUID()
-        
-        var interval = createSnoozeInterval()
-        if first {
-            interval += TimeInterval(wakeupCheckSettings.startAfter * 60)
-        }
-        
+        let interval = createSnoozeInterval() + TimeInterval(wakeupCheckSettings.startAfter * 60)
         let date = Date().addingTimeInterval(interval)
         let schedule = Alarm.Schedule.fixed(date)
         
@@ -212,12 +201,8 @@ final class AlarmSupport: ObservableObject {
             isSnooze: true
         )
         
-        if first {
-            let startTime = Date().addingTimeInterval(TimeInterval(wakeupCheckSettings.startAfter * 60))
-            await register.pushWakeupCheckSnooze(item: alarmItem, startTime: startTime)
-        } else {
-            await register.pushWakeupCheckSnooze(item: alarmItem)
-        }
+        let startTime = Date().addingTimeInterval(TimeInterval(wakeupCheckSettings.startAfter * 60))
+        await register.pushWakeupCheckSnooze(item: alarmItem, startTime: startTime)
     }
     
     func completeWakeupCheck() async {
