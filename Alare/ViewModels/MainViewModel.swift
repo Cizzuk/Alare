@@ -147,24 +147,20 @@ class MainViewModel: ObservableObject {
     }
     
     func completeWakeupAction() {
-        if register.registereds.nextSnooze != nil {
-            Task {
-                await support.completeWakeupAction()
-                syncDraft()
-            }
-            doingWakeupAction = nil
-            HapticManager.shared.playHaptics(.success)
+        Task {
+            await support.completeWakeupAction()
+            syncDraft()
         }
+        doingWakeupAction = nil
+        HapticManager.shared.playHaptics(.success)
     }
     
     func completeWakeupCheck() {
-        if register.registereds.wakeupCheckStartTime != nil {
-            Task {
-                await support.completeWakeupCheck()
-                syncDraft()
-            }
-            HapticManager.shared.playHaptics(.success)
+        Task {
+            await support.completeWakeupCheck()
+            syncDraft()
         }
+        HapticManager.shared.playHaptics(.success)
     }
     
     // MARK: - Custom Sound
