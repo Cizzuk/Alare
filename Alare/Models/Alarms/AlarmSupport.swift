@@ -65,7 +65,7 @@ final class AlarmSupport: ObservableObject {
            case .fixed(let date) = nextSnooze.schedule {
             // If it's past time, reschedule snooze
             if date < Date() {
-                await snooze()
+                await addNextSnooze()
                 print("Snooze rescheduled due to past time")
             }
             
@@ -126,12 +126,14 @@ final class AlarmSupport: ObservableObject {
         await register.pushMainAlarm(item: item)
     }
     
-    func alarmAction(uuid: UUID?) async {
+    // MARK: - Wake-up Action Snooze
+    
+    func addNextSnoozeAction(uuid: UUID?) async {
         if let uuid = uuid {
             register.stopAlarm(uuid: uuid)
         }
         
-        await snooze()
+        await addNextSnooze()
         
         // If the alarm is not set to repeat, disable it
         if settings.repeats.isEmpty {
@@ -142,7 +144,7 @@ final class AlarmSupport: ObservableObject {
         await validate()
     }
     
-    func snooze() async {
+    func addNextSnooze() async {
         let uuid = UUID()
         
         let interval: TimeInterval
@@ -174,11 +176,13 @@ final class AlarmSupport: ObservableObject {
     }
     
     // End snooze completely
-    func endSnooze() async {
+    func completeWakeupAction() async {
         register.endSnooze()
         await validate()
         SnoozeActivityManager.endAll()
     }
+    
+    // MARK: - Wake-up Check Snooze
     
     // Clear all snooze and check alarms
     func killAll() async {

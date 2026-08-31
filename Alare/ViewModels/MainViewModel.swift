@@ -148,16 +148,12 @@ class MainViewModel: ObservableObject {
     
     func completeWakeupAction() {
         if register.registereds.nextSnooze != nil {
-            endSnooze()
+            Task {
+                await support.completeWakeupAction()
+                syncDraft()
+            }
             doingWakeupAction = nil
             HapticManager.shared.playHaptics(.success)
-        }
-    }
-    
-    func endSnooze() {
-        Task {
-            await support.endSnooze()
-            syncDraft()
         }
     }
     

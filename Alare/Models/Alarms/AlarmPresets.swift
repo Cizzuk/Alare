@@ -65,7 +65,7 @@ struct AlarmStartWakeupActionIntent: LiveActivityIntent {
     @MainActor
     func perform() async throws -> some IntentResult {
         let uuid = UUID(uuidString: uuid)
-        await AlarmSupport.shared.alarmAction(uuid: uuid)
+        await AlarmSupport.shared.addNextSnoozeAction(uuid: uuid)
         return .result(opensIntent: StartWakeupActionIntent())
     }
 }
@@ -83,7 +83,7 @@ struct AlarmSnoozeIntent: LiveActivityIntent {
     @MainActor
     func perform() async throws -> some IntentResult {
         let uuid = UUID(uuidString: uuid)
-        await AlarmSupport.shared.alarmAction(uuid: uuid)
+        await AlarmSupport.shared.addNextSnoozeAction(uuid: uuid)
         return .result()
     }
 }
