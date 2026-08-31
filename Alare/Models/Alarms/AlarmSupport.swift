@@ -185,6 +185,10 @@ final class AlarmSupport: ObservableObject {
         register.endSnooze()
         await validate()
         SnoozeActivityManager.endAll()
+        
+        if wakeupCheckSettings.isEnabled {
+            await scheduleWakeupCheckSnooze()
+        }
     }
     
     // MARK: - Wake-up Check Snooze
