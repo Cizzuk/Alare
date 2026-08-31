@@ -90,7 +90,7 @@ struct MainView: View {
                     if wakeupCheckStartTime.timeIntervalSinceNow > 0 {
                         Section {} footer: {
                             HStack(alignment: .center, spacing: 10) {
-                                Label("Wake-up Check will soon be available.", systemImage: "checkmark")
+                                Label("Wake-up Check notification will soon be sent.", systemImage: "checkmark")
                                     .foregroundStyle(.primary)
                                     .font(.headline)
                             }
