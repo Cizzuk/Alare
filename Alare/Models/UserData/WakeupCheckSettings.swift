@@ -14,7 +14,7 @@ struct WakeupCheckSettings: AlarmMetadata, Codable {
         didSet { startAfter = startAfter.clip(min: 1, max: 30) }
     }
     var alarmAfter: Int = 5 {
-        didSet { startAfter = startAfter.clip(min: 1, max: 30) }
+        didSet { alarmAfter = alarmAfter.clip(min: 1, max: 30) }
     }
 }
 
