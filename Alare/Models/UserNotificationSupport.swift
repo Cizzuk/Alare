@@ -30,7 +30,7 @@ class UserNotificationSupport {
         
         if settings.authorizationStatus == .notDetermined {
             do {
-                try await center.requestAuthorization(options: [.alert])
+                try await center.requestAuthorization(options: [.alert, .sound])
                 return await requestAuthorization()
             } catch {
                 print("Failed to request notification authorization: \(error)")
