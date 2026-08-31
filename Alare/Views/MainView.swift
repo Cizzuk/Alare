@@ -97,21 +97,26 @@ struct MainView: View {
                             .padding(.bottom, 30)
                         }
                     } else {
-                        Button(action: { vm.completeWakeupCheck() }) {
-                            HStack(alignment: .center, spacing: 10) {
-                                Image(systemName: "checkmark")
-                                    .font(.title)
-                                Text("Complete Wake-up Check")
-                                    .bold()
-                                    .padding(.vertical, 10)
+                        Section {} header: {
+                            Label("Wake-up Check is Available!", systemImage: "checkmark")
+                                .foregroundStyle(.primary)
+                        } footer: {
+                            Button(action: { vm.completeWakeupCheck() }) {
+                                HStack(alignment: .center, spacing: 10) {
+                                    Image(systemName: "checkmark")
+                                        .font(.title)
+                                    Text("Complete Wake-up Check")
+                                        .bold()
+                                        .padding(.vertical, 10)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.horizontal, 10)
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding(.horizontal, 10)
+                            .buttonStyle(.glassProminent)
+                            .tint(.dropblue)
+                            .foregroundStyle(.white)
+                            .padding(.bottom, 30)
                         }
-                        .buttonStyle(.glassProminent)
-                        .tint(.dropblue)
-                        .foregroundStyle(.white)
-                        .padding(.bottom, 30)
                     }
                 }
                 
