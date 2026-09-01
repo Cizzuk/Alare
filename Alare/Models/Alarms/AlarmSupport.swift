@@ -212,7 +212,7 @@ final class AlarmSupport: ObservableObject {
         content.title = "Wake-up Check is Available!"
         content.body = "Tap to confirm you're awake."
         content.userInfo = ["type": "wakeup_check"]
-        content.sound = .default
+        content.sound = UNNotificationSound(named:UNNotificationSoundName(rawValue: "Check.caf"))
         content.interruptionLevel = .timeSensitive
         
         await UserNotificationSupport.addNotification(
