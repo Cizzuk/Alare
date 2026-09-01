@@ -72,12 +72,50 @@ final class AlarmRegister: ObservableObject {
         print("Snooze scheduled: \(item.uuid) with schedule: \(item.schedule)")
     }
     
-    func cancelSnooze() {
+    private func cancelSnooze() {
         if let nextSnooze = registereds.nextSnooze {
             removeAlarm(uuid: nextSnooze.uuid)
             registereds.nextSnooze = nil
             print("Snooze cancelled: \(nextSnooze.uuid)")
         }
+    }
+    
+    func endSnooze() {
+        cancelSnooze()
+        registereds.snoozeCount = 0
+    }
+    
+    // MARK: - Wakeup Check Snooze
+    
+    func pushWakeupCheckSnooze(item: AlarmItem, startTime: Date? = nil) async {
+        cancelWakeupCheckSnooze()
+        if let startTime {
+            registereds.wakeupCheckStartTime = startTime
+        }
+        registereds.wakeupCheckSnooze = item
+        await scheduleWakeupCheckSnooze()
+    }
+    
+    // (Re)register current wakeup check snooze to the system
+    private func scheduleWakeupCheckSnooze() async {
+        guard let item = registereds.wakeupCheckSnooze else { return }
+        let configuration = AlarmPresets.makeConfiguration(item: item)
+        
+        try? await scheduleAlarmToSystem(uuid: item.uuid, configuration: configuration)
+        print("Wakeup Check Snooze scheduled: \(item.uuid) with schedule: \(item.schedule)")
+    }
+    
+    private func cancelWakeupCheckSnooze() {
+        if let wakeupCheckSnooze = registereds.wakeupCheckSnooze {
+            removeAlarm(uuid: wakeupCheckSnooze.uuid)
+            registereds.wakeupCheckSnooze = nil
+            print("Wakeup Check Snooze cancelled: \(wakeupCheckSnooze.uuid)")
+        }
+    }
+    
+    func endWakeupCheckSnooze() {
+        cancelWakeupCheckSnooze()
+        registereds.wakeupCheckStartTime = nil
     }
     
     // MARK: - Alarm Control
@@ -91,14 +129,13 @@ final class AlarmRegister: ObservableObject {
         try? alarmManager.cancel(id: uuid)
     }
     
-    func killAlarm() {
-        cancelSnooze()
-        registereds.snoozeCount = 0
-    }
-    
     func validateSystemAlarms() async throws {
         let allSystemAlarms = try alarmManager.alarms
-        let validAlarms = [registereds.mainAlarm, registereds.nextSnooze].compactMap { $0?.uuid }
+        let validAlarms = [
+            registereds.mainAlarm,
+            registereds.nextSnooze,
+            registereds.wakeupCheckSnooze,
+        ].compactMap { $0?.uuid }
         
         // Remove invalid alarms from the system
         for alarm in allSystemAlarms {
@@ -119,6 +156,12 @@ final class AlarmRegister: ObservableObject {
            !allSystemAlarms.contains(where: { $0.id == nextSnooze.uuid }) {
             await scheduleSnooze()
             print("Snooze alarm missing from system, rescheduled: \(nextSnooze.uuid)")
+        }
+        
+        if let wakeupCheckSnooze = registereds.wakeupCheckSnooze,
+           !allSystemAlarms.contains(where: { $0.id == wakeupCheckSnooze.uuid }) {
+            await scheduleWakeupCheckSnooze()
+            print("Wakeup Check Snooze alarm missing from system, rescheduled: \(wakeupCheckSnooze.uuid)")
         }
     }
     
@@ -152,7 +195,7 @@ final class AlarmRegister: ObservableObject {
             uuid: uuid,
             schedule: schedule,
             title: "Test Alarm",
-            sound: AlarmSupport.shared.settings.sound,
+            sound: AlarmSupport.shared.alarmSettings.sound,
             isSnooze: false
         )
         

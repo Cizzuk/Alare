@@ -20,10 +20,11 @@ final class AlarmSupport: ObservableObject {
     private static let hardModeSnoozeIntervalVoiceOver: TimeInterval = 15
     
     @ObservationIgnored private var register = AlarmRegister.shared
+    @ObservationIgnored private var wcManager = WakeupCheckManager.shared
     
-    @Published private(set) var settings = AlarmSettings.load() {
+    @Published private(set) var alarmSettings = AlarmSettings.load() {
         didSet {
-            settings.save()
+            alarmSettings.save()
             WidgetCenter.shared.reloadAllTimelines()
         }
     }
@@ -38,9 +39,9 @@ final class AlarmSupport: ObservableObject {
         }
         
         if AlarmManager.shared.authorizationState == .denied {
-            settings.isEnabled = false
+            alarmSettings.isEnabled = false
             register.cancelMainAlarm()
-            register.killAlarm()
+            register.endSnooze()
             register.clearAllAlarmsFromSystem()
             return true
         }
@@ -56,7 +57,7 @@ final class AlarmSupport: ObservableObject {
         if await isAuthorizationDenied() { return }
         
         // If the alarm is disabled, kill
-        if !settings.isEnabled {
+        if !alarmSettings.isEnabled {
             register.cancelMainAlarm()
         }
         
@@ -65,7 +66,7 @@ final class AlarmSupport: ObservableObject {
            case .fixed(let date) = nextSnooze.schedule {
             // If it's past time, reschedule snooze
             if date < Date() {
-                await snooze()
+                await addNextSnooze()
                 print("Snooze rescheduled due to past time")
             }
             
@@ -82,7 +83,7 @@ final class AlarmSupport: ObservableObject {
     
     // Push new settings and update main alarm
     func push(_ newAlarm: AlarmSettings) async {
-        settings = newAlarm
+        alarmSettings = newAlarm
         await sync()
     }
     
@@ -90,7 +91,7 @@ final class AlarmSupport: ObservableObject {
     func sync() async {
         if await isAuthorizationDenied() { return }
         
-        if !settings.isEnabled {
+        if !alarmSettings.isEnabled {
             register.cancelMainAlarm()
             return
         }
@@ -100,15 +101,15 @@ final class AlarmSupport: ObservableObject {
         
         // Create schedule
         let time = Alarm.Schedule.Relative.Time(
-            hour: settings.hour,
-            minute: settings.minute
+            hour: alarmSettings.hour,
+            minute: alarmSettings.minute
         )
         
         let repeats: Alarm.Schedule.Relative.Recurrence = {
-            if settings.repeats.isEmpty {
+            if alarmSettings.repeats.isEmpty {
                 return .never
             } else {
-                return .weekly(Array(settings.repeats))
+                return .weekly(Array(alarmSettings.repeats))
             }
         }()
         
@@ -120,42 +121,42 @@ final class AlarmSupport: ObservableObject {
             uuid: uuid,
             schedule: schedule,
             title: "Alarm",
-            sound: settings.sound,
-            isSnooze: false
+            sound: alarmSettings.sound,
+            isSnooze: false,
+            isWakeupCheck: false
         )
         await register.pushMainAlarm(item: item)
     }
     
-    func alarmAction(uuid: UUID?) async {
+    // Clear all snooze and check alarms
+    func killAll() async {
+        register.endSnooze()
+        register.endWakeupCheckSnooze()
+        await validate()
+        SnoozeActivityManager.endAll()
+    }
+    
+    // MARK: - Wake-up Action Snooze
+    
+    func addNextSnoozeAction(uuid: UUID?) async {
         if let uuid = uuid {
             register.stopAlarm(uuid: uuid)
         }
         
-        await snooze()
+        await addNextSnooze()
         
         // If the alarm is not set to repeat, disable it
-        if settings.repeats.isEmpty {
-            settings.isEnabled = false
+        if alarmSettings.repeats.isEmpty {
+            alarmSettings.isEnabled = false
             register.cancelMainAlarm()
         }
         
         await validate()
     }
     
-    func snooze() async {
+    func addNextSnooze() async {
         let uuid = UUID()
-        
-        let interval: TimeInterval
-        if settings.isHardMode {
-            if UIAccessibility.isVoiceOverRunning {
-                interval = Self.hardModeSnoozeIntervalVoiceOver
-            } else {
-                interval = Self.hardModeSnoozeInterval
-            }
-        } else {
-            interval = TimeInterval(settings.snoozeInterval * 60)
-        }
-
+        let interval: TimeInterval = createSnoozeInterval()
         let date = Date().addingTimeInterval(interval)
         let schedule = Alarm.Schedule.fixed(date)
         
@@ -163,8 +164,9 @@ final class AlarmSupport: ObservableObject {
             uuid: uuid,
             schedule: schedule,
             title: "Snooze \(register.registereds.snoozeCount + 1)",
-            sound: settings.sound,
-            isSnooze: true
+            sound: alarmSettings.sound,
+            isSnooze: true,
+            isWakeupCheck: false
         )
         
         await register.pushSnooze(item: alarmItem)
@@ -173,11 +175,90 @@ final class AlarmSupport: ObservableObject {
         }
     }
     
-    // Stop the alarms completely
-    func kill() async {
-        register.killAlarm()
+    // End snooze completely
+    func completeWakeupAction() async {
+        register.endSnooze()
         await validate()
         SnoozeActivityManager.endAll()
+        
+        if wcManager.settings.isEnabled {
+            await scheduleWakeupCheckSnooze()
+        }
+    }
+    
+    // MARK: - Wake-up Check Snooze
+    
+    func scheduleWakeupCheckSnooze() async {
+        guard wcManager.settings.isEnabled else { return }
+
+        let uuid = UUID()
+        let interval = TimeInterval((wcManager.settings.startAfter + wcManager.settings.alarmAfter) * 60)
+        let date = Date().addingTimeInterval(interval)
+        let schedule = Alarm.Schedule.fixed(date)
+        
+        let alarmItem = AlarmItem(
+            uuid: uuid,
+            schedule: schedule,
+            title: "Wake-up Check",
+            sound: alarmSettings.sound,
+            isSnooze: true,
+            isWakeupCheck: true
+        )
+        
+        let startTime = Date().addingTimeInterval(TimeInterval(wcManager.settings.startAfter * 60))
+        await register.pushWakeupCheckSnooze(item: alarmItem, startTime: startTime)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Wake-up Check is Available!"
+        content.body = "Tap to confirm you're awake."
+        content.userInfo = ["type": "wakeup_check"]
+        content.sound = UNNotificationSound(named:UNNotificationSoundName(rawValue: "Check.caf"))
+        content.interruptionLevel = .timeSensitive
+        
+        await UserNotificationSupport.addNotification(
+            content,
+            trigger: UNTimeIntervalNotificationTrigger(
+                timeInterval: TimeInterval(wcManager.settings.startAfter * 60),
+                repeats: false
+            )
+        )
+    }
+    
+    func completeWakeupCheck() async {
+        register.endWakeupCheckSnooze()
+        await validate()
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        
+        let pendingRequests = await notificationCenter.pendingNotificationRequests()
+        for request in pendingRequests {
+            if request.content.userInfo["type"] as? String == "wakeup_check" {
+                notificationCenter.removePendingNotificationRequests(withIdentifiers: [request.identifier])
+            }
+        }
+        
+        let deliveredNotifications = await notificationCenter.deliveredNotifications()
+        for notification in deliveredNotifications {
+            if notification.request.content.userInfo["type"] as? String == "wakeup_check" {
+                notificationCenter.removeDeliveredNotifications(withIdentifiers: [notification.request.identifier])
+            }
+        }
+    }
+    
+    // MARK: - Private Helpers
+    
+    private func createSnoozeInterval() -> TimeInterval {
+        let interval: TimeInterval
+        if alarmSettings.isHardMode {
+            if UIAccessibility.isVoiceOverRunning {
+                interval = Self.hardModeSnoozeIntervalVoiceOver
+            } else {
+                interval = Self.hardModeSnoozeInterval
+            }
+        } else {
+            interval = TimeInterval(alarmSettings.snoozeInterval * 60)
+        }
+        return interval
     }
     
     // MARK: - Public Helpers

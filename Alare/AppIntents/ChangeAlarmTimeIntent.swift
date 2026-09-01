@@ -23,7 +23,7 @@ struct ChangeAlarmTimeIntent: AppIntent, CustomIntentMigratedAppIntent {
     @MainActor
     func perform() async throws -> some IntentResult {
         let support = AlarmSupport.shared
-        var settings = support.settings
+        var settings = support.alarmSettings
         
         let (hour, minute) = AlarmSupport.makeTimeFromDate(time)
         if settings.hour != hour || settings.minute != minute {

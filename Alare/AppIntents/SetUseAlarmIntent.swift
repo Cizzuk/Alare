@@ -41,7 +41,7 @@ struct SetUseAlarmIntent: AppIntent, CustomIntentMigratedAppIntent {
     @MainActor
     func perform() async throws -> some IntentResult {
         let support = AlarmSupport.shared
-        var settings = support.settings
+        var settings = support.alarmSettings
         
         switch toggle {
         case .toggle:

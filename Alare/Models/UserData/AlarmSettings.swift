@@ -12,27 +12,21 @@ struct AlarmSettings: AlarmMetadata, Codable {
     var isEnabled: Bool = false
     
     var hour: Int = 9 {
-        didSet { hour = clipInt(hour, min: 0, max: 23) }
+        didSet { hour = hour.clip(min: 0, max: 23) }
     }
     
     var minute: Int = 0 {
-        didSet { minute = clipInt(minute, min: 0, max: 59) }
+        didSet { minute = minute.clip(min: 0, max: 59) }
     }
     
     var repeats: Set<Locale.Weekday> = [] // Empty = No repeat
     
     var sound: AlarmSound = AlarmSound.default
-
+    
     var isHardMode: Bool = false
     
     var snoozeInterval: Int = 9 {
-        didSet { snoozeInterval = clipInt(snoozeInterval, min: 1, max: 15) }
-    }
-    
-    private func clipInt(_ value: Int, min: Int, max: Int) -> Int {
-        if value < min { return min }
-        if value > max { return max }
-        return value
+        didSet { snoozeInterval = snoozeInterval.clip(min: 1, max: 30) }
     }
 }
 

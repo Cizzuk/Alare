@@ -12,6 +12,7 @@ struct AlareApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .scrollDismissesKeyboard(.interactively)
         }
     }
 }
