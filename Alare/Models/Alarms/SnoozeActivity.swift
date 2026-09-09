@@ -34,12 +34,11 @@ class SnoozeActivityManager {
         )
         
         do {
-            let activity = try Activity.request(
+            let _ = try Activity.request(
                 attributes: attributes,
                 content: content,
                 pushType: nil
             )
-            print("Started snooze activity: \(activity)")
         } catch {
             print("Failed to start snooze activity: \(error)")
         }
@@ -55,14 +54,13 @@ class SnoozeActivityManager {
             staleDate: nil
         )
         
-        for activity in activities {
-            Task {
-                await activity.end(
-                    content,
-                    dismissalPolicy: .immediate
-                )
+        let semaphore = DispatchSemaphore(value: 0)
+        Task.detached(priority: .userInitiated) {
+            for activity in activities {
+                await activity.end(content, dismissalPolicy: .immediate)
             }
-            print("Ended snooze activity: \(activity)")
+            semaphore.signal()
         }
+        semaphore.wait()
     }
 }

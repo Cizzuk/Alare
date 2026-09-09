@@ -18,13 +18,41 @@ final class AlarmPresets {
         let uuidString = item.uuid.uuidString
         let titleLocalized = item.title
         let alertSound = item.isSnooze ? item.sound.alertSoundSnooze : item.sound.alertSound
-        let isHardMode = AlarmSupport.shared.settings.isHardMode
+        let isHardMode = AlarmSupport.shared.alarmSettings.isHardMode
         
-        let content = AlarmPresentation.Alert(
-            title: LocalizedStringResource(titleLocalized),
-            secondaryButton: isHardMode ? nil : .snoozeButton,
-            secondaryButtonBehavior: isHardMode ? .none : .custom
-        )
+        let content: AlarmPresentation.Alert
+        if item.isWakeupCheck {
+            content = AlarmPresentation.Alert(
+                title: LocalizedStringResource(titleLocalized),
+                secondaryButton: nil,
+                secondaryButtonBehavior: .none
+            )
+        } else if isHardMode {
+            content = AlarmPresentation.Alert(
+                title: LocalizedStringResource(titleLocalized),
+                secondaryButton: nil,
+                secondaryButtonBehavior: .none
+            )
+        } else {
+            content = AlarmPresentation.Alert(
+                title: LocalizedStringResource(titleLocalized),
+                secondaryButton: .snoozeButton,
+                secondaryButtonBehavior: .custom
+            )
+        }
+        
+        let stopIntent: any LiveActivityIntent
+        let secondaryIntent: any LiveActivityIntent?
+        if item.isWakeupCheck {
+            stopIntent = AlarmCompleteWakeupCheckIntent(uuid: uuidString)
+            secondaryIntent = nil
+        } else if isHardMode {
+            stopIntent = AlarmSnoozeIntent(uuid: uuidString)
+            secondaryIntent = nil
+        } else {
+            stopIntent = AlarmStartWakeupActionIntent(uuid: uuidString)
+            secondaryIntent = AlarmSnoozeIntent(uuid: uuidString)
+        }
         
         let attributes = AlarmAttributes<AlarmSettings>(
             presentation: AlarmPresentation(alert: content),
@@ -35,8 +63,8 @@ final class AlarmPresets {
         return AlarmConfiguration(
             schedule: item.schedule,
             attributes: attributes,
-            stopIntent: isHardMode ? AlarmSnoozeIntent(uuid: uuidString) : AlarmStartWakeupActionIntent(uuid: uuidString),
-            secondaryIntent: AlarmSnoozeIntent(uuid: uuidString),
+            stopIntent: stopIntent,
+            secondaryIntent: secondaryIntent,
             sound: alertSound
         )
     }
@@ -49,6 +77,10 @@ extension AlarmButton {
     
     static var stopWithAction: Self {
         AlarmButton(text: "Stop in Alare", textColor: .white, systemImageName: "stop.circle")
+    }
+    
+    static var completeWakeupCheck: Self {
+        AlarmButton(text: "Complete Wake-up Check", textColor: .white, systemImageName: "checkmark")
     }
 }
 
@@ -65,7 +97,7 @@ struct AlarmStartWakeupActionIntent: LiveActivityIntent {
     @MainActor
     func perform() async throws -> some IntentResult {
         let uuid = UUID(uuidString: uuid)
-        await AlarmSupport.shared.alarmAction(uuid: uuid)
+        await AlarmSupport.shared.addNextSnoozeAction(uuid: uuid)
         return .result(opensIntent: StartWakeupActionIntent())
     }
 }
@@ -83,7 +115,24 @@ struct AlarmSnoozeIntent: LiveActivityIntent {
     @MainActor
     func perform() async throws -> some IntentResult {
         let uuid = UUID(uuidString: uuid)
-        await AlarmSupport.shared.alarmAction(uuid: uuid)
+        await AlarmSupport.shared.addNextSnoozeAction(uuid: uuid)
+        return .result()
+    }
+}
+
+struct AlarmCompleteWakeupCheckIntent: LiveActivityIntent {
+    static var title: LocalizedStringResource = "Complete Wake-up Check"
+    static var openAppWhenRun = false
+    static var isDiscoverable = false
+    
+    @Parameter(title: "UUID")
+    var uuid: String
+    init(uuid: String) { self.uuid = uuid }
+    init() { self.uuid = "" }
+    
+    @MainActor
+    func perform() async throws -> some IntentResult {
+        await AlarmSupport.shared.completeWakeupCheck()
         return .result()
     }
 }

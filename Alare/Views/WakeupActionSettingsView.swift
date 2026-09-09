@@ -95,6 +95,7 @@ struct WakeupActionSettingsView: View {
                     }
                     
                     Toggle("Use This Action", isOn: $isSelected)
+                        .tint(.accent)
                         .disabled(action == .default && isSelected)
                         .disabled(!action.isAvailable() && !isSelected)
                         .onAppear {

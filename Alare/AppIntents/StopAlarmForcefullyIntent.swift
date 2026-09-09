@@ -16,7 +16,7 @@ struct StopAlarmForcefullyIntent: AppIntent, CustomIntentMigratedAppIntent {
     @MainActor
     func perform() async throws -> some IntentResult {
         let support = AlarmSupport.shared
-        await support.kill()
+        await support.killAll()
         NotificationCenter.default.post(name: .alarmSettingsDidChangeOutsideMainApp, object: nil)
         
         return .result()

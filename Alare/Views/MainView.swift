@@ -14,6 +14,7 @@ struct MainView: View {
     
     @StateObject private var register = AlarmRegister.shared
     @StateObject private var waManager = WakeupActionManager.shared
+    @StateObject private var wcManager = WakeupCheckManager.shared
     @StateObject private var vm = MainViewModel()
     
     @State private var showCustomSoundImporter = false
@@ -23,7 +24,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
-                // Header and Time
+                // MARK: Header and Time
                 Section {} header: {
                     HStack {
                         Text("Alare")
@@ -33,6 +34,7 @@ struct MainView: View {
                             .accessibilityAddTraits(.isHeader)
                         Spacer()
                         Toggle("Turn on Alarm", isOn: $vm.draft.isEnabled)
+                            .tint(.accent)
                             .disabled(AlarmManager.shared.authorizationState == .denied)
                             .labelsHidden()
                     }
@@ -59,7 +61,7 @@ struct MainView: View {
                     .padding(.bottom, 15)
                 }
                 
-                // Wake-up Action Button
+                // MARK: Wake-up Action Button
                 if register.registereds.nextSnooze != nil {
                     Section {} header: {
                         Label("Alarm is Snoozing", systemImage: "zzz")
@@ -83,17 +85,63 @@ struct MainView: View {
                     }
                 }
                 
+                //  MARK: Wake-up Check Button
+                if let wakeupCheckStartTime = register.registereds.wakeupCheckStartTime {
+                    // Available before 10 seconds
+                    if wakeupCheckStartTime.timeIntervalSinceNow > 10 {
+                        Section {} footer: {
+                            HStack(alignment: .center, spacing: 10) {
+                                Label("Wake-up Check notification will soon be sent.", systemImage: "checkmark")
+                                    .foregroundStyle(.primary)
+                                    .font(.headline)
+                            }
+                            .padding(.bottom, 30)
+                        }
+                    } else {
+                        Section {} footer: {
+                            Button(action: { vm.completeWakeupCheck() }) {
+                                HStack(alignment: .center, spacing: 10) {
+                                    Image("checkmark.alare")
+                                        .font(.title)
+                                    Text("Complete Wake-up Check")
+                                        .bold()
+                                        .padding(.vertical, 10)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.horizontal, 10)
+                            }
+                            .buttonStyle(.glassProminent)
+                            .tint(.dropblue)
+                            .foregroundStyle(.white)
+                            .padding(.bottom, 30)
+                        }
+                    }
+                }
+                
+                // MARK: Repeat
                 Section("Repeat") {
                     WeekdaysView(repeats: $vm.draft.repeats)
                 }
                 
-                NavigationLink(destination: WakeupActionSettingsView()) {
-                    HStack {
-                        Label("Wake-up Action", systemImage: "bolt.fill")
-                            .foregroundStyle(.primary)
-                        Spacer()
-                        Text(waManager.settings.selected.displayName)
-                            .foregroundStyle(.secondary)
+                // MARK: Wake-up Action & Check
+                Section {
+                    NavigationLink(destination: WakeupActionSettingsView()) {
+                        HStack {
+                            Label("Wake-up Action", systemImage: "bolt.fill")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Text(waManager.settings.selected.displayName)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    NavigationLink(destination: WakeupCheckSettingsView()) {
+                        HStack {
+                            Label("Wake-up Check", systemImage: "checkmark")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Text(wcManager.settings.isEnabled ? "On" : "Off")
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
                 
@@ -133,6 +181,7 @@ struct MainView: View {
                     }
                     
                     Toggle("Hard Mode", isOn: $vm.draft.isHardMode)
+                        .tint(.accent)
                         .onChange(of: vm.draft.isHardMode) {
                             withAnimation { showSnoozeIntervalPicker = false }
                         }
@@ -158,14 +207,17 @@ struct MainView: View {
                 }
                 
                 #if DEBUG && !targetEnvironment(simulator)
-                Button(action: {
-                    Task { await register.testAlarm() }
-                }) {
-                    Text("Test Alarm")
+                Section {
+                    Button(action: {
+                        Task { await register.testAlarm() }
+                    }) {
+                        Text("Test Alarm")
+                    }
                 }
                 #endif
             } // List
             .animation(.default, value: register.registereds.nextSnooze != nil)
+            .animation(.default, value: register.registereds.wakeupCheckStartTime)
             .animation(.default, value: vm.draft.sound)
             .animation(.default, value: vm.draft.isHardMode)
             .scrollContentBackground(.hidden)

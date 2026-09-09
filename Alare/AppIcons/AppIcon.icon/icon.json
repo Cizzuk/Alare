@@ -1,29 +1,44 @@
 {
+  "features" : [
+    "specular-location"
+  ],
   "fill" : "automatic",
   "groups" : [
     {
       "blur-material" : null,
       "layers" : [
         {
+          "fill-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "extended-gray:1.00000,1.00000"
+              }
+            }
+          ],
           "image-name-specializations" : [
             {
-              "value" : "Alare.svg"
+              "value" : "light.png"
+            },
+            {
+              "appearance" : "dark",
+              "value" : "dark.png"
             },
             {
               "appearance" : "tinted",
-              "value" : "clear.svg"
+              "value" : "dark.png"
             }
           ],
           "name" : "clock"
         }
       ],
       "shadow" : {
-        "kind" : "layer-color",
+        "kind" : "neutral",
         "opacity" : 0.5
       },
-      "specular" : true,
+      "specular" : "inside",
       "translucency" : {
-        "enabled" : true,
+        "enabled" : false,
         "value" : 0.25
       }
     }

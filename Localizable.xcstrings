@@ -118,6 +118,16 @@
         }
       }
     },
+    "After the Wake-up Action is completed, a notification will be sent to confirm whether you have actually woken up. If there is no response to the notification, the alarm will play again." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床アクションの完了後に、もう一度本当に起きたかを確認する通知を送信します。通知に応答がない場合、再度アラームが再生されます。"
+          }
+        }
+      }
+    },
     "Alare" : {
       "shouldTranslate" : false
     },
@@ -293,6 +303,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "コード: %@"
+          }
+        }
+      }
+    },
+    "Complete Wake-up Check" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床チェックを完了する"
           }
         }
       }
@@ -550,12 +570,32 @@
         }
       }
     },
+    "Notifications are not allowed. Wake-up Check notifications will not be sent." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知は許可されていません。 起床チェックの通知は送信されません。"
+          }
+        }
+      }
+    },
     "Off" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "オフ"
+          }
+        }
+      }
+    },
+    "On" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オン"
           }
         }
       }
@@ -660,6 +700,16 @@
         }
       }
     },
+    "Ring Alarm After" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次の間隔をあけてアラームを再生する"
+          }
+        }
+      }
+    },
     "Scan a Code" : {
       "localizations" : {
         "ja" : {
@@ -716,6 +766,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "選択中"
+          }
+        }
+      }
+    },
+    "Send Notification After" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次の間隔をあけて通知を送信する"
           }
         }
       }
@@ -901,14 +961,7 @@
       }
     },
     "Test Alarm" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アラームテスト"
-          }
-        }
-      }
+      "shouldTranslate" : false
     },
     "The selected Wake-up Action is not available." : {
       "localizations" : {
@@ -1009,6 +1062,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "起床アクション"
+          }
+        }
+      }
+    },
+    "Wake-up Check" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床チェック"
+          }
+        }
+      }
+    },
+    "Wake-up Check (Beta)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床チェック (ベータ)"
+          }
+        }
+      }
+    },
+    "Wake-up Check notification will soon be sent." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "起床チェックの通知が後ほど送信されます"
           }
         }
       }

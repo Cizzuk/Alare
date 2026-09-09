@@ -13,7 +13,6 @@
 		BE3D017C2F4F2E0700BB83E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72C5252F4C486800308751 /* Constants.swift */; };
 		BE5943242F4FE6BB007648DA /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
 		BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
-		BE62B7AF2F4B32FF004B493D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */; };
 		BE72C5262F4C486F00308751 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72C5252F4C486800308751 /* Constants.swift */; };
 		BE99AC4E2F51C29C0038BE03 /* MergeCodablePackage in Frameworks */ = {isa = PBXBuildFile; productRef = BE99AC4D2F51C29C0038BE03 /* MergeCodablePackage */; };
 		BE99AC502F51C2A10038BE03 /* MergeCodablePackage in Frameworks */ = {isa = PBXBuildFile; productRef = BE99AC4F2F51C2A10038BE03 /* MergeCodablePackage */; };
@@ -49,7 +48,6 @@
 		BE3D01622F4F2C8800BB83E2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		BE3D01FD2F4F3D5F00BB83E2 /* WidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		BE62B7B02F4B3301004B493D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BE72C5252F4C486800308751 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BEEB497B2F458C4B00B06D0B /* Alare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -66,10 +64,11 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				AppIntents/StartWakeupActionIntent.swift,
+				Models/Alarms/SnoozeActivity.swift,
 				Models/Enums/AlarmSound.swift,
-				Models/SnoozeActivity.swift,
 				Models/UserData/AlarmSettings.swift,
 				Models/UserData/RegisteredAlarms.swift,
+				Models/UserData/WakeupCheckSettings.swift,
 				Models/WeekdaysSupport.swift,
 			);
 			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtension */;
@@ -138,9 +137,8 @@
 		BEEB49722F458C4B00B06D0B = {
 			isa = PBXGroup;
 			children = (
-				BE3D01FD2F4F3D5F00BB83E2 /* WidgetExtensionExtension.entitlements */,
 				BE72C5252F4C486800308751 /* Constants.swift */,
-				BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */,
+				BE3D01FD2F4F3D5F00BB83E2 /* WidgetExtensionExtension.entitlements */,
 				BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */,
 				BEEB497D2F458C4B00B06D0B /* Alare */,
 				BE3D01642F4F2C8800BB83E2 /* WidgetExtension */,
@@ -264,7 +262,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE62B7AF2F4B32FF004B493D /* InfoPlist.strings in Resources */,
 				BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,17 +295,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		BE62B7AD2F4B32FF004B493D /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BE62B7B02F4B3301004B493D /* ja */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		BE3D01742F4F2C8900BB83E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -317,7 +303,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
@@ -328,7 +314,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -352,7 +338,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
@@ -363,7 +349,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -515,7 +501,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Alare/Alare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -534,7 +520,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -559,7 +545,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Alare/Alare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -578,7 +564,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

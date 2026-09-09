@@ -71,6 +71,10 @@ extension WakeupAction {
                 return true
             }
             
+            #if targetEnvironment(simulator)
+            return false
+            #endif
+            
             if !CMMotionManager().isDeviceMotionAvailable {
                 return true
             }
@@ -95,6 +99,10 @@ extension WakeupAction {
         
         switch self {
         case .waveDevice:
+            #if targetEnvironment(simulator)
+            return true
+            #endif
+            
             return CMMotionManager().isDeviceMotionAvailable
             
         case .scanCode:

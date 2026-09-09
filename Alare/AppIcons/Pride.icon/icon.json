@@ -1,4 +1,7 @@
 {
+  "features" : [
+    "specular-location"
+  ],
   "fill" : "automatic",
   "groups" : [
     {
@@ -7,27 +10,27 @@
         {
           "image-name-specializations" : [
             {
-              "value" : "pride.svg"
+              "value" : "pride-light.png"
             },
             {
               "appearance" : "dark",
-              "value" : "dark.svg"
+              "value" : "pride-dark.png"
             },
             {
               "appearance" : "tinted",
-              "value" : "dark.svg"
+              "value" : "pride-dark.png"
             }
           ],
           "name" : "clock"
         }
       ],
       "shadow" : {
-        "kind" : "layer-color",
+        "kind" : "neutral",
         "opacity" : 0.5
       },
-      "specular" : true,
+      "specular" : "inside",
       "translucency" : {
-        "enabled" : true,
+        "enabled" : false,
         "value" : 0.25
       }
     }
