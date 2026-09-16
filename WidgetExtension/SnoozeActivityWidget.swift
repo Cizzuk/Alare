@@ -25,6 +25,16 @@ struct SnoozeActivityWidget: Widget {
         }
     }
     
+    struct SnoozeCount: View {
+        var count: Int
+
+        var body: some View {
+            Text("\(count)")
+                .font(.headline)
+                .foregroundStyle(.dropblue)
+        }
+    }
+    
     struct DescriptionText: View {
         var showSubtitle: Bool = true
         
@@ -85,6 +95,8 @@ struct SnoozeActivityWidget: Widget {
             } compactLeading: {
                 IconImage()
             } compactTrailing: {
+                SnoozeCount(count: context.state.snoozeCount)
+                    .padding(.horizontal, 5)
             } minimal: {
                 IconImage()
             }
