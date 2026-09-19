@@ -15,7 +15,7 @@ struct WaveDeviceWakeupActionSettingsView: View {
     
     @State private var showPicker = false
     private let durationList = Array(stride(from: 10, through: 40, by: 10)) + Array(stride(from: 50, through: 300, by: 50))
-
+    
     var body: some View {
         Section {
             HStack {
@@ -60,6 +60,8 @@ struct WaveDeviceWakeupActionExecutionView: View {
     @State private var motionManager = CMMotionManager()
     @State private var progress: Int = 0
     
+    @State private var disableByHinge: Bool = false
+    
     private let pointsRequired = WakeupActionManager.shared.settings.waveDevice_pointsRequired
     
     private let updateInterval: TimeInterval = 0.1
@@ -69,10 +71,10 @@ struct WaveDeviceWakeupActionExecutionView: View {
     private var remainingPoints: Int {
         max(pointsRequired - progress, 0)
     }
-
+    
     var body: some View {
         VStack(spacing: 50) {
-            Text("Wave the Device to Wake Up!")
+            Text(disableByHinge ? "Please close your device" : "Wave the Device to Wake Up!")
                 .font(.largeTitle)
                 .bold()
                 .padding()
@@ -94,15 +96,33 @@ struct WaveDeviceWakeupActionExecutionView: View {
                 .font(.title.monospacedDigit())
                 .foregroundStyle(.secondary)
             
-            Text("When performing this action, please hold your device securely and be aware of your surroundings.")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
+            if disableByHinge {
+                Text("Cannot continue the action while the device is open. Please close the device completely.")
+                    .font(.default)
+                    .foregroundStyle(.red)
+            } else {
+                Text("When performing this action, please hold your device securely and be aware of your surroundings.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
         }
+        .animation(.default, value: disableByHinge)
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(NightGradient.ignoresSafeArea())
         .onAppear() { startMotionUpdates() }
         .onDisappear() { stopMotionUpdates() }
+        .onHingeChangeIfAvailable { _, newContext in
+            print("Hinge changed: \(newContext.hinge?.angle ?? .zero)")
+            if let newHinge = newContext.hinge,
+               newHinge.angle != .zero {
+                disableByHinge = true
+                stopMotionUpdates()
+            } else {
+                disableByHinge = false
+                startMotionUpdates()
+            }
+        }
     }
     
     // MARK: Motion

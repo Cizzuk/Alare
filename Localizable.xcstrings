@@ -231,6 +231,16 @@
         }
       }
     },
+    "Cannot continue the action while the device is open. Please close the device completely." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスが開いている間はアクションを続行できません。デバイスを完全に閉じてください。"
+          }
+        }
+      }
+    },
     "Change Alare's Alarm Time" : {
       "localizations" : {
         "ja" : {
@@ -656,6 +666,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "オプション"
+          }
+        }
+      }
+    },
+    "Please close your device" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスを閉じてください"
           }
         }
       }
