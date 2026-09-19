@@ -30,7 +30,7 @@ struct SnoozeActivityWidget: Widget {
 
         var body: some View {
             Text("\(count)")
-                .font(.headline)
+                .font(.system(size: 18, weight: .medium))
                 .foregroundStyle(.dropblue)
         }
     }
@@ -93,12 +93,12 @@ struct SnoozeActivityWidget: Widget {
                         .padding(.horizontal, 5)
                 }
             } compactLeading: {
-                IconImage()
+                IconImage(size: 25)
             } compactTrailing: {
                 SnoozeCount(count: context.state.snoozeCount)
-                    .padding(.horizontal, 5)
+                    .padding(.horizontal, 3)
             } minimal: {
-                IconImage()
+                IconImage(size: 25)
             }
             .keylineTint(.dropblue)
             .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
