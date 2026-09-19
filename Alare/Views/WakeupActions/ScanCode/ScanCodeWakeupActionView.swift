@@ -102,7 +102,7 @@ struct ScanCodeWakeupActionExecutionView: View {
     private let expectedCode = WakeupActionManager.shared.settings.scanCode_code
 
     var body: some View {
-        VStack() {
+        VStack {
             Text("Scan the Code to Wake Up!")
                 .font(.largeTitle)
                 .bold()
