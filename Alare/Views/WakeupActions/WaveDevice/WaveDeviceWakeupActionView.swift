@@ -112,6 +112,7 @@ struct WaveDeviceWakeupActionExecutionView: View {
                 .padding()
                 .frame(maxWidth: .infinity, minHeight: geometry.size.height, alignment: .center)
             }
+            .scrollEdgeEffectStyle(.soft, for: .top)
             .background(NightGradient.ignoresSafeArea())
             .onAppear() { startMotionUpdates() }
             .onDisappear() { stopMotionUpdates() }
