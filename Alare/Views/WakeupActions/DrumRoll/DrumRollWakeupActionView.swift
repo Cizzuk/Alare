@@ -55,7 +55,7 @@ struct DrumRollWakeupActionExecutionView: View {
     }
 
     var body: some View {
-        VStack(spacing: 50) {
+        VStack(alignment: .center, spacing: 30) {
             Text("Drum Roll the Screen to Wake Up!")
                 .font(.largeTitle)
                 .bold()
@@ -64,7 +64,7 @@ struct DrumRollWakeupActionExecutionView: View {
             Image(systemName: "hand.tap")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 100, height: 100)
+                .frame(width: 80, height: 80)
                 .foregroundStyle(.dropblue)
                 .accessibilityHidden(true)
             
