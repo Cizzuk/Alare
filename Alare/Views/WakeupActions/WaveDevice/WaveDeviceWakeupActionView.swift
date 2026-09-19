@@ -73,54 +73,58 @@ struct WaveDeviceWakeupActionExecutionView: View {
     }
     
     var body: some View {
-        VStack(spacing: 50) {
-            Text(disableByHinge ? "Please close your device" : "Wave the Device to Wake Up!")
-                .font(.largeTitle)
-                .bold()
+        GeometryReader { geometry in
+            ScrollView(.vertical) {
+                VStack(alignment: .center, spacing: 30) {
+                    Text(disableByHinge ? "Please close your device" : "Wave the Device to Wake Up!")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding()
+                    
+                    Gauge(value: Double(progress), in: 0...Double(pointsRequired)) {
+                        Image(systemName: "flag")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundStyle(.dropblue)
+                            .padding(3)
+                    }
+                    .gaugeStyle(.accessoryCircularCapacity)
+                    .tint(.dropblue)
+                    .scaleEffect(3)
+                    .padding(50)
+                    .accessibilityHidden(true)
+                    
+                    Text("\(remainingPoints) Points Left")
+                        .font(.title.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                    
+                    if disableByHinge {
+                        Text("Cannot continue the action while the device is open. Please close the device completely.")
+                            .font(.default)
+                            .foregroundStyle(.red)
+                    } else {
+                        Text("When performing this action, please hold your device securely and be aware of your surroundings.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .animation(.default, value: disableByHinge)
                 .padding()
-            
-            Gauge(value: Double(progress), in: 0...Double(pointsRequired)) {
-                Image(systemName: "flag")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(.dropblue)
-                    .padding(3)
+                .frame(maxWidth: .infinity, minHeight: geometry.size.height, alignment: .center)
             }
-            .gaugeStyle(.accessoryCircularCapacity)
-            .tint(.dropblue)
-            .scaleEffect(3)
-            .padding(50)
-            .accessibilityHidden(true)
-            
-            Text("\(remainingPoints) Points Left")
-                .font(.title.monospacedDigit())
-                .foregroundStyle(.secondary)
-            
-            if disableByHinge {
-                Text("Cannot continue the action while the device is open. Please close the device completely.")
-                    .font(.default)
-                    .foregroundStyle(.red)
-            } else {
-                Text("When performing this action, please hold your device securely and be aware of your surroundings.")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .animation(.default, value: disableByHinge)
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(NightGradient.ignoresSafeArea())
-        .onAppear() { startMotionUpdates() }
-        .onDisappear() { stopMotionUpdates() }
-        .onHingeChangeIfAvailable { _, newContext in
-            print("Hinge changed: \(newContext.hinge?.angle ?? .zero)")
-            if let newHinge = newContext.hinge,
-               newHinge.angle != .zero {
-                disableByHinge = true
-                stopMotionUpdates()
-            } else {
-                disableByHinge = false
-                startMotionUpdates()
+            .background(NightGradient.ignoresSafeArea())
+            .onAppear() { startMotionUpdates() }
+            .onDisappear() { stopMotionUpdates() }
+            .onHingeChangeIfAvailable { _, newContext in
+                print("Hinge changed: \(newContext.hinge?.angle ?? .zero)")
+                if let newHinge = newContext.hinge,
+                   newHinge.angle != .zero {
+                    disableByHinge = true
+                    stopMotionUpdates()
+                } else {
+                    disableByHinge = false
+                    startMotionUpdates()
+                }
             }
         }
     }
