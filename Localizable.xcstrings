@@ -30,40 +30,170 @@
     },
     "%lld Points" : {
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Point"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Points"
+                }
+              }
+            }
+          }
+        },
         "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lldポイント"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lldポイント"
+                }
+              }
+            }
           }
         }
       }
     },
     "%lld Points Left" : {
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Point Left"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Points Left"
+                }
+              }
+            }
+          }
+        },
         "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "あと%lldポイント"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "あと%lldポイント"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld Snoozes" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Snooze"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Snoozes"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "スヌーズ%lld回"
+                }
+              }
+            }
           }
         }
       }
     },
     "%lld Taps" : {
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Tap"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Taps"
+                }
+              }
+            }
+          }
+        },
         "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lldタップ"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lldタップ"
+                }
+              }
+            }
           }
         }
       }
     },
     "%lld Taps Left" : {
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Tap Left"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Taps Left"
+                }
+              }
+            }
+          }
+        },
         "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "あと%lldタップ"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "あと%lldタップ"
+                }
+              }
+            }
           }
         }
       }
