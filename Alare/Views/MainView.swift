@@ -62,25 +62,33 @@ struct MainView: View {
                 }
                 
                 // MARK: Wake-up Action Button
-                if register.registereds.nextSnooze != nil {
+                if let nextSnooze = register.registereds.nextSnooze {
                     Section {} header: {
                         Label("Alarm is Snoozing", systemImage: "zzz")
                             .foregroundStyle(.primary)
                     } footer: {
-                        Button(action: { vm.startWakeupAction() }) {
-                            HStack(alignment: .center, spacing: 10) {
-                                Image("bolt.alare")
-                                    .font(.title)
-                                Text("Start Wake-up Action")
-                                    .bold()
-                                    .padding(.vertical, 10)
+                        VStack(alignment: .center, spacing: 10) {
+                            Button(action: { vm.startWakeupAction() }) {
+                                HStack(alignment: .center, spacing: 10) {
+                                    Image("bolt.alare")
+                                        .font(.title)
+                                    Text("Start Wake-up Action")
+                                        .bold()
+                                        .padding(.vertical, 10)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.horizontal, 10)
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding(.horizontal, 10)
+                            .buttonStyle(.glassProminent)
+                            .tint(.dropblue)
+                            .foregroundStyle(.white)
+                            
+                            if !vm.draft.isHardMode,
+                               case .fixed(let date) = nextSnooze.schedule {
+                                Text("Next alarm is at \(date.formatted(date: .omitted, time: .shortened))")
+                                    .font(.footnote)
+                            }
                         }
-                        .buttonStyle(.glassProminent)
-                        .tint(.dropblue)
-                        .foregroundStyle(.white)
                         .padding(.bottom, 30)
                     }
                 }
