@@ -96,36 +96,12 @@
         }
       }
     },
-    "%lld Snoozes" : {
+    "%lld Snoozed" : {
       "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld Snooze"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "new",
-                  "value" : "%lld Snoozes"
-                }
-              }
-            }
-          }
-        },
         "ja" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "スヌーズ%lld回"
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スヌーズ%lld回"
           }
         }
       }
