@@ -24,7 +24,7 @@ struct AlarmStateLockWidget: Widget {
             .accessoryInline
         ])
     }
-
+    
     struct Entry: TimelineEntry {
         let date: Date
     }
@@ -33,11 +33,11 @@ struct AlarmStateLockWidget: Widget {
         func placeholder(in context: Context) -> Entry {
             Entry(date: Date())
         }
-
+        
         func getSnapshot(in context: Context, completion: @escaping (Entry) -> Void) {
             completion(Entry(date: Date()))
         }
-
+        
         func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
             let entry = Entry(date: Date())
             completion(Timeline(entries: [entry], policy: .never))
@@ -50,9 +50,19 @@ struct AlarmStateLockWidget: Widget {
         let entry: Entry
         private let settings = AlarmSettings.load()
         private let registeredAlarms = RegisteredAlarms.load()
-
+        
         var body: some View {
-            let time: String = String(format: "%2d:%02d", settings.hour, settings.minute)
+            let time: String = {
+                if let date = Calendar.current.date(from: DateComponents(hour: settings.hour, minute: settings.minute)) {
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .none
+                    formatter.timeStyle = .short
+                    return formatter.string(from: date)
+                } else {
+                    return String(format: "%2d:%02d", settings.hour, settings.minute)
+                }
+            }()
+            
             let image: some View = {
                 let name = registeredAlarms.nextSnooze != nil ? "bolt.alare" : "alare"
                 return Image(name)
@@ -72,7 +82,7 @@ struct AlarmStateLockWidget: Widget {
             ZStack(alignment: .center) {
                 switch widgetFamily {
                 case .accessoryRectangular:
-                    HStack {
+                    HStack(alignment: .center) {
                         image
                             .frame(width: 40, height: 40)
                         
@@ -92,7 +102,7 @@ struct AlarmStateLockWidget: Widget {
                     }
                     
                 case .accessoryCircular:
-                    VStack {
+                    VStack(alignment: .center) {
                         if registeredAlarms.nextSnooze != nil {
                             image
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -135,4 +145,3 @@ struct AlarmStateLockWidget: Widget {
         }
     }
 }
-            
