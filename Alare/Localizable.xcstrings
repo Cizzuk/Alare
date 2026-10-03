@@ -96,16 +96,6 @@
         }
       }
     },
-    "%lld Snoozed" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スヌーズ%lld回"
-          }
-        }
-      }
-    },
     "%lld Taps" : {
       "localizations" : {
         "en" : {
@@ -267,32 +257,12 @@
         }
       }
     },
-    "Alarm at %@" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アラーム, %@"
-          }
-        }
-      }
-    },
     "Alarm is Snoozing" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "アラームはスヌーズ中です"
-          }
-        }
-      }
-    },
-    "Alarm Off" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アラームオフ"
           }
         }
       }
@@ -483,16 +453,6 @@
         }
       }
     },
-    "Display Alare's alarm status." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alareのアラームの現在の状態を表示します。"
-          }
-        }
-      }
-    },
     "Drum Roll" : {
       "localizations" : {
         "ja" : {
@@ -529,16 +489,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "起床アクションを行わなくても、このショートカットを実行するとスヌーズを強制的に解除できます。"
-          }
-        }
-      }
-    },
-    "Everyday" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "毎日"
           }
         }
       }
@@ -686,16 +636,6 @@
         }
       }
     },
-    "No Repeat" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "繰り返しなし"
-          }
-        }
-      }
-    },
     "Not Set" : {
       "localizations" : {
         "ja" : {
@@ -732,16 +672,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "オン"
-          }
-        }
-      }
-    },
-    "Open Alare" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alareを開く"
           }
         }
       }
@@ -1016,16 +946,6 @@
         }
       }
     },
-    "Snoozing" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スヌーズ中"
-          }
-        }
-      }
-    },
     "Sound" : {
       "localizations" : {
         "ja" : {
@@ -1268,16 +1188,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デバイスを振ってアラームを解除"
-          }
-        }
-      }
-    },
-    "Weekdays" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "平日"
           }
         }
       }
