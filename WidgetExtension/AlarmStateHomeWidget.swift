@@ -51,6 +51,17 @@ struct AlarmStateHomeWidget: Widget {
         private let registeredAlarms = RegisteredAlarms.load()
 
         var body: some View {
+            let time: String = {
+                if let date = Calendar.current.date(from: DateComponents(hour: settings.hour, minute: settings.minute)) {
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .none
+                    formatter.timeStyle = .short
+                    return formatter.string(from: date)
+                } else {
+                    return String(format: "%2d:%02d", settings.hour, settings.minute)
+                }
+            }()
+            
             let openURL: URL? = {
                 if registeredAlarms.nextSnooze != nil {
                     return URL(string: "net.cizzuk.alare://wakeupaction")
@@ -70,7 +81,7 @@ struct AlarmStateHomeWidget: Widget {
                     Label("Alare", image: "alare")
                         .font(.system(size: 50))
                         .labelStyle(.iconOnly)
-                    Text(String(format: "%2d:%02d", settings.hour, settings.minute))
+                    Text(time)
                         .font(.system(.title, design: .rounded))
                         .monospacedDigit()
                         .bold()
