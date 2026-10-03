@@ -64,11 +64,13 @@ struct SnoozeActivityWidget: Widget {
             case .small:
                 HStack(spacing: 10) {
                     IconImage(size: 30)
+                        .accessibilityHidden(true)
                     DescriptionText(count: context.state.snoozeCount, showSubtitle: false)
                 }
             case .medium:
                 HStack(spacing: 15) {
                     IconImage(size: 50)
+                        .accessibilityHidden(true)
                     DescriptionText(count: context.state.snoozeCount)
                 }
                 .padding()
@@ -88,6 +90,7 @@ struct SnoozeActivityWidget: Widget {
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     IconImage(size: 60)
+                        .accessibilityHidden(true)
                         .frame(maxHeight: .infinity)
                 }
                 DynamicIslandExpandedRegion(.center) {

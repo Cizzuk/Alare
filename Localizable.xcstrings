@@ -267,6 +267,16 @@
         }
       }
     },
+    "Alarm at %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラーム, %@"
+          }
+        }
+      }
+    },
     "Alarm is Snoozing" : {
       "localizations" : {
         "ja" : {

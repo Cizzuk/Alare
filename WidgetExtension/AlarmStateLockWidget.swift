@@ -68,7 +68,7 @@ struct AlarmStateLockWidget: Widget {
                 return Image(name)
                     .resizable()
                     .scaledToFit()
-                    .accessibilityHidden(true)
+                    .accessibilityRemoveTraits(.isImage)
             }()
             
             let openURL: URL? = {
@@ -84,6 +84,7 @@ struct AlarmStateLockWidget: Widget {
                 case .accessoryRectangular:
                     HStack(alignment: .center) {
                         image
+                            .accessibilityHidden(true)
                             .frame(width: 40, height: 40)
                         
                         if registeredAlarms.nextSnooze != nil {
@@ -92,6 +93,7 @@ struct AlarmStateLockWidget: Widget {
                                 .bold()
                         } else if settings.isEnabled {
                             Text(time)
+                                .accessibilityLabel("Alarm at \(time)")
                                 .font(.system(size: 30, design: .rounded))
                         } else {
                             Text("Alarm Off")
@@ -105,18 +107,20 @@ struct AlarmStateLockWidget: Widget {
                     VStack(alignment: .center) {
                         if registeredAlarms.nextSnooze != nil {
                             image
+                                .accessibilityLabel("Snoozing")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .accessibilityLabel("Start Wake-up Action")
-                                .accessibilityHidden(false)
                         } else {
                             image
+                                .accessibilityHidden(true)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                             if settings.isEnabled {
                                 Text(time)
+                                    .accessibilityLabel("Alarm at \(time)")
                                     .font(.system(.caption, design: .rounded))
                                     .bold()
                             } else {
                                 Text("Off")
+                                    .accessibilityLabel("Alarm Off")
                                     .font(.caption)
                                     .bold()
                                     .foregroundStyle(.secondary)
@@ -130,11 +134,13 @@ struct AlarmStateLockWidget: Widget {
                             Text("Snoozing")
                         } else if settings.isEnabled {
                             Text(time)
+                                .accessibilityLabel("Alarm at \(time)")
                         } else {
                             Text("Alarm Off")
                         }
                     } icon: {
                         image
+                            .accessibilityHidden(true)
                     }
                 default:
                     EmptyView()

@@ -73,21 +73,25 @@ struct AlarmStateHomeWidget: Widget {
             VStack(alignment: .center, spacing: 8) {
                 if registeredAlarms.nextSnooze != nil {
                     Label("Start Wake-up Action", image: "bolt.alare")
+                        .accessibilityRemoveTraits(.isImage)
                         .font(.system(size: 50))
                         .labelStyle(.iconOnly)
                     Label("Snoozing", systemImage: "zzz")
                         .font(.headline)
                 } else if settings.isEnabled {
                     Label("Alare", image: "alare")
+                        .accessibilityHidden(true)
                         .font(.system(size: 50))
                         .labelStyle(.iconOnly)
                     Text(time)
+                        .accessibilityLabel("Alarm at \(time)")
                         .font(.system(.title, design: .rounded))
                         .monospacedDigit()
                         .bold()
                     WeekdaysView(repeats: settings.repeats)
                 } else {
                     Label("Alare", image: "alare")
+                        .accessibilityHidden(true)
                         .font(.system(size: 50))
                         .labelStyle(.iconOnly)
                     Text("Alarm Off")
@@ -104,6 +108,8 @@ struct AlarmStateHomeWidget: Widget {
     }
     
     struct WeekdaysView: View {
+        @Environment(\.widgetFamily) private var widgetFamily
+        
         var repeats: Set<Locale.Weekday>
         
         private let weekdays: Array<Locale.Weekday> = WeekdaysSupport.weekdays
@@ -123,12 +129,14 @@ struct AlarmStateHomeWidget: Widget {
                     HStack(spacing: 5) {
                         Label("Repeat", systemImage: "repeat")
                             .labelStyle(.iconOnly)
+                        
+                        let isSmallFamily = widgetFamily == .systemSmall
                         ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
                             if repeats.contains(weekday) {
-                                if repeats.count > 2 {
+                                if isSmallFamily && repeats.count > 2 {
                                     Text(veryShortSymbol[index])
                                         .accessibilityLabel(symbol[index])
-                                } else if repeats.count > 1 {
+                                } else if repeats.count > (isSmallFamily ? 1 : 2) {
                                     Text(shortSymbol[index])
                                         .accessibilityLabel(symbol[index])
                                 } else {
@@ -137,6 +145,7 @@ struct AlarmStateHomeWidget: Widget {
                             }
                         }
                     }
+                    .accessibilityElement(children: .combine)
                 }
             }
             .font(.subheadline)
