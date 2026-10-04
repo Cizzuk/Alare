@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct DeviceHingeContext: Equatable {
-    var hinge: Alare.DeviceHinge?
+struct AltDeviceHingeContext: Equatable {
+    var hinge: AltDeviceHinge?
     
     @available(iOS 27.1, *)
-    static func make(_ context: SwiftUI.DeviceHingeContext) -> Self {
+    static func make(_ context: DeviceHingeContext) -> Self {
         if let hinge = context.hinge {
-            let status: Alare.DeviceHinge.Status
+            let status: AltDeviceHinge.Status
             
             switch hinge.status {
             case .closed:
@@ -26,14 +26,14 @@ struct DeviceHingeContext: Equatable {
                 status = .unknown
             }
             
-            return Self(hinge: Alare.DeviceHinge(angle: hinge.angle, status: status))
+            return Self(hinge: AltDeviceHinge(angle: hinge.angle, status: status))
         } else {
             return Self(hinge: nil)
         }
     }
 }
 
-struct DeviceHinge: Equatable, Hashable {
+struct AltDeviceHinge: Equatable, Hashable {
     var angle: Angle
     var status: Self.Status
     
@@ -49,14 +49,14 @@ struct DeviceHinge: Equatable, Hashable {
 extension View {
     func onHingeChangeIfAvailable(
         isEnabled: Bool = true,
-        _ action: @escaping (Alare.DeviceHingeContext, Alare.DeviceHingeContext) -> Void
+        _ action: @escaping (AltDeviceHingeContext, AltDeviceHingeContext) -> Void
     ) -> some View {
         if #available(iOS 27.1, *) {
             return self
                 .onHingeChange(isEnabled: isEnabled) { oldContext, newContext in
                     action(
-                        Alare.DeviceHingeContext.make(oldContext),
-                        Alare.DeviceHingeContext.make(newContext)
+                        AltDeviceHingeContext.make(oldContext),
+                        AltDeviceHingeContext.make(newContext)
                     )
                 }
         } else {
