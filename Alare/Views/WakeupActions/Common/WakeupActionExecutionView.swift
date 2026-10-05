@@ -29,8 +29,7 @@ struct WakeupActionExecutionView: View {
     var body: some View {
         NavigationStack {
             action.executionView(vm: vm)
-                .navigationTitle("Wake-up Action")
-                .toolbarTitleDisplayMode(.inline)
+                .toolbarVerticalBehaviorDisableIfAvailable()
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button(action: onCancel) {

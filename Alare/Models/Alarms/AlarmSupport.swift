@@ -170,7 +170,9 @@ final class AlarmSupport: ObservableObject {
         )
         
         await register.pushSnooze(item: alarmItem)
-        if !SnoozeActivityManager.isActive() {
+        if SnoozeActivityManager.isActive() {
+            SnoozeActivityManager.update()
+        } else {
             SnoozeActivityManager.start()
         }
     }

@@ -1,6 +1,6 @@
 //
 //  AlarmStateLockWidget.swift
-//  Alare
+//  Alare Widget Extension
 //
 //  Created by Cizzuk on 2026/02/26.
 //
@@ -24,7 +24,7 @@ struct AlarmStateLockWidget: Widget {
             .accessoryInline
         ])
     }
-
+    
     struct Entry: TimelineEntry {
         let date: Date
     }
@@ -33,11 +33,11 @@ struct AlarmStateLockWidget: Widget {
         func placeholder(in context: Context) -> Entry {
             Entry(date: Date())
         }
-
+        
         func getSnapshot(in context: Context, completion: @escaping (Entry) -> Void) {
             completion(Entry(date: Date()))
         }
-
+        
         func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
             let entry = Entry(date: Date())
             completion(Timeline(entries: [entry], policy: .never))
@@ -50,15 +50,25 @@ struct AlarmStateLockWidget: Widget {
         let entry: Entry
         private let settings = AlarmSettings.load()
         private let registeredAlarms = RegisteredAlarms.load()
-
+        
         var body: some View {
-            let time: String = String(format: "%2d:%02d", settings.hour, settings.minute)
+            let time: String = {
+                if let date = Calendar.current.date(from: DateComponents(hour: settings.hour, minute: settings.minute)) {
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .none
+                    formatter.timeStyle = .short
+                    return formatter.string(from: date)
+                } else {
+                    return String(format: "%2d:%02d", settings.hour, settings.minute)
+                }
+            }()
+            
             let image: some View = {
                 let name = registeredAlarms.nextSnooze != nil ? "bolt.alare" : "alare"
                 return Image(name)
                     .resizable()
                     .scaledToFit()
-                    .accessibilityHidden(true)
+                    .accessibilityRemoveTraits(.isImage)
             }()
             
             let openURL: URL? = {
@@ -72,8 +82,9 @@ struct AlarmStateLockWidget: Widget {
             ZStack(alignment: .center) {
                 switch widgetFamily {
                 case .accessoryRectangular:
-                    HStack {
+                    HStack(alignment: .center) {
                         image
+                            .accessibilityHidden(true)
                             .frame(width: 40, height: 40)
                         
                         if registeredAlarms.nextSnooze != nil {
@@ -82,6 +93,7 @@ struct AlarmStateLockWidget: Widget {
                                 .bold()
                         } else if settings.isEnabled {
                             Text(time)
+                                .accessibilityLabel("Alarm at \(time)")
                                 .font(.system(size: 30, design: .rounded))
                         } else {
                             Text("Alarm Off")
@@ -92,21 +104,23 @@ struct AlarmStateLockWidget: Widget {
                     }
                     
                 case .accessoryCircular:
-                    VStack {
+                    VStack(alignment: .center) {
                         if registeredAlarms.nextSnooze != nil {
                             image
+                                .accessibilityLabel("Snoozing")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .accessibilityLabel("Start Wake-up Action")
-                                .accessibilityHidden(false)
                         } else {
                             image
+                                .accessibilityHidden(true)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                             if settings.isEnabled {
                                 Text(time)
+                                    .accessibilityLabel("Alarm at \(time)")
                                     .font(.system(.caption, design: .rounded))
                                     .bold()
                             } else {
                                 Text("Off")
+                                    .accessibilityLabel("Alarm Off")
                                     .font(.caption)
                                     .bold()
                                     .foregroundStyle(.secondary)
@@ -120,11 +134,13 @@ struct AlarmStateLockWidget: Widget {
                             Text("Snoozing")
                         } else if settings.isEnabled {
                             Text(time)
+                                .accessibilityLabel("Alarm at \(time)")
                         } else {
                             Text("Alarm Off")
                         }
                     } icon: {
                         image
+                            .accessibilityHidden(true)
                     }
                 default:
                     EmptyView()
@@ -135,4 +151,3 @@ struct AlarmStateLockWidget: Widget {
         }
     }
 }
-            

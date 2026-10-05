@@ -106,6 +106,10 @@ extension WakeupAction {
             return CMMotionManager().isDeviceMotionAvailable
             
         case .scanCode:
+            #if targetEnvironment(simulator)
+            return true
+            #endif
+            
             if settings.scanCode_code == nil {
                 return false
             }

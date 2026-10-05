@@ -8,13 +8,21 @@
 import ActivityKit
 import Foundation
 
-struct SnoozeActivityAttributes: ActivityAttributes {
-    struct ContentState: Codable, Hashable { }
+nonisolated struct SnoozeActivityAttributes: ActivityAttributes {
+    struct ContentState: Codable, Hashable {
+        var snoozeCount: Int
+    }
 }
 
 class SnoozeActivityManager {
     static func isActive() -> Bool {
         return !Activity<SnoozeActivityAttributes>.activities.isEmpty
+    }
+    
+    private static func makeContentState() -> SnoozeActivityAttributes.ContentState {
+        return SnoozeActivityAttributes.ContentState(
+            snoozeCount: RegisteredAlarms.load().snoozeCount
+        )
     }
     
     static func start(endDate: Date? = nil) {
@@ -24,18 +32,14 @@ class SnoozeActivityManager {
         }
         endAll()
         
-        let attributes = SnoozeActivityAttributes()
-        
-        let contentState = SnoozeActivityAttributes.ContentState()
-        
         let content = ActivityContent(
-            state: contentState,
+            state: makeContentState(),
             staleDate: endDate
         )
         
         do {
             let _ = try Activity.request(
-                attributes: attributes,
+                attributes: SnoozeActivityAttributes(),
                 content: content,
                 pushType: nil
             )
@@ -44,20 +48,28 @@ class SnoozeActivityManager {
         }
     }
     
-    static func endAll() {
+    static func update() {
         let activities = Activity<SnoozeActivityAttributes>.activities
         
-        let contentState = SnoozeActivityAttributes.ContentState()
-        
         let content = ActivityContent(
-            state: contentState,
+            state: makeContentState(),
             staleDate: nil
         )
+        
+        Task {
+            for activity in activities {
+                await activity.update(content)
+            }
+        }
+    }
+    
+    static func endAll() {
+        let activities = Activity<SnoozeActivityAttributes>.activities
         
         let semaphore = DispatchSemaphore(value: 0)
         Task.detached(priority: .userInitiated) {
             for activity in activities {
-                await activity.end(content, dismissalPolicy: .immediate)
+                await activity.end(nil, dismissalPolicy: .immediate)
             }
             semaphore.signal()
         }

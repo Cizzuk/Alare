@@ -13,7 +13,7 @@ struct TapButtonWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
 
     var body: some View {
-        LazyVStack(spacing: 150) {
+        LazyVStack(alignment: .center, spacing: 30) {
             Label("Good Morning", systemImage: "sun.horizon.fill")
                 .font(.largeTitle)
                 .bold()

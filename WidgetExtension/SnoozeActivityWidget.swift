@@ -1,6 +1,6 @@
 //
 //  SnoozeActivityWidget.swift
-//  Alare
+//  Alare Widget Extension
 //
 //  Created by Cizzuk on 2026/02/26.
 //
@@ -14,7 +14,7 @@ struct SnoozeActivityWidget: Widget {
     
     struct IconImage: View {
         var size: CGFloat? = nil
-
+        
         var body: some View {
             Image("bolt.alare")
                 .resizable()
@@ -25,19 +25,31 @@ struct SnoozeActivityWidget: Widget {
         }
     }
     
+    struct SnoozeCount: View {
+        var count: Int
+        
+        var body: some View {
+            Text("\(count)")
+                .font(.system(size: 18, weight: .medium))
+                .foregroundStyle(.dropblue)
+                .accessibilityLabel("\(count) Snoozed")
+        }
+    }
+    
     struct DescriptionText: View {
+        var count: Int
         var showSubtitle: Bool = true
         
         var body: some View {
             VStack(alignment: .leading) {
-                Text("Snoozing")
+                Text("\(count) Snoozed")
                     .font(.headline)
                     .bold()
-                    .foregroundStyle(.dropblue)
+                    .foregroundStyle(.primary)
                 if showSubtitle {
                     Text("Start Wake-up Action")
                         .font(.subheadline)
-                        .foregroundStyle(.dropblue.opacity(0.8))
+                        .foregroundStyle(.secondary)
                 }
             }
         }
@@ -45,18 +57,21 @@ struct SnoozeActivityWidget: Widget {
     
     struct MainActivityView: View {
         @Environment(\.activityFamily) var activityFamily
+        var context: ActivityViewContext<SnoozeActivityAttributes>
         
         var body: some View {
             switch activityFamily {
             case .small:
                 HStack(spacing: 10) {
                     IconImage(size: 30)
-                    DescriptionText(showSubtitle: false)
+                        .accessibilityHidden(true)
+                    DescriptionText(count: context.state.snoozeCount, showSubtitle: false)
                 }
             case .medium:
-                HStack(spacing: 10) {
+                HStack(spacing: 15) {
                     IconImage(size: 50)
-                    DescriptionText()
+                        .accessibilityHidden(true)
+                    DescriptionText(count: context.state.snoozeCount)
                 }
                 .padding()
             @unknown default:
@@ -67,26 +82,29 @@ struct SnoozeActivityWidget: Widget {
     
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: SnoozeActivityAttributes.self) { context in
-            MainActivityView()
-                .activitySystemActionForegroundColor(.dropblue)
+            MainActivityView(context: context)
+                .activityBackgroundTint(.clear)
                 .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
             
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     IconImage(size: 60)
+                        .accessibilityHidden(true)
                         .frame(maxHeight: .infinity)
                 }
                 DynamicIslandExpandedRegion(.center) {
-                    DescriptionText()
+                    DescriptionText(count: context.state.snoozeCount)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 5)
                 }
             } compactLeading: {
-                IconImage()
+                IconImage(size: 25)
             } compactTrailing: {
+                SnoozeCount(count: context.state.snoozeCount)
+                    .padding(.horizontal, 3)
             } minimal: {
-                IconImage()
+                IconImage(size: 25)
             }
             .keylineTint(.dropblue)
             .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))

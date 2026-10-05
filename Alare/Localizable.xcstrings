@@ -30,40 +30,136 @@
     },
     "%lld Points" : {
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Point"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Points"
+                }
+              }
+            }
+          }
+        },
         "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lldポイント"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lldポイント"
+                }
+              }
+            }
           }
         }
       }
     },
     "%lld Points Left" : {
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Point Left"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Points Left"
+                }
+              }
+            }
+          }
+        },
         "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "あと%lldポイント"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "あと%lldポイント"
+                }
+              }
+            }
           }
         }
       }
     },
     "%lld Taps" : {
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Tap"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Taps"
+                }
+              }
+            }
+          }
+        },
         "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lldタップ"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lldタップ"
+                }
+              }
+            }
           }
         }
       }
     },
     "%lld Taps Left" : {
       "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Tap Left"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Taps Left"
+                }
+              }
+            }
+          }
+        },
         "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "あと%lldタップ"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "あと%lldタップ"
+                }
+              }
+            }
           }
         }
       }
@@ -171,16 +267,6 @@
         }
       }
     },
-    "Alarm Off" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アラームオフ"
-          }
-        }
-      }
-    },
     "Alarm permission is not granted. Please enable it in Settings to use Alare." : {
       "localizations" : {
         "ja" : {
@@ -227,6 +313,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "キャンセル"
+          }
+        }
+      }
+    },
+    "Cannot continue the action while the device is open. Please close the device completely." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスが開いている間はアクションを続行できません。デバイスを完全に閉じてください。"
           }
         }
       }
@@ -357,16 +453,6 @@
         }
       }
     },
-    "Display Alare's alarm status." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alareのアラームの現在の状態を表示します。"
-          }
-        }
-      }
-    },
     "Drum Roll" : {
       "localizations" : {
         "ja" : {
@@ -403,16 +489,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "起床アクションを行わなくても、このショートカットを実行するとスヌーズを強制的に解除できます。"
-          }
-        }
-      }
-    },
-    "Everyday" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "毎日"
           }
         }
       }
@@ -547,15 +623,15 @@
         }
       }
     },
-    "MIT License\n\nCopyright (c) 2026 Cizzuk\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE." : {
+    "MIT License\n\nCopyright (c) 2026 Cizzuk\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: \n \nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. \n \nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE." : {
       "shouldTranslate" : false
     },
-    "No Repeat" : {
+    "Next alarm is at %@" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "繰り返しなし"
+            "value" : "次のアラームは %@ です"
           }
         }
       }
@@ -596,16 +672,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "オン"
-          }
-        }
-      }
-    },
-    "Open Alare" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alareを開く"
           }
         }
       }
@@ -656,6 +722,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "オプション"
+          }
+        }
+      }
+    },
+    "Please close your device" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスを閉じてください"
           }
         }
       }
@@ -866,16 +942,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "スヌーズの間隔"
-          }
-        }
-      }
-    },
-    "Snoozing" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スヌーズ中"
           }
         }
       }
@@ -1122,16 +1188,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デバイスを振ってアラームを解除"
-          }
-        }
-      }
-    },
-    "Weekdays" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "平日"
           }
         }
       }

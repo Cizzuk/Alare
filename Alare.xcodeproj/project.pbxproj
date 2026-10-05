@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		BE3D01612F4F2C8800BB83E2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3D01602F4F2C8800BB83E2 /* WidgetKit.framework */; };
 		BE3D01632F4F2C8800BB83E2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3D01622F4F2C8800BB83E2 /* SwiftUI.framework */; };
-		BE3D01722F4F2C8900BB83E2 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BE3D015E2F4F2C8800BB83E2 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BE3D01722F4F2C8900BB83E2 /* Alare Widget Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BE3D015E2F4F2C8800BB83E2 /* Alare Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BE3D017C2F4F2E0700BB83E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72C5252F4C486800308751 /* Constants.swift */; };
-		BE5943242F4FE6BB007648DA /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
-		BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */; };
 		BE72C5262F4C486F00308751 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE72C5252F4C486800308751 /* Constants.swift */; };
 		BE99AC4E2F51C29C0038BE03 /* MergeCodablePackage in Frameworks */ = {isa = PBXBuildFile; productRef = BE99AC4D2F51C29C0038BE03 /* MergeCodablePackage */; };
 		BE99AC502F51C2A10038BE03 /* MergeCodablePackage in Frameworks */ = {isa = PBXBuildFile; productRef = BE99AC4F2F51C2A10038BE03 /* MergeCodablePackage */; };
@@ -35,7 +33,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				BE3D01722F4F2C8900BB83E2 /* WidgetExtension.appex in Embed Foundation Extensions */,
+				BE3D01722F4F2C8900BB83E2 /* Alare Widget Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,24 +41,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BE3D015E2F4F2C8800BB83E2 /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE3D015E2F4F2C8800BB83E2 /* Alare Widget Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Alare Widget Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE3D01602F4F2C8800BB83E2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BE3D01622F4F2C8800BB83E2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		BE3D01FD2F4F3D5F00BB83E2 /* WidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
-		BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		BE72C5252F4C486800308751 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BEEB497B2F458C4B00B06D0B /* Alare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BE3D01762F4F2C8900BB83E2 /* Exceptions for "WidgetExtension" folder in "WidgetExtension" target */ = {
+		BE3D01762F4F2C8900BB83E2 /* Exceptions for "WidgetExtension" folder in "Alare Widget Extension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtension */;
+			target = BE3D015D2F4F2C8800BB83E2 /* Alare Widget Extension */;
 		};
-		BE3D01792F4F2CC100BB83E2 /* Exceptions for "Alare" folder in "WidgetExtension" target */ = {
+		BE3D01792F4F2CC100BB83E2 /* Exceptions for "Alare" folder in "Alare Widget Extension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				AppIntents/StartWakeupActionIntent.swift,
@@ -71,7 +67,7 @@
 				Models/UserData/WakeupCheckSettings.swift,
 				Models/WeekdaysSupport.swift,
 			);
-			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtension */;
+			target = BE3D015D2F4F2C8800BB83E2 /* Alare Widget Extension */;
 		};
 		BEDDF3E12F458D1A00CBF78C /* Exceptions for "Alare" folder in "Alare" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -87,7 +83,7 @@
 		BE3D01642F4F2C8800BB83E2 /* WidgetExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BE3D01762F4F2C8900BB83E2 /* Exceptions for "WidgetExtension" folder in "WidgetExtension" target */,
+				BE3D01762F4F2C8900BB83E2 /* Exceptions for "WidgetExtension" folder in "Alare Widget Extension" target */,
 			);
 			path = WidgetExtension;
 			sourceTree = "<group>";
@@ -96,7 +92,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				BEDDF3E12F458D1A00CBF78C /* Exceptions for "Alare" folder in "Alare" target */,
-				BE3D01792F4F2CC100BB83E2 /* Exceptions for "Alare" folder in "WidgetExtension" target */,
+				BE3D01792F4F2CC100BB83E2 /* Exceptions for "Alare" folder in "Alare Widget Extension" target */,
 			);
 			path = Alare;
 			sourceTree = "<group>";
@@ -138,8 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				BE72C5252F4C486800308751 /* Constants.swift */,
-				BE3D01FD2F4F3D5F00BB83E2 /* WidgetExtensionExtension.entitlements */,
-				BE62B6B72F4B1D23004B493D /* Localizable.xcstrings */,
 				BEEB497D2F458C4B00B06D0B /* Alare */,
 				BE3D01642F4F2C8800BB83E2 /* WidgetExtension */,
 				BE3D015F2F4F2C8800BB83E2 /* Frameworks */,
@@ -151,7 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				BEEB497B2F458C4B00B06D0B /* Alare.app */,
-				BE3D015E2F4F2C8800BB83E2 /* WidgetExtension.appex */,
+				BE3D015E2F4F2C8800BB83E2 /* Alare Widget Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,9 +153,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BE3D015D2F4F2C8800BB83E2 /* WidgetExtension */ = {
+		BE3D015D2F4F2C8800BB83E2 /* Alare Widget Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE3D01732F4F2C8900BB83E2 /* Build configuration list for PBXNativeTarget "WidgetExtension" */;
+			buildConfigurationList = BE3D01732F4F2C8900BB83E2 /* Build configuration list for PBXNativeTarget "Alare Widget Extension" */;
 			buildPhases = (
 				BE3D015A2F4F2C8800BB83E2 /* Sources */,
 				BE3D015B2F4F2C8800BB83E2 /* Frameworks */,
@@ -174,12 +168,12 @@
 			fileSystemSynchronizedGroups = (
 				BE3D01642F4F2C8800BB83E2 /* WidgetExtension */,
 			);
-			name = WidgetExtension;
+			name = "Alare Widget Extension";
 			packageProductDependencies = (
 				BE99AC4F2F51C2A10038BE03 /* MergeCodablePackage */,
 			);
 			productName = WidgetExtensionExtension;
-			productReference = BE3D015E2F4F2C8800BB83E2 /* WidgetExtension.appex */;
+			productReference = BE3D015E2F4F2C8800BB83E2 /* Alare Widget Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		BEEB497A2F458C4B00B06D0B /* Alare */ = {
@@ -244,7 +238,7 @@
 			projectRoot = "";
 			targets = (
 				BEEB497A2F458C4B00B06D0B /* Alare */,
-				BE3D015D2F4F2C8800BB83E2 /* WidgetExtension */,
+				BE3D015D2F4F2C8800BB83E2 /* Alare Widget Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -254,7 +248,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE5943242F4FE6BB007648DA /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +255,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE62B6B82F4B1D23004B493D /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +282,7 @@
 /* Begin PBXTargetDependency section */
 		BE3D01712F4F2C8900BB83E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BE3D015D2F4F2C8800BB83E2 /* WidgetExtension */;
+			target = BE3D015D2F4F2C8800BB83E2 /* Alare Widget Extension */;
 			targetProxy = BE3D01702F4F2C8900BB83E2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -301,20 +293,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "WidgetExtension/Alare Widget Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = "Alare Widget Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -336,20 +328,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = WidgetExtensionExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "WidgetExtension/Alare Widget Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = "Alare Widget Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare.WidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -501,7 +493,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Alare/Alare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -520,7 +512,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -545,7 +537,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Alare/Alare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = Z8R89S24YT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -564,7 +556,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.cizzuk.alare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -584,7 +576,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BE3D01732F4F2C8900BB83E2 /* Build configuration list for PBXNativeTarget "WidgetExtension" */ = {
+		BE3D01732F4F2C8900BB83E2 /* Build configuration list for PBXNativeTarget "Alare Widget Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE3D01742F4F2C8900BB83E2 /* Debug */,

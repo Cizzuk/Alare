@@ -1,6 +1,6 @@
 //
 //  AlarmStateHomeWidget.swift
-//  Alare
+//  Alare Widget Extension
 //
 //  Created by Cizzuk on 2026/02/26.
 //
@@ -51,6 +51,17 @@ struct AlarmStateHomeWidget: Widget {
         private let registeredAlarms = RegisteredAlarms.load()
 
         var body: some View {
+            let time: String = {
+                if let date = Calendar.current.date(from: DateComponents(hour: settings.hour, minute: settings.minute)) {
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .none
+                    formatter.timeStyle = .short
+                    return formatter.string(from: date)
+                } else {
+                    return String(format: "%2d:%02d", settings.hour, settings.minute)
+                }
+            }()
+            
             let openURL: URL? = {
                 if registeredAlarms.nextSnooze != nil {
                     return URL(string: "net.cizzuk.alare://wakeupaction")
@@ -62,21 +73,25 @@ struct AlarmStateHomeWidget: Widget {
             VStack(alignment: .center, spacing: 8) {
                 if registeredAlarms.nextSnooze != nil {
                     Label("Start Wake-up Action", image: "bolt.alare")
+                        .accessibilityRemoveTraits(.isImage)
                         .font(.system(size: 50))
                         .labelStyle(.iconOnly)
                     Label("Snoozing", systemImage: "zzz")
                         .font(.headline)
                 } else if settings.isEnabled {
                     Label("Alare", image: "alare")
+                        .accessibilityHidden(true)
                         .font(.system(size: 50))
                         .labelStyle(.iconOnly)
-                    Text(String(format: "%2d:%02d", settings.hour, settings.minute))
+                    Text(time)
+                        .accessibilityLabel("Alarm at \(time)")
                         .font(.system(.title, design: .rounded))
                         .monospacedDigit()
                         .bold()
                     WeekdaysView(repeats: settings.repeats)
                 } else {
                     Label("Alare", image: "alare")
+                        .accessibilityHidden(true)
                         .font(.system(size: 50))
                         .labelStyle(.iconOnly)
                     Text("Alarm Off")
@@ -93,6 +108,8 @@ struct AlarmStateHomeWidget: Widget {
     }
     
     struct WeekdaysView: View {
+        @Environment(\.widgetFamily) private var widgetFamily
+        
         var repeats: Set<Locale.Weekday>
         
         private let weekdays: Array<Locale.Weekday> = WeekdaysSupport.weekdays
@@ -112,12 +129,14 @@ struct AlarmStateHomeWidget: Widget {
                     HStack(spacing: 5) {
                         Label("Repeat", systemImage: "repeat")
                             .labelStyle(.iconOnly)
+                        
+                        let isSmallFamily = widgetFamily == .systemSmall
                         ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
                             if repeats.contains(weekday) {
-                                if repeats.count > 2 {
+                                if isSmallFamily && repeats.count > 2 {
                                     Text(veryShortSymbol[index])
                                         .accessibilityLabel(symbol[index])
-                                } else if repeats.count > 1 {
+                                } else if repeats.count > (isSmallFamily ? 1 : 2) {
                                     Text(shortSymbol[index])
                                         .accessibilityLabel(symbol[index])
                                 } else {
@@ -126,6 +145,7 @@ struct AlarmStateHomeWidget: Widget {
                             }
                         }
                     }
+                    .accessibilityElement(children: .combine)
                 }
             }
             .font(.subheadline)
