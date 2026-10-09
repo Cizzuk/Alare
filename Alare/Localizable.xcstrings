@@ -307,16 +307,6 @@
         }
       }
     },
-    "Cancel" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "キャンセル"
-          }
-        }
-      }
-    },
     "Cannot continue the action while the device is open. Please close the device completely." : {
       "localizations" : {
         "ja" : {

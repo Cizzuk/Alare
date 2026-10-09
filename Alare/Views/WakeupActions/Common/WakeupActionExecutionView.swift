@@ -32,9 +32,7 @@ struct WakeupActionExecutionView: View {
                 .toolbarVerticalBehaviorDisableIfAvailable()
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button(action: onCancel) {
-                            Label("Cancel", systemImage: "xmark")
-                        }
+                        Button(role: .cancel, action: onCancel)
                     }
                 }
         }

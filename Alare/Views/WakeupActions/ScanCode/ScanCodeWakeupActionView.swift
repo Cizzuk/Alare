@@ -51,9 +51,7 @@ struct ScanCodeWakeupActionSettingsView: View {
                     .toolbarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
-                            Button(action: { isShowingScanner = false }) {
-                                Label("Cancel", systemImage: "xmark")
-                            }
+                            Button(role: .cancel, action: { isShowingScanner = false })
                         }
                     }
                 }
