@@ -6,7 +6,7 @@ Alare's alarm will continue to snooze automatically until you perform a special 
 
 **[Download on the App Store](https://apps.apple.com/app/alare/id6759486773)**
 
-**[AltStore PAL Source](https://i.cizzuk.net/altstore/)**
+**[AltStore PAL Source](https://cizzuk.net/altstore/)**
 
 ## Wake-up Actions
 
