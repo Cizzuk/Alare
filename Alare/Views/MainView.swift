@@ -11,21 +11,22 @@ import UniformTypeIdentifiers
 
 struct MainView: View {
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @StateObject private var register = AlarmRegister.shared
     @StateObject private var waManager = WakeupActionManager.shared
     @StateObject private var wcManager = WakeupCheckManager.shared
     @StateObject private var vm = MainViewModel()
-    
+
     @State private var showCustomSoundImporter = false
     @State private var showSnoozeIntervalPicker = false
     private let snoozeIntervalList = Array(1...30)
-    
+
     var body: some View {
         NavigationStack {
             List {
                 // MARK: Header and Time
-                Section {} header: {
+                Section {
+                } header: {
                     HStack {
                         Text("Alare")
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -60,10 +61,11 @@ struct MainView: View {
                     }
                     .padding(.bottom, 15)
                 }
-                
+
                 // MARK: Wake-up Action Button
                 if let nextSnooze = register.registereds.nextSnooze {
-                    Section {} header: {
+                    Section {
+                    } header: {
                         Label("Alarm is Snoozing", systemImage: "zzz")
                             .foregroundStyle(.primary)
                     } footer: {
@@ -82,9 +84,10 @@ struct MainView: View {
                             .buttonStyle(.glassProminent)
                             .tint(.dropblue)
                             .foregroundStyle(.white)
-                            
+
                             if !vm.draft.isHardMode,
-                               case .fixed(let date) = nextSnooze.schedule {
+                                case .fixed(let date) = nextSnooze.schedule
+                            {
                                 Text("Next alarm is at \(date.formatted(date: .omitted, time: .shortened))")
                                     .font(.footnote)
                             }
@@ -92,12 +95,13 @@ struct MainView: View {
                         .padding(.bottom, 30)
                     }
                 }
-                
+
                 //  MARK: Wake-up Check Button
                 if let wakeupCheckStartTime = register.registereds.wakeupCheckStartTime {
                     // Available before 10 seconds
                     if wakeupCheckStartTime.timeIntervalSinceNow > 10 {
-                        Section {} footer: {
+                        Section {
+                        } footer: {
                             HStack(alignment: .center, spacing: 10) {
                                 Label("Wake-up Check notification will soon be sent.", systemImage: "checkmark")
                                     .foregroundStyle(.primary)
@@ -106,7 +110,8 @@ struct MainView: View {
                             .padding(.bottom, 30)
                         }
                     } else {
-                        Section {} footer: {
+                        Section {
+                        } footer: {
                             Button(action: { vm.completeWakeupCheck() }) {
                                 HStack(alignment: .center, spacing: 10) {
                                     Image("checkmark.alare")
@@ -125,12 +130,12 @@ struct MainView: View {
                         }
                     }
                 }
-                
+
                 // MARK: Repeat
                 Section("Repeat") {
                     WeekdaysView(repeats: $vm.draft.repeats)
                 }
-                
+
                 // MARK: Wake-up Action & Check
                 Section {
                     NavigationLink(destination: WakeupActionSettingsView()) {
@@ -152,7 +157,7 @@ struct MainView: View {
                         }
                     }
                 }
-                
+
                 Section {
                     HStack {
                         Text("Snooze Duration")
@@ -167,7 +172,7 @@ struct MainView: View {
                         }
                         .disabled(vm.draft.isHardMode)
                     }
-                    
+
                     if showSnoozeIntervalPicker {
                         Picker("Snooze Duration", selection: $vm.draft.snoozeInterval) {
                             ForEach(snoozeIntervalList, id: \.self) { interval in
@@ -176,7 +181,7 @@ struct MainView: View {
                         }
                         .pickerStyle(.wheel)
                     }
-                    
+
                     Picker("Sound", selection: $vm.draft.sound) {
                         ForEach(AlarmSound.allCases, id: \.self) { sound in
                             Text(sound.displayName).tag(sound)
@@ -187,7 +192,7 @@ struct MainView: View {
                             Text("Import Custom Sound")
                         }
                     }
-                    
+
                     Toggle("Hard Mode", isOn: $vm.draft.isHardMode)
                         .tint(.accent)
                         .onChange(of: vm.draft.isHardMode) {
@@ -200,7 +205,7 @@ struct MainView: View {
                         Text("While Hard Mode is on, the snooze button will be hidden, and the alarm will continue to ring until you complete the Wake-up Action.")
                     }
                 }
-                
+
                 Section {
                     NavigationLink(destination: AboutView()) {
                         Label("About", systemImage: "info.circle")
@@ -213,24 +218,24 @@ struct MainView: View {
                         }
                     }
                 }
-                
+
                 #if DEBUG && !targetEnvironment(simulator)
-                Section {
-                    Button(action: {
-                        Task { await register.testAlarm() }
-                    }) {
-                        Text("Test Alarm")
+                    Section {
+                        Button(action: {
+                            Task { await register.testAlarm() }
+                        }) {
+                            Text("Test Alarm")
+                        }
                     }
-                }
                 #endif
-            } // List
+            }  // List
             .animation(.default, value: register.registereds.nextSnooze != nil)
             .animation(.default, value: register.registereds.wakeupCheckStartTime)
             .animation(.default, value: vm.draft.sound)
             .animation(.default, value: vm.draft.isHardMode)
             .scrollContentBackground(.hidden)
             .background(NightGradient.ignoresSafeArea())
-        } // NavigationStack
+        }  // NavigationStack
         .fileImporter(
             isPresented: $showCustomSoundImporter,
             allowedContentTypes: [.audio],

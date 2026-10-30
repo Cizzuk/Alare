@@ -11,7 +11,7 @@ import WidgetKit
 struct AlarmStateHomeWidget: Widget {
     static let kind = "net.cizzuk.alare.WidgetExtension.AlarmStateHomeWidget"
     static let title: LocalizedStringResource = "Alare"
-    
+
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: Self.kind, provider: Provider()) { entry in
             AlarmStateHomeWidgetView(entry: entry)
@@ -22,14 +22,14 @@ struct AlarmStateHomeWidget: Widget {
         .supportedFamilies([
             .systemSmall,
             .systemMedium,
-            .systemLarge
+            .systemLarge,
         ])
     }
 
     struct Entry: TimelineEntry {
         let date: Date
     }
-    
+
     struct Provider: TimelineProvider {
         func placeholder(in context: Context) -> Entry {
             Entry(date: Date())
@@ -44,7 +44,7 @@ struct AlarmStateHomeWidget: Widget {
             completion(Timeline(entries: [entry], policy: .never))
         }
     }
-    
+
     struct AlarmStateHomeWidgetView: View {
         let entry: Entry
         private let settings = AlarmSettings.load()
@@ -61,7 +61,7 @@ struct AlarmStateHomeWidget: Widget {
                     return String(format: "%2d:%02d", settings.hour, settings.minute)
                 }
             }()
-            
+
             let openURL: URL? = {
                 if registeredAlarms.nextSnooze != nil {
                     return URL(string: "net.cizzuk.alare://wakeupaction")
@@ -69,7 +69,7 @@ struct AlarmStateHomeWidget: Widget {
                     return nil
                 }
             }()
-            
+
             VStack(alignment: .center, spacing: 8) {
                 if registeredAlarms.nextSnooze != nil {
                     Label("Start Wake-up Action", image: "bolt.alare")
@@ -106,17 +106,17 @@ struct AlarmStateHomeWidget: Widget {
             .widgetURL(openURL)
         }
     }
-    
+
     struct WeekdaysView: View {
         @Environment(\.widgetFamily) private var widgetFamily
-        
+
         var repeats: Set<Locale.Weekday>
-        
-        private let weekdays: Array<Locale.Weekday> = WeekdaysSupport.weekdays
+
+        private let weekdays: [Locale.Weekday] = WeekdaysSupport.weekdays
         private let symbol: [String] = WeekdaysSupport.symbol
         private let shortSymbol: [String] = WeekdaysSupport.shortSymbol
         private let veryShortSymbol: [String] = WeekdaysSupport.veryShortSymbol
-        
+
         var body: some View {
             Group {
                 if repeats.isEmpty {
@@ -129,7 +129,7 @@ struct AlarmStateHomeWidget: Widget {
                     HStack(spacing: 5) {
                         Label("Repeat", systemImage: "repeat")
                             .labelStyle(.iconOnly)
-                        
+
                         let isSmallFamily = widgetFamily == .systemSmall
                         ForEach(Array(weekdays.enumerated()), id: \.element) { index, weekday in
                             if repeats.contains(weekday) {
@@ -154,4 +154,3 @@ struct AlarmStateHomeWidget: Widget {
         }
     }
 }
-            

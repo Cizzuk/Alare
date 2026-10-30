@@ -11,7 +11,7 @@ import WidgetKit
 struct AlarmStateLockWidget: Widget {
     static let kind = "net.cizzuk.alare.WidgetExtension.AlarmStateLockWidget"
     static let title: LocalizedStringResource = "Alare"
-    
+
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: Self.kind, provider: Provider()) { entry in
             AlarmStateLockWidgetView(entry: entry)
@@ -21,36 +21,36 @@ struct AlarmStateLockWidget: Widget {
         .supportedFamilies([
             .accessoryCircular,
             .accessoryRectangular,
-            .accessoryInline
+            .accessoryInline,
         ])
     }
-    
+
     struct Entry: TimelineEntry {
         let date: Date
     }
-    
+
     struct Provider: TimelineProvider {
         func placeholder(in context: Context) -> Entry {
             Entry(date: Date())
         }
-        
+
         func getSnapshot(in context: Context, completion: @escaping (Entry) -> Void) {
             completion(Entry(date: Date()))
         }
-        
+
         func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
             let entry = Entry(date: Date())
             completion(Timeline(entries: [entry], policy: .never))
         }
     }
-    
+
     struct AlarmStateLockWidgetView: View {
         @Environment(\.widgetFamily) var widgetFamily
-        
+
         let entry: Entry
         private let settings = AlarmSettings.load()
         private let registeredAlarms = RegisteredAlarms.load()
-        
+
         var body: some View {
             let time: String = {
                 if let date = Calendar.current.date(from: DateComponents(hour: settings.hour, minute: settings.minute)) {
@@ -62,7 +62,7 @@ struct AlarmStateLockWidget: Widget {
                     return String(format: "%2d:%02d", settings.hour, settings.minute)
                 }
             }()
-            
+
             let image: some View = {
                 let name = registeredAlarms.nextSnooze != nil ? "bolt.alare" : "alare"
                 return Image(name)
@@ -70,7 +70,7 @@ struct AlarmStateLockWidget: Widget {
                     .scaledToFit()
                     .accessibilityRemoveTraits(.isImage)
             }()
-            
+
             let openURL: URL? = {
                 if registeredAlarms.nextSnooze != nil {
                     return URL(string: "net.cizzuk.alare://wakeupaction")
@@ -78,7 +78,7 @@ struct AlarmStateLockWidget: Widget {
                     return nil
                 }
             }()
-            
+
             ZStack(alignment: .center) {
                 switch widgetFamily {
                 case .accessoryRectangular:
@@ -86,7 +86,7 @@ struct AlarmStateLockWidget: Widget {
                         image
                             .accessibilityHidden(true)
                             .frame(width: 40, height: 40)
-                        
+
                         if registeredAlarms.nextSnooze != nil {
                             Text("Snoozing")
                                 .font(.headline)
@@ -102,7 +102,7 @@ struct AlarmStateLockWidget: Widget {
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    
+
                 case .accessoryCircular:
                     VStack(alignment: .center) {
                         if registeredAlarms.nextSnooze != nil {
@@ -127,7 +127,7 @@ struct AlarmStateLockWidget: Widget {
                             }
                         }
                     }
-                    
+
                 case .accessoryInline:
                     Label {
                         if registeredAlarms.nextSnooze != nil {

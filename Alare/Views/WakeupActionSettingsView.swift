@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WakeupActionSettingsView: View {
     @StateObject private var manager = WakeupActionManager.shared
-    
+
     var body: some View {
         NavigationStack {
             List {
@@ -29,7 +29,7 @@ struct WakeupActionSettingsView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                
+
                 Section("Actions") {
                     ForEach(WakeupAction.availableCases(), id: \.self) { action in
                         NavigationLink(destination: ActionSettingsView(action: action)) {
@@ -59,21 +59,21 @@ struct WakeupActionSettingsView: View {
                         }
                     }
                 }
-            } // List
+            }  // List
             .navigationTitle("Wake-up Action")
             .toolbarTitleDisplayMode(.inline)
-        } // NavigationStack
+        }  // NavigationStack
     }
-    
+
     // MARK: - Action Settings View
-    
+
     struct ActionSettingsView: View {
         var action: WakeupAction
-        
+
         @StateObject private var manager = WakeupActionManager.shared
         @State private var isTrying: Bool = false
         @State private var isSelected: Bool = false
-        
+
         var body: some View {
             List {
                 Section {
@@ -93,7 +93,7 @@ struct WakeupActionSettingsView: View {
                         Text(action.actionDescription)
                             .foregroundStyle(.secondary)
                     }
-                    
+
                     Toggle("Use This Action", isOn: $isSelected)
                         .tint(.accent)
                         .disabled(action == .default && isSelected)
@@ -109,7 +109,7 @@ struct WakeupActionSettingsView: View {
                             }
                         }
                 }
-                
+
                 Section {
                     Button(action: { isTrying = true }) {
                         Label("Try This Action", systemImage: "play.circle")
@@ -117,7 +117,7 @@ struct WakeupActionSettingsView: View {
                     .disabled(!action.isAvailable())
                     .foregroundStyle(action.isAvailable() ? .accent : .secondary)
                 }
-                
+
                 // Action Specific Settings
                 action.settingsView()
             }

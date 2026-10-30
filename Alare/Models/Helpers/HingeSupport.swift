@@ -9,12 +9,12 @@ import SwiftUI
 
 struct AltDeviceHingeContext: Equatable {
     var hinge: AltDeviceHinge?
-    
+
     @available(iOS 27.1, *)
     static func make(_ context: DeviceHingeContext) -> Self {
         if let hinge = context.hinge {
             let status: AltDeviceHinge.Status
-            
+
             switch hinge.status {
             case .closed:
                 status = .closed
@@ -25,7 +25,7 @@ struct AltDeviceHingeContext: Equatable {
             default:
                 status = .unknown
             }
-            
+
             return Self(hinge: AltDeviceHinge(angle: hinge.angle, status: status))
         } else {
             return Self(hinge: nil)
@@ -36,7 +36,7 @@ struct AltDeviceHingeContext: Equatable {
 struct AltDeviceHinge: Equatable, Hashable {
     var angle: Angle
     var status: Self.Status
-    
+
     struct Status: Equatable, Hashable {
         let rawValue: Int
         static let unknown = Status(rawValue: -1)
@@ -52,7 +52,8 @@ extension View {
         _ action: @escaping (AltDeviceHingeContext, AltDeviceHingeContext) -> Void
     ) -> some View {
         if #available(iOS 27.1, *) {
-            return self
+            return
+                self
                 .onHingeChange(isEnabled: isEnabled) { oldContext, newContext in
                     action(
                         AltDeviceHingeContext.make(oldContext),

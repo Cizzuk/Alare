@@ -13,7 +13,7 @@ enum AlarmSound: String, CaseIterable, Codable {
     case attention
     case sysDefault
     case custom
-    
+
     static let `default` = hailing
 }
 
@@ -30,7 +30,7 @@ extension AlarmSound {
             return "Custom"
         }
     }
-    
+
     var alertSound: AlertConfiguration.AlertSound {
         switch self {
         case .hailing:
@@ -44,7 +44,7 @@ extension AlarmSound {
             return .named("CustomSound/\(soundURL.lastPathComponent)")
         }
     }
-    
+
     var alertSoundSnooze: AlertConfiguration.AlertSound {
         switch self {
         case .hailing:
@@ -55,7 +55,7 @@ extension AlarmSound {
             return self.alertSound
         }
     }
-    
+
     static var customSoundDir: URL {
         FileManager.default
             .urls(for: .libraryDirectory, in: .userDomainMask)

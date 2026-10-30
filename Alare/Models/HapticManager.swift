@@ -10,7 +10,7 @@ import CoreHaptics
 
 enum HapticSounds {
     case success
-    
+
     var filename: String {
         switch self {
         case .success:
@@ -21,9 +21,9 @@ enum HapticSounds {
 
 final class HapticManager {
     static let shared = HapticManager()
-    
+
     var engine: CHHapticEngine?
-    
+
     private init() {
         do {
             let session = AVAudioSession.sharedInstance()
@@ -32,26 +32,26 @@ final class HapticManager {
         } catch let error {
             print("CHHapticEngine Creation Error: \(error)")
         }
-        
+
         guard let engine = engine else {
             print("Failed to create engine!")
             return
         }
-        
+
         DispatchQueue.global(qos: .userInitiated).async {
             try? engine.start()
         }
     }
-    
+
     func playHaptics(_ sound: HapticSounds) {
         guard let engine = engine else { return }
-        
+
         DispatchQueue.global(qos: .userInitiated).async {
             guard let path = Bundle.main.path(forResource: sound.filename, ofType: "ahap") else {
                 print("AHAP file not found for sound: \(sound).")
                 return
             }
-            
+
             do {
                 try engine.playPattern(from: URL(fileURLWithPath: path))
             } catch {

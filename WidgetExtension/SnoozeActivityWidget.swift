@@ -11,10 +11,10 @@ import WidgetKit
 
 struct SnoozeActivityWidget: Widget {
     static let kind = "net.cizzuk.alare.WidgetExtension.SnoozeActivityWidget"
-    
+
     struct IconImage: View {
         var size: CGFloat? = nil
-        
+
         var body: some View {
             Image("bolt.alare")
                 .resizable()
@@ -24,10 +24,10 @@ struct SnoozeActivityWidget: Widget {
                 .foregroundStyle(.dropblue)
         }
     }
-    
+
     struct SnoozeCount: View {
         var count: Int
-        
+
         var body: some View {
             Text("\(count)")
                 .font(.system(size: 18, weight: .medium))
@@ -35,11 +35,11 @@ struct SnoozeActivityWidget: Widget {
                 .accessibilityLabel("\(count) Snoozed")
         }
     }
-    
+
     struct DescriptionText: View {
         var count: Int
         var showSubtitle: Bool = true
-        
+
         var body: some View {
             VStack(alignment: .leading) {
                 Text("\(count) Snoozed")
@@ -54,11 +54,11 @@ struct SnoozeActivityWidget: Widget {
             }
         }
     }
-    
+
     struct MainActivityView: View {
         @Environment(\.activityFamily) var activityFamily
         var context: ActivityViewContext<SnoozeActivityAttributes>
-        
+
         var body: some View {
             switch activityFamily {
             case .small:
@@ -79,13 +79,13 @@ struct SnoozeActivityWidget: Widget {
             }
         }
     }
-    
+
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: SnoozeActivityAttributes.self) { context in
             MainActivityView(context: context)
                 .activityBackgroundTint(.clear)
                 .widgetURL(URL(string: "net.cizzuk.alare://wakeupaction"))
-            
+
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {

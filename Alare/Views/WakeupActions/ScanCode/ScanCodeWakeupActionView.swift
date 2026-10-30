@@ -15,7 +15,7 @@ struct ScanCodeWakeupActionSettingsView: View {
     @ObservedObject private var manager = WakeupActionManager.shared
     @State private var isShowingScanner = false
     @State private var isShowingShareSheet = false
-    
+
     private let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
     private var isCameraAccessDenied: Bool {
         cameraAuthStatus == .denied || cameraAuthStatus == .restricted
@@ -35,7 +35,7 @@ struct ScanCodeWakeupActionSettingsView: View {
                         .foregroundStyle(.secondary)
                 }
             }
-            
+
             Button("Scan to Set a New Code") {
                 isShowingScanner = true
             }
@@ -78,7 +78,7 @@ struct ScanCodeWakeupActionSettingsView: View {
             }
             .font(.footnote)
         }
-        
+
         if let image = UIImage(named: "scancode-image") {
             Section {
                 ShareLink(
@@ -105,7 +105,7 @@ struct ScanCodeWakeupActionExecutionView: View {
                 .font(.largeTitle)
                 .bold()
                 .padding()
-            
+
             if incorrectCodeEntered {
                 Text("Incorrect code. Please try another code.")
                     .font(.caption)
@@ -116,7 +116,7 @@ struct ScanCodeWakeupActionExecutionView: View {
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
             }
-            
+
             BarcodeScannerView { code in
                 if code == expectedCode || code == completeWakeupActionURL {
                     vm.complete()
@@ -143,7 +143,7 @@ private struct BarcodeScannerView: UIViewControllerRepresentable {
             recognizedDataTypes: [.barcode()],
             isHighlightingEnabled: true
         )
-        
+
         vc.delegate = context.coordinator
         return vc
     }
@@ -158,11 +158,11 @@ private struct BarcodeScannerView: UIViewControllerRepresentable {
 
     class Coordinator: NSObject, DataScannerViewControllerDelegate {
         let onCodeScanned: (String) -> Void
-        
+
         init(onCodeScanned: @escaping (String) -> Void) {
             self.onCodeScanned = onCodeScanned
         }
-        
+
         func dataScanner(
             _ dataScanner: DataScannerViewController,
             didAdd addedItems: [RecognizedItem],
@@ -170,7 +170,8 @@ private struct BarcodeScannerView: UIViewControllerRepresentable {
         ) {
             for item in addedItems {
                 if case .barcode(let barcode) = item,
-                   let value = barcode.payloadStringValue {
+                    let value = barcode.payloadStringValue
+                {
                     DispatchQueue.main.async {
                         self.onCodeScanned(value)
                     }

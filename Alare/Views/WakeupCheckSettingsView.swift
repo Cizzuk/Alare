@@ -10,15 +10,15 @@ import SwiftUI
 struct WakeupCheckSettingsView: View {
     @Environment(\.scenePhase) private var scenePhase
     @StateObject private var manager = WakeupCheckManager.shared
-    
+
     @State private var showStartAfterPicker = false
     private let startAfterIntList = Array(1...30)
-    
+
     @State private var showAlarmAfterPicker = false
     private let alarmAfterIntList = Array(1...30)
-    
+
     @State private var showNotificationPermissionAlert = false
-    
+
     var body: some View {
         List {
             Section {
@@ -36,7 +36,7 @@ struct WakeupCheckSettingsView: View {
                     Text("After the Wake-up Action is completed, a notification will be sent to confirm whether you have actually woken up. If there is no response to the notification, the alarm will play again.")
                         .foregroundStyle(.secondary)
                 }
-                
+
                 Toggle("Wake-up Check", isOn: $manager.settings.isEnabled)
                     .tint(.accent)
                     .onChange(of: manager.settings.isEnabled) {
@@ -65,7 +65,7 @@ struct WakeupCheckSettingsView: View {
                     Task { showNotificationPermissionAlert = await !UserNotificationSupport.isAvailable() }
                 }
             }
-            
+
             Section {
                 HStack {
                     Text("Send Notification After")
@@ -75,7 +75,7 @@ struct WakeupCheckSettingsView: View {
                             .font(.default.monospacedDigit())
                     }
                 }
-                
+
                 if showStartAfterPicker {
                     Picker("Send Notification After", selection: $manager.settings.startAfter) {
                         ForEach(startAfterIntList, id: \.self) { startAfter in
@@ -84,7 +84,7 @@ struct WakeupCheckSettingsView: View {
                     }
                     .pickerStyle(.wheel)
                 }
-                
+
                 HStack {
                     Text("Ring Alarm After")
                     Spacer()
@@ -93,7 +93,7 @@ struct WakeupCheckSettingsView: View {
                             .font(.default.monospacedDigit())
                     }
                 }
-                
+
                 if showAlarmAfterPicker {
                     Picker("Ring Alarm After", selection: $manager.settings.alarmAfter) {
                         ForEach(alarmAfterIntList, id: \.self) { alarmAfter in

@@ -21,7 +21,7 @@ struct ChangeIconView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-    
+
     private func iconItem(iconName: String, iconID: String) -> some View {
         HStack {
             Image(iconID + "-pre")

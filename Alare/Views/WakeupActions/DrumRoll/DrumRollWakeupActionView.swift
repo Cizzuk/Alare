@@ -12,7 +12,7 @@ import UIKit
 
 struct DrumRollWakeupActionSettingsView: View {
     @ObservedObject private var manager = WakeupActionManager.shared
-    
+
     @State private var showPicker = false
     private let tapsIntList = Array(stride(from: 10, through: 200, by: 10)) + Array(stride(from: 300, through: 1000, by: 100))
 
@@ -26,7 +26,7 @@ struct DrumRollWakeupActionSettingsView: View {
                         .font(.default.monospacedDigit())
                 }
             }
-            
+
             if showPicker {
                 Picker("Required Taps", selection: $manager.settings.drumRoll_tapsRequired) {
                     ForEach(tapsIntList, id: \.self) { tapCount in
@@ -45,11 +45,11 @@ struct DrumRollWakeupActionSettingsView: View {
 
 struct DrumRollWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
-    
+
     private let tapsRequired = WakeupActionManager.shared.settings.drumRoll_tapsRequired
 
     @State private var taps = 0
-    
+
     private func remainingTaps() -> Int {
         max(tapsRequired - taps, 0)
     }
@@ -60,14 +60,14 @@ struct DrumRollWakeupActionExecutionView: View {
                 .font(.largeTitle)
                 .bold()
                 .padding()
-            
+
             Image(systemName: "hand.tap")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 80, height: 80)
                 .foregroundStyle(.dropblue)
                 .accessibilityHidden(true)
-            
+
             Text("\(remainingTaps()) Taps Left")
                 .font(.title.monospacedDigit())
                 .foregroundStyle(.secondary)
@@ -85,7 +85,7 @@ struct DrumRollWakeupActionExecutionView: View {
         .accessibilityLabel("Drum Roll the Screen to Wake Up!")
         .accessibilityHint("\(remainingTaps()) Taps Left")
     }
-    
+
     private func addTap(count: Int = 1) {
         taps += count
         if taps >= tapsRequired {
@@ -93,13 +93,13 @@ struct DrumRollWakeupActionExecutionView: View {
         } else {
             // Random feedback
             let feedbackTypes: [UIImpactFeedbackGenerator.FeedbackStyle] = [
-                .medium, .heavy, .rigid
+                .medium, .heavy, .rigid,
             ]
             let randomType = feedbackTypes.randomElement() ?? .medium
             UIImpactFeedbackGenerator(style: randomType).impactOccurred()
         }
     }
-    
+
     private struct MultiTouchTapView: UIViewRepresentable {
         let onTap: (Int) -> Void
 

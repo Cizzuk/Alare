@@ -12,24 +12,24 @@ struct SetUseAlarmIntent: AppIntent, CustomIntentMigratedAppIntent {
     static let intentClassName = "SetUseAlarm"
     static var title: LocalizedStringResource = "Set Alare's Alarm"
     static var description: LocalizedStringResource = "Turn Alare's alarm On or Off."
-    
+
     enum TurnOrToggle: String, AppEnum {
         case turn
         case toggle
-        
+
         static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Operation")
         static var caseDisplayRepresentations: [Self: DisplayRepresentation] = [
             .turn: "Turn",
-            .toggle: "Toggle"
+            .toggle: "Toggle",
         ]
     }
-    
+
     @Parameter(title: "Operation", default: .turn)
     var toggle: TurnOrToggle?
-    
+
     @Parameter(title: "State", default: true)
     var state: Bool
-    
+
     static var parameterSummary: some ParameterSummary {
         When(\.$toggle, .equalTo, .turn) {
             Summary("\(\.$toggle) Alare's Alarm \(\.$state)")
@@ -37,12 +37,12 @@ struct SetUseAlarmIntent: AppIntent, CustomIntentMigratedAppIntent {
             Summary("\(\.$toggle) Alare's Alarm")
         }
     }
-    
+
     @MainActor
     func perform() async throws -> some IntentResult {
         let support = AlarmSupport.shared
         var settings = support.alarmSettings
-        
+
         switch toggle {
         case .toggle:
             settings.isEnabled.toggle()
@@ -51,10 +51,10 @@ struct SetUseAlarmIntent: AppIntent, CustomIntentMigratedAppIntent {
         default:
             break
         }
-        
+
         await support.push(settings)
         NotificationCenter.default.post(name: .alarmSettingsDidChangeOutsideMainApp, object: nil)
-        
+
         return .result()
     }
 }

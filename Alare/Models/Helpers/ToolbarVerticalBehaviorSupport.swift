@@ -10,11 +10,11 @@ import SwiftUI
 extension View {
     func toolbarVerticalBehaviorDisableIfAvailable() -> some View {
         if #available(iOS 27.1, *) {
-            return self
+            return
+                self
                 .toolbarVerticalBehavior(.disabled)
         } else {
             return self
         }
     }
 }
-

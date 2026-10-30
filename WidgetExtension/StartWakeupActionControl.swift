@@ -11,7 +11,7 @@ import WidgetKit
 struct StartWakeupActionControl: ControlWidget {
     static let kind = "net.cizzuk.alare.WidgetExtension.StartWakeupActionControl"
     static let title: LocalizedStringResource = "Alare"
-    
+
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(
             kind: Self.kind,
@@ -29,7 +29,7 @@ struct StartWakeupActionControl: ControlWidget {
             }
         }
     }
-    
+
     struct Provider: ControlValueProvider {
         var previewValue: Bool { false }
         func currentValue() async throws -> Bool {

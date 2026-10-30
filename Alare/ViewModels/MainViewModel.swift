@@ -14,10 +14,10 @@ class MainViewModel: ObservableObject {
     @ObservationIgnored private var register = AlarmRegister.shared
     @ObservationIgnored private var support = AlarmSupport.shared
     @ObservationIgnored private var waManager = WakeupActionManager.shared
-    
+
     @Published var doingWakeupAction: WakeupAction? = nil
     var focusFilterWakeupAction: WakeupAction? = nil
-    
+
     @Published var draft: AlarmSettings = AlarmSupport.shared.alarmSettings {
         didSet {
             // Push changes
@@ -29,11 +29,12 @@ class MainViewModel: ObservableObject {
             }
         }
     }
-    
+
     @Published var timeSelection: Date = AlarmSupport.makeDateFromTime(
         hour: AlarmSupport.shared.alarmSettings.hour,
         minute: AlarmSupport.shared.alarmSettings.minute
-    ) {
+    )
+    {
         didSet {
             // Convert Date to hour and minute
             let (hour, minute) = AlarmSupport.makeTimeFromDate(timeSelection)
@@ -44,13 +45,13 @@ class MainViewModel: ObservableObject {
             }
         }
     }
-    
+
     // MARK: - Lifecycle
-    
+
     func onAppear() {
         syncAll()
     }
-    
+
     func onChange(scenePhase: ScenePhase) {
         switch scenePhase {
         case .active:
@@ -63,35 +64,35 @@ class MainViewModel: ObservableObject {
             break
         }
     }
-    
+
     func handleContinueUserActivity(activity: NSUserActivity) {
         print("Continue user activity: ", activity.activityType)
-        
+
         // Handle Universal Link
         if let url = activity.webpageURL {
             print("URL opened: ", url)
             handleUniversalLink(url: url)
         }
     }
-    
+
     func handleOpenURL(url: URL) {
         print("URL opened: ", url)
-        
+
         // Handle Universal Link
         if url.scheme == "https" || url.scheme == "http" {
             handleUniversalLink(url: url)
             return
         }
-        
+
         // Get App URL Schemes
         let appURLSchemes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]]
         let urlSchemes = appURLSchemes?.compactMap { $0["CFBundleURLSchemes"] as? [String] }.flatMap { $0 } ?? []
-        
+
         // Check URL Scheme
         guard let scheme = url.scheme,
-              urlSchemes.contains(scheme)
+            urlSchemes.contains(scheme)
         else { return }
-        
+
         // Parse URL
         switch url.host {
         case "wakeupaction":
@@ -100,15 +101,15 @@ class MainViewModel: ObservableObject {
             break
         }
     }
-    
+
     private func handleUniversalLink(url: URL) {
         if url == URL(string: completeWakeupActionURL) {
             completeWakeupAction()
         }
     }
-    
+
     // MARK: - Alarm Management
-    
+
     func syncAll() {
         // Sync now
         Task {
@@ -118,34 +119,35 @@ class MainViewModel: ObservableObject {
             syncFocusFilter()
         }
     }
-    
+
     func syncDraft() {
         if draft != support.alarmSettings {
             draft = support.alarmSettings
         }
-        
+
         // Sync timeSelection
         let date = AlarmSupport.makeDateFromTime(hour: draft.hour, minute: draft.minute)
         timeSelection = date
     }
-    
+
     func startWakeupAction() {
         // Check if alarm is snoozed and action is not already doing
         guard register.registereds.nextSnooze != nil,
-              doingWakeupAction == nil
+            doingWakeupAction == nil
         else { return }
-        
+
         waManager.validate()
-        
+
         // Start action
         if let focusFilterWakeupAction = focusFilterWakeupAction,
-           focusFilterWakeupAction.isAvailable() {
+            focusFilterWakeupAction.isAvailable()
+        {
             doingWakeupAction = focusFilterWakeupAction
         } else if waManager.settings.selected.isAvailable() {
             doingWakeupAction = waManager.settings.selected
         }
     }
-    
+
     func completeWakeupAction() {
         Task {
             await support.completeWakeupAction()
@@ -154,7 +156,7 @@ class MainViewModel: ObservableObject {
         doingWakeupAction = nil
         HapticManager.shared.playHaptics(.success)
     }
-    
+
     func completeWakeupCheck() {
         Task {
             await support.completeWakeupCheck()
@@ -162,14 +164,15 @@ class MainViewModel: ObservableObject {
         }
         HapticManager.shared.playHaptics(.success)
     }
-    
+
     // MARK: - Custom Sound
-    
+
     func importCustomSoundHandler(_ result: Result<[URL], Error>) {
         switch result {
         case .success(let urls):
             if let url = urls.first,
-               importCustomSoundFile(from: url) {
+                importCustomSoundFile(from: url)
+            {
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
             } else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
@@ -179,7 +182,7 @@ class MainViewModel: ObservableObject {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
     }
-    
+
     func importCustomSoundFile(from url: URL) -> Bool {
         guard url.startAccessingSecurityScopedResource() else { return false }
         defer { url.stopAccessingSecurityScopedResource() }
@@ -202,7 +205,7 @@ class MainViewModel: ObservableObject {
 
             // Copy new custom sound
             try fileManager.copyItem(at: url, to: destinationURL)
-            
+
             // Sync alarm
             Task { await AlarmSupport.shared.sync() }
             return true
@@ -210,9 +213,9 @@ class MainViewModel: ObservableObject {
             return false
         }
     }
-    
+
     // MARK: - Focus Filter
-    
+
     func syncFocusFilter() {
         Task {
             focusFilterWakeupAction = nil

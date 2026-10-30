@@ -11,13 +11,13 @@ import Foundation
 @MainActor
 final class WakeupActionManager: ObservableObject {
     static let shared = WakeupActionManager()
-    
+
     @Published var settings = WakeupActionSettings.load() {
         didSet { settings.save() }
     }
-    
+
     private init() {}
-    
+
     func validate() {
         if !settings.selected.isAvailable() {
             if WakeupAction.default.isAvailable() {

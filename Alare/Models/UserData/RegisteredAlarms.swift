@@ -19,11 +19,11 @@ struct AlarmItem: Codable {
 
 struct RegisteredAlarms: Codable {
     var mainAlarm: AlarmItem?
-    
+
     // For Wake-up Action
     var snoozeCount: Int = 0
     var nextSnooze: AlarmItem?
-    
+
     // For Wake-up Check
     var wakeupCheckStartTime: Date?
     var wakeupCheckSnooze: AlarmItem?
@@ -33,12 +33,12 @@ struct RegisteredAlarms: Codable {
 
 extension RegisteredAlarms: MergeCodable {
     static let userDefaultsKey = "RegisteredAlarms"
-    
+
     static func load() -> Self {
         guard let data = userDefaults.data(forKey: userDefaultsKey) else { return Self() }
         return decode(from: data)
     }
-    
+
     func save() {
         if let data = encode() {
             userDefaults.set(data, forKey: Self.userDefaultsKey)

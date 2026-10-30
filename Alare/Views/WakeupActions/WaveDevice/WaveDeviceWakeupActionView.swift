@@ -12,10 +12,10 @@ import SwiftUI
 
 struct WaveDeviceWakeupActionSettingsView: View {
     @ObservedObject private var manager = WakeupActionManager.shared
-    
+
     @State private var showPicker = false
     private let durationList = Array(stride(from: 10, through: 40, by: 10)) + Array(stride(from: 50, through: 300, by: 50))
-    
+
     var body: some View {
         Section {
             HStack {
@@ -26,7 +26,7 @@ struct WaveDeviceWakeupActionSettingsView: View {
                         .font(.default.monospacedDigit())
                 }
             }
-            
+
             if showPicker {
                 Picker("Required Points", selection: $manager.settings.waveDevice_pointsRequired) {
                     ForEach(durationList, id: \.self) { duration in
@@ -37,7 +37,7 @@ struct WaveDeviceWakeupActionSettingsView: View {
                 }
                 .pickerStyle(.wheel)
             }
-            
+
             Picker("Sensitivity", selection: $manager.settings.waveDevice_sensitivity) {
                 Text("Medium").tag(0.5)
                 Text("High").tag(0.3)
@@ -45,8 +45,9 @@ struct WaveDeviceWakeupActionSettingsView: View {
         } footer: {
             Text("It's easier to earn points by making large, slow movements with your device rather than quick, small shakes.")
         }
-        
-        Section {} footer: {
+
+        Section {
+        } footer: {
             Text("When performing this action, please hold your device securely and be aware of your surroundings.")
         }
     }
@@ -56,22 +57,22 @@ struct WaveDeviceWakeupActionSettingsView: View {
 
 struct WaveDeviceWakeupActionExecutionView: View {
     @ObservedObject var vm: WakeupActionExecutionViewModel
-    
+
     @State private var motionManager = CMMotionManager()
     @State private var progress: Int = 0
-    
+
     @State private var disableByHinge: Bool = false
-    
+
     private let pointsRequired = WakeupActionManager.shared.settings.waveDevice_pointsRequired
-    
+
     private let updateInterval: TimeInterval = 0.1
     private let gyroCancelRate: Double = 15.0
     private let threshold: Double = WakeupActionManager.shared.settings.waveDevice_sensitivity
-    
+
     private var remainingPoints: Int {
         max(pointsRequired - progress, 0)
     }
-    
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
@@ -80,7 +81,7 @@ struct WaveDeviceWakeupActionExecutionView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding()
-                    
+
                     Gauge(value: Double(progress), in: 0...Double(pointsRequired)) {
                         Image(systemName: "flag")
                             .resizable()
@@ -93,11 +94,11 @@ struct WaveDeviceWakeupActionExecutionView: View {
                     .scaleEffect(3)
                     .padding(50)
                     .accessibilityHidden(true)
-                    
+
                     Text("\(remainingPoints) Points Left")
                         .font(.title.monospacedDigit())
                         .foregroundStyle(.secondary)
-                    
+
                     if disableByHinge {
                         Text("Cannot continue the action while the device is open. Please close the device completely.")
                             .font(.default)
@@ -114,12 +115,13 @@ struct WaveDeviceWakeupActionExecutionView: View {
             }
             .scrollEdgeEffectStyle(.soft, for: .top)
             .background(NightGradient.ignoresSafeArea())
-            .onAppear() { startMotionUpdates() }
-            .onDisappear() { stopMotionUpdates() }
+            .onAppear { startMotionUpdates() }
+            .onDisappear { stopMotionUpdates() }
             .onHingeChangeIfAvailable { _, newContext in
                 print("Hinge changed: \(newContext.hinge?.angle ?? .zero)")
                 if let newHinge = newContext.hinge,
-                   newHinge.angle != .zero {
+                    newHinge.angle != .zero
+                {
                     disableByHinge = true
                     stopMotionUpdates()
                 } else {
@@ -129,34 +131,34 @@ struct WaveDeviceWakeupActionExecutionView: View {
             }
         }
     }
-    
+
     // MARK: Motion
-    
+
     private func startMotionUpdates() {
         guard motionManager.isDeviceMotionAvailable else { return }
-        
+
         motionManager.deviceMotionUpdateInterval = updateInterval
         motionManager.startDeviceMotionUpdates(to: .main) { motion, _ in
             guard let motion = motion else { return }
-            
+
             // Acceleration
             let a = motion.userAcceleration
             let accel = sqrt(a.x * a.x + a.y * a.y + a.z * a.z)
-            
+
             // Gyroscope
             let g = motion.rotationRate
             let gyro = sqrt(g.x * g.x + g.y * g.y + g.z * g.z)
-            
+
             // Cancel acceleration when gyro is strong (shake device)
             let scale = max(1.0 - gyro / gyroCancelRate, 0)
             let effective = accel * scale
-            
+
             print("Accel: \(accel), \nGyro: \(gyro), \nEffective: \(effective)")
-            
+
             if effective > threshold {
                 progress += 1
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                
+
                 if progress >= pointsRequired {
                     vm.complete()
                     stopMotionUpdates()
@@ -164,7 +166,7 @@ struct WaveDeviceWakeupActionExecutionView: View {
             }
         }
     }
-    
+
     private func stopMotionUpdates() {
         motionManager.stopDeviceMotionUpdates()
     }

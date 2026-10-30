@@ -14,10 +14,11 @@ struct WakeupActionExecutionView: View {
 
     @StateObject private var vm: WakeupActionExecutionViewModel
 
-    init(action: WakeupAction,
-         onComplete: @escaping () -> Void,
-         onCancel: @escaping () -> Void)
-    {
+    init(
+        action: WakeupAction,
+        onComplete: @escaping () -> Void,
+        onCancel: @escaping () -> Void
+    ) {
         self.action = action
         self.onComplete = onComplete
         self.onCancel = onCancel
