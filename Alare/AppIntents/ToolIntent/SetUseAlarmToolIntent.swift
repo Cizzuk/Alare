@@ -11,8 +11,9 @@ import WidgetKit
 @available(iOS 27.3, *)
 @AppIntent(.tool)
 struct SetUseAlarmToolIntent: AppIntent {
-    static var title: LocalizedStringResource = "[ToolIntent] SetUseAlarmToolIntent.title"
-    static var description: LocalizedStringResource = "[ToolIntent] SetUseAlarmToolIntent.description"
+    static let title: LocalizedStringResource = "[ToolIntent] SetUseAlarmToolIntent.title"
+    static let description: LocalizedStringResource = "[ToolIntent] SetUseAlarmToolIntent.description"
+    static let isDiscoverable: Bool = false
 
     @Parameter(title: "State")
     var state: Bool

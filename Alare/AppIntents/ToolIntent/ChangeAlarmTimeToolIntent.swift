@@ -11,8 +11,9 @@ import WidgetKit
 @available(iOS 27.3, *)
 @AppIntent(.tool)
 struct ChangeAlarmTimeToolIntent: AppIntent {
-    static var title: LocalizedStringResource = "[ToolIntent] ChangeAlarmTimeToolIntent.title"
-    static var description: LocalizedStringResource = "[ToolIntent] ChangeAlarmTimeToolIntent.description"
+    static let title: LocalizedStringResource = "[ToolIntent] ChangeAlarmTimeToolIntent.title"
+    static let description: LocalizedStringResource = "[ToolIntent] ChangeAlarmTimeToolIntent.description"
+    static let isDiscoverable: Bool = false
 
     @Parameter(title: "Time", kind: .time)
     var time: Date
