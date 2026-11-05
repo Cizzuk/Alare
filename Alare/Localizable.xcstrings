@@ -4,6 +4,70 @@
     "" : {
       "shouldTranslate" : false
     },
+    "[ToolIntent] ChangeAlarmTimeToolIntent.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the alarm time. Since there is only one alarm, specify only the time."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームの設定時刻を変更します。アラームは一つのみ存在するため、時刻のみを指定します。"
+          }
+        }
+      }
+    },
+    "[ToolIntent] ChangeAlarmTimeToolIntent.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Alare's Alarm Time"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alare(あられ)のアラームの時刻を変更"
+          }
+        }
+      }
+    },
+    "[ToolIntent] SetUseAlarmToolIntent.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn Alare's alarm On or Off"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alare(あられ)のアラームをオンまたはオフに変更する"
+          }
+        }
+      }
+    },
+    "[ToolIntent] SetUseAlarmToolIntent.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set Alare's Alarm"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alare(あられ)のアラームを設定"
+          }
+        }
+      }
+    },
     "%@ (%@)" : {
       "localizations" : {
         "en" : {
