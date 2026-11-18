@@ -10,8 +10,8 @@ import WidgetKit
 
 struct StopAlarmForcefullyIntent: AppIntent, CustomIntentMigratedAppIntent {
     static let intentClassName = "StopAlarmForcefully"
-    static var title: LocalizedStringResource = "Stop Current Alarm and Snooze Forcefully"
-    static var description: LocalizedStringResource = "Even without a Wake-up Action, running this shortcut will forcefully stop the current alarm and snooze."
+    static let title: LocalizedStringResource = "Stop Current Alarm and Snooze Forcefully"
+    static let description: LocalizedStringResource = "Even without a Wake-up Action, running this shortcut will forcefully stop the current alarm and snooze."
 
     @MainActor
     func perform() async throws -> some IntentResult {

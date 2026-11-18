@@ -8,8 +8,8 @@
 import AppIntents
 
 struct FocusFilterIntent: SetFocusFilterIntent {
-    static var title: LocalizedStringResource = "Set Wake-up Action"
-    static var description: LocalizedStringResource = "Sets a Wake-up Action to be used during this Focus."
+    static let title: LocalizedStringResource = "Set Wake-up Action"
+    static let description: LocalizedStringResource = "Sets a Wake-up Action to be used during this Focus."
 
     @Parameter(title: "Action", default: nil)
     var action: WakeupAction?
